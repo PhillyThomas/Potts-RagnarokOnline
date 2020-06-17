@@ -1,7 +1,7 @@
 //===== rAthena Script =======================================
 //= Player Bounty System
 //===== By: ==================================================
-//= ome-ome / PottScilgrim for BlitzRO
+//= ome-ome / PottScilgrim for BlitzRO.org
 //===== Details: =============================================
 //	Status:
 //	1 = Live
