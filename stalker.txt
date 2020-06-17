@@ -1,0 +1,164 @@
+prt_in,46,100,3	script	Stalker#plag	4_F_ROGUE,{
+
+	.name$ = "[^FF0000 Stalker ^000000]";
+
+if((Class == Job_Shadow_Chaser || Class == Job_Shadow_Chaser_T)){
+	@skilltype = 2;
+	.@skill_level = getskilllv(2285);
+} else {
+	@skilltype = 1;
+	.@skill_level = getskilllv(225);
+}
+
+
+mes .name$;
+mes "I can teach skills to members of the ^0000FFStalker^000000 class, but only if another character on their account has learnt the skill first!";
+
+if( !.@skill_level ){
+	next;
+	mes .name$;
+	mes "Only those who have the skill '^FF0000Plagiarism^000000' or '^FF0000Plagiarism^000000' can use my services.";
+}else{
+	if( select( ( CLONE_SKILL && CLONE_SKILL_LV )?"Un-Learn Skill":"Learn Skill","Close" ) == 1 ){
+		if( CLONE_SKILL && CLONE_SKILL_LV ){
+			clear;
+			mes .name$;
+			mes "Unlearned Copied Skill";
+			set CLONE_SKILL_LV,0;
+			skill CLONE_SKILL,CLONE_SKILL_LV,0;
+			set CLONE_SKILL,0;
+		}else{
+			clear;
+			mes .name$;
+			mes "The skills shown here are from your other characters on this account. Please select one to learn.";
+			next;
+			query_sql("SELECT skill.id, skill.lv, skill.char_id, char.account_id FROM `skill` LEFT JOIN `char` ON char.char_id=skill.char_id WHERE char.account_id = "+getcharid(3)+" ORDER BY CAST(skill.lv AS UNSIGNED) DESC",.@id,.@lv,.@char_id,.@acc_id);			
+			deletearray .@menstr$[0],127;
+			switch(@skilltype){
+				case 1:	// Plagiarise
+					for(.@i = 0; .@i < getarraysize(.@id); .@i++){
+						.@nameIndex = inarray(.skill_id[0],.@id[.@i]);
+						if(.@nameIndex) != -1{
+							.@menstr$[.@k] = "[ ^0055FFLv "+.@lv[.@i]+"^000000 ] "+ callfunc("getskillname",.@nameIndex);
+							.@idref[.@k] = .@id[.@i];
+							.@lvref[.@k] = .@lv[.@i];
+							.@nameref$[.@k] = callfunc("getskillname",.@nameIndex);
+							.@k = .@k + 1;
+						}
+					}
+					break;
+				case 2:	// Reproduce
+					for(.@i = 0; .@i < getarraysize(.@id); .@i++){
+						.@nameIndex = inarray(.skill_id_third[0],.@id[.@i]);
+						if(.@nameIndex) != -1{
+							.@menstr$[.@k] = "[ ^0055FFLv "+.@lv[.@i]+"^000000 ] "+ callfunc("getskillname",.@nameIndex);
+							.@idref[.@k] = .@id[.@i];
+							.@lvref[.@k] = .@lv[.@i];
+							.@nameref$[.@k] = callfunc("getskillname",.@nameIndex);
+							.@k = .@k + 1;
+						}
+					}
+					break;
+			}
+			
+			.@menuref = callfunc("F_PageStalker",implode(.@menstr$,":"));
+
+			@idfinal = .@idref[.@menuref];
+			@namefinal$ = .@nameref$[.@menuref]; 
+			clear;
+			mes .name$;
+			mes "You've chosen:";
+			mes "Skill: "+.@nameref$[.@menuref];
+			mes "Max Lvl: "+.@lvref[.@menuref];
+			mes "----";
+			mes "What level would you like to learn?";
+
+			if(.@skill_level < .@lvref[.@menuref]) { .@max = .@skill_level; } else { .@max = .@lvref[.@menuref]; }
+			.@tempmax = .@max;
+			for(.@i=0; .@i<.@max; .@i++){
+				.@menuLvl$[.@i] = "[ ^0055FFLv "+.@tempmax+"^000000 ] - "+callfunc("F_InsertComma",(.basecost*.@tempmax)*@skilltype)+"z";
+				.@tempmax = .@tempmax-1;
+			}
+			.@menuref = .@max - callfunc("F_PageStalker",implode(.@menuLvl$,":"));
+			if(Zeny < (.basecost*.@menuref)*@skilltype){
+				clear;
+				mes .name$;
+				mes "You don't have the required Zeny for this transaction. You require "+callfunc("F_InsertComma",((.basecost*.@menuref)*@skilltype)-Zeny)+"z";
+				close;
+			} else{
+				Zeny = Zeny - ((.basecost*.@menuref)*@skilltype);
+				set CLONE_SKILL,@idfinal;
+				set CLONE_SKILL_LV,.@menuref;
+				clear;
+				mes .name$;
+				mes "Learned Skill ^0055FFLv"+CLONE_SKILL_LV+" "+@namefinal$+"^000000";
+				skill CLONE_SKILL,CLONE_SKILL_LV,0;
+				close;
+			}
+		}
+	}
+}
+//dispbottom "Skill ID "+CLONE_SKILL+" | Level : "+CLONE_SKILL_LV;
+close;
+
+OnInit:
+	.basecost = 10000;
+	setarray .skill_id,5, 7, 11, 13, 14, 15, 17, 18, 19, 20, 21, 28, 42, 46, 47, 52, 54, 62, 68, 69, 70, 77, 79, 80, 81, 83, 84, 85, 86, 88, 89, 90, 91, 116, 122, 123, 141, 148, 149, 152, 212, 229, 230, 250, 252, 253, 254, 263, 266, 267, 271, 337, 421, 527, 530, 534, 535, 536, 537, 538, 539, 540, 542, 1004;
+	setarray .skill_id_third,5, 7, 11, 13, 14, 15, 17, 18, 19, 20, 21, 28, 42, 46, 47, 52, 54, 62, 68, 69, 70, 77, 79, 80, 81, 83, 84, 85, 86, 88, 89, 90, 91, 116, 122, 123, 141, 148, 149, 152, 212, 229, 230, 250, 252, 253, 254, 263, 266, 267, 271, 337, 421, 527, 530, 534, 535, 536, 537, 538, 539, 540, 542, 1004, 2002, 2005, 2006, 2023, 2034, 2038, 2040, 2050, 2051, 2054, 2202, 2202, 2203, 2204, 2210, 2212, 2213, 2215, 2216, 2233, 2236, 2239, 2253, 2254, 2284, 2288, 2304, 2310, 2315, 2323, 2327, 2328, 2330, 2332, 2336, 2337, 2343, 2344, 2413, 2414, 2418, 2443, 2444, 2446, 2447, 2448, 2449, 2450, 2454, 2479, 2480, 2481, 2482, 2483, 2490, 2517, 2518, 5001, 5003, 5006;
+	end;
+}
+function	script	getskillname	{
+	setarray .@skill_name$,"Bash", "Magnum Break", "Napalm Beat", "Soul Strike", "Cold Bolt", "Frost Diver", "Fire Ball", "Fire Wall", "Fire Bolt", "Lightning Bolt", "Thunderstorm", "Heal", "Mammonite", "Double Strafe", "Arrow Shower", "Envenom", "Resurrection", "Bowling Bash", "Aspersio", "B.S. Sacramenti", "Sanctuary", "Turn Undead", "Magnus Exorcismus", "Fire Pillar", "Sightrasher", "Meteor Storm", "Jupitel Thunder", "Lord of Vermilion", "Water Ball", "Frost Nova", "Storm Gust", "Earth Spike", "Heaven's Drive", "Land Mine", "Blast Mine", "Claymore Trap", "Venom Splasher", "Arrow Repel", "Sand Attack", "Stone Fling", "Back Stab", "Bomb", "Acid Terror", "Smite", "Shield Reflect", "Holy Cross", "Grand Cross", "Raging Trifecta Blow", "Occult Impaction", "Throw Spirit Sphere", "Asura Strike", "Throw Tomahawk", "Flying Kick", "Improvised Defense", "Shadow Slash", "Crimson Fire Petal", "Crimson Fire Formation", "Raging Fire Dragon", "Spear of Ice", "Hidden Water", "Ice Meteor", "Wind Blade", "Kamaitachi", "Throw Venom Knife", "Sonic Wave", "Wind Cutter", "Ignition Break", "Dark Illusion", "Phantom Menace", "Judex", "Adoramus", "Renovatio", "High Heal ", "Duple Light", "Soul Expansion", "Cross Impact", "Frost Misty", "Jack Frost", "Drain Life", "Hell Inferno", "Comet", "Chain Lightning", "Earth Strain", "Arrow Storm", "Aimed Bolt", "Cluster Bomb", "Firing Trap", "Ice Bound Trap", "Fatal Menace", "Triangle Slot", "Feint B omb", "Shield Press", "Shield Spell", "Earth Drive", "Sky Net Blow", "Earth Shaker", "Tiger Cannon", "Rampage Blaster", "Knuckle Arrow", "Windmill", "Gate of Hell", "Gentle Touch - Quiet", "Metallic Sound", "Reverberation", "Severe Rainstorm", "Fire Walk", "Electric Walk", "Earth Grave", "Diamond Dust", "Poison Buster", "Psychic Wave", "Cloud Kill", "Varetyr Spear", "Thorn Trap", "Blood Sucker", "Spore Explosion", "Wall of Thorns", "Crazy Weed", "Hell Plant", "Howling of Lion", "Ride In Lightning", "Dark Claw", "Illusion Doping", "Magma Eruption";
+	.@tempname$ = .@skill_name$[getarg(0)];
+	return .@tempname$;
+}
+
+function	script	F_PageStalker	{
+
+	.@debug = 0;
+
+	.@pg_max = 20;
+	explode(.@pg_array$,getarg(0),":"); // Re-Saving string into Array
+	.@as = getarraysize(.@pg_array$);
+	if(.@debug == 1){debugmes ".@as = "+.@as;}
+	if(getarraysize(.@pg_array$) < .@pg_max){ 
+		.@pg_count = 1;
+		if(.@debug == 1){debugmes "Defaulting to 1 page";} 
+	} else { 
+		.@pg_count = 1;
+		while(.@as > .@pg_max){
+			.@pg_count = .@pg_count+1;
+			.@as = .@as - .@pg_max;
+		}
+		@pg_count = (.@as/.@pg_max); // Calculating max pages based on .@pg_max
+		if(.@debug == 1){debugmes "Setting "+.@pg_count+" pages";}  
+	}
+	set .@cur_pg,1;
+	if(.@debug == 1){
+		debugmes ".@pg_max = "+.@pg_max;
+		debugmes ".@cur_pg = "+.@cur_pg;
+		debugmes "Array size = "+getarraysize(.@pg_array$);
+	}
+MAIN:
+		if(.@debug == 1){debugmes "Current Page ["+.@cur_pg+"]";}
+		.@menu$ = "";
+		for(.@i=.@q; .@i < (.@q+.@pg_max); .@i++){
+				.@menu$ = .@menu$+.@pg_array$[.@i]+":";
+			}
+		if(.@cur_pg == .@pg_count){
+			.@menu$ = .@menu$+"[^FF0000Cancel^000000]";
+		} else if(.@cur_pg < .@pg_count){
+			.@menu$ = .@menu$+"[^008722Next Page^000000]";
+		}
+		.@choice = select(.@menu$);
+		if(.@debug == 1){debugmes ".@choice = "+.@choice;}
+		if(.@choice > .@pg_max){ 
+			if(.@cur_pg == .@pg_count) { callfunc "close3"; } 
+			else if(.@cur_pg < .@pg_count) { .@cur_pg = .@cur_pg+1; .@q = .@q+.@pg_max; goto MAIN; }
+		}
+if(.@cur_pg == 1){ .@return = .@choice-1; }
+else { .@return = (.@choice-1)+((.@cur_pg-1)*.@pg_max);  }
+if(.@debug == 1){debugmes "return = "+.@return;}
+return .@return;
+//close;
+}
