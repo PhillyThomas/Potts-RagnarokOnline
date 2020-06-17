@@ -174,7 +174,7 @@ PB_VBAREQ:
 				goto PB_VBAREQ;
 			case 2:
 				if(countitem(.@itemid[.@c]) < .@itemamt[.@c]){ 
-					callfunc("F_DISPBOTTOM","BlitzRO","ERROR-Item not found in inventory","RED"); close2; cutin "",255; end; }
+					callfunc("F_DISPBOTTOM","Player Bounties","ERROR-Item not found in inventory","RED"); close2; cutin "",255; end; }
 						else {
 							clear;
 							mes .name$;
@@ -243,7 +243,7 @@ PB_VBAREW:
 				goto PB_VBAREW;
 			case 2:
 				if(countitem(.@itemid[.@c]) < .@itemamt[.@c]){ 
-					callfunc("F_DISPBOTTOM","BlitzRO","ERROR-Item not found in inventory","RED"); close2; cutin "",255; end; }
+					callfunc("F_DISPBOTTOM","Player Bounties","ERROR-Item not found in inventory","RED"); close2; cutin "",255; end; }
 						else {
 							clear;
 							mes .name$;
@@ -311,7 +311,7 @@ PB_VBAREWZ:
 				goto PB_VBAREWZ;
 			case 2:
 				if(countitem(.@itemid[.@c]) < .@itemamt[.@c]){ 
-					callfunc("F_DISPBOTTOM","BlitzRO","ERROR-Item not found in inventory","RED"); close2; cutin "",255; end; }
+					callfunc("F_DISPBOTTOM","Player Bounties","ERROR-Item not found in inventory","RED"); close2; cutin "",255; end; }
 						else {
 							clear;
 							mes .name$;
@@ -584,7 +584,7 @@ PB_PBM:
 				mes .name$;
 				emotion ET_DELIGHT;
 				query_sql("INSERT INTO `player_bounties` (`acc_id`,`name`,`item_id`,`item_amt`,`rew_zeny`,`rew_item_id`,`rew_item_amt`,`status`,`time_created`) VALUES (" + getcharid(3) + ",'" + strcharinfo(0) + "'," + .@itemrequired + "," + .@itemrequiredamt + "," + .@rewardzeny + "," + .@rewarditem + "," + .@rewarditemamt + ",1," + gettimetick(2) + ")");
-				callfunc("F_DCMes","**"+strcharinfo(0)+"** has placed a new bounty!\n> **Bounty Item:** "+getitemname(.@itemrequired)+" x"+.@itemrequiredamt+"\n> **Reward:**"+getitemname(.@rewarditem)+" x"+.@rewarditemamt+" & "+callfunc("F_InsertComma",.@rewardzeny)+"z",2);
+				//callfunc("F_DCMes","**"+strcharinfo(0)+"** has placed a new bounty!\n> **Bounty Item:** "+getitemname(.@itemrequired)+" x"+.@itemrequiredamt+"\n> **Reward:**"+getitemname(.@rewarditem)+" x"+.@rewarditemamt+" & "+callfunc("F_InsertComma",.@rewardzeny)+"z",2);
 				delitem .@rewarditem,.@rewarditemamt;
 				set Zeny,Zeny-(.@rewardzeny+25000);
 				mes "Thank you!";
@@ -653,9 +653,9 @@ PB_MBE:
 					for(.@i = 0; .@i < getarraysize(.@itemid); .@i++){
 						if(.@status[.@i] == 2){
 							getitem .@rewitemid[.@i],.@rewitemamt[.@i];
-							callfunc("F_DISPBOTTOM","BlitzRO","You received "+getitemname(.@rewitemid[.@i])+" x"+.@rewitemamt[.@i],"BLUE");
+							callfunc("F_DISPBOTTOM","Player Bounties","You received "+getitemname(.@rewitemid[.@i])+" x"+.@rewitemamt[.@i],"BLUE");
 							Zeny  = Zeny+.@rewzeny[.@i];
-							callfunc("F_DISPBOTTOM","BlitzRO","You received "+callfunc("F_InsertComma",.@rewzeny[.@i])+"z","BLUE");
+							callfunc("F_DISPBOTTOM","Player Bounties","You received "+callfunc("F_InsertComma",.@rewzeny[.@i])+"z","BLUE");
 							query_sql("UPDATE `player_bounties` SET `status` = 4 WHERE id = " + .@transid[.@i] + "");
 						}
 					}
@@ -679,7 +679,7 @@ PB_MBC:
 					for(.@i = 0; .@i < getarraysize(.@itemid); .@i++){
 						if(.@status[.@i] == 3){
 							getitem .@itemid[.@i],.@itemamt[.@i];
-							callfunc("F_DISPBOTTOM","BlitzRO","You received "+getitemname(.@itemid[.@i])+" x"+.@itemamt[.@i],"BLUE");
+							callfunc("F_DISPBOTTOM","Player Bounties","You received "+getitemname(.@itemid[.@i])+" x"+.@itemamt[.@i],"BLUE");
 							query_sql("UPDATE `player_bounties` SET `status` = 4 WHERE id = " + .@transid[.@i] + "");
 						}
 					}
@@ -733,9 +733,9 @@ PB_MBL:
 				goto PB_MB;
 			case 2:
 				getitem .@myrewitemid[.@c],.@myrewitemamt[.@c];
-				callfunc("F_DISPBOTTOM","BlitzRO","You received "+getitemname(.@myrewitemid[.@c])+" x"+.@myrewitemamt[.@c],"BLUE");
+				callfunc("F_DISPBOTTOM","Player Bounties","You received "+getitemname(.@myrewitemid[.@c])+" x"+.@myrewitemamt[.@c],"BLUE");
 				Zeny = Zeny+.@myrewzeny[.@c];
-				callfunc("F_DISPBOTTOM","BlitzRO","You received "+callfunc("F_InsertComma",.@myrewzeny[.@c])+"z","BLUE");
+				callfunc("F_DISPBOTTOM","Player Bounties","You received "+callfunc("F_InsertComma",.@myrewzeny[.@c])+"z","BLUE");
 				query_sql("UPDATE `player_bounties` SET `status`=4 WHERE id="+.@mytransid[.@c]+"");
 				clear;
 				mes .name$;
@@ -769,4 +769,47 @@ OnTouch:
 	showscript "[ "+ strnpcinfo(1)+" ]",getnpcid(0);
 	end;
 
+}
+//=================================================================================//
+//	Creates a defined and uniform way to use 'dispbottom' script command
+//	-	getarg(0)	=	Displayed NPC Name
+//	-	getarg(1)	=	Message Body
+//	-	getarg(2)	=	Message Colour
+//=================================================================================//
+function	script	F_DISPBOTTOM	{
+if(getargcount() == 2){
+	.@colour = 3;
+} else {
+	setarray .@colourswitch$[0],"RED","1",
+								"BLUE","2",
+								"GREEN","3",
+								"ORANGE","4",
+								"BROWN","5",
+								"PINK","6",
+								"WHITE","7",
+								"YELLOW","8";
+	.@index = inarray(.@colourswitch$[0],getarg(2));
+	.@colour = atoi(.@colourswitch$[.@index+1]);
+}
+	switch(.@colour){
+	case 1:	//red
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0xe65c5c; break;
+	case 2:	//blue
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0x5cd4e6; break;
+	case 3:	//green
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0x5be002; break;
+	case 4:	//orange
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0xf0aa54; break;
+	case 5:	//brown
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0x91714a; break;
+	case 6:	//pink
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0xf0a5ec; break;
+	case 7:	//white
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0xffffff; break;
+	case 8:	//yellow
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0xffee8f; break;
+	default:
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0x5be002; break;
+	}
+	return;
 }
