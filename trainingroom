@@ -1,0 +1,233 @@
+//===== rAthena Script ============================================
+//= Training Room Script
+//===== By: =======================================================
+//= PottScilgrim
+//===== Current Version: ==========================================
+//= 1
+//===== Compatible With: ==========================================
+//= rAthena 
+//===== Description: ==============================================
+//= Training room instance that contains a modifyable dummy.
+//=================================================================
+
+//=================================================================
+//  instance_db.txt
+//=================================================================
+//  100,Training Room,3600,300,quiz_02,349,383
+
+
+//=================================================================
+//  NPC script
+//=================================================================
+prontera,259,90,2	script	Training Room Warp	WARPNPC,1,1,{
+//quiz_02
+
+.name$ = "[^e61919 Training Room Warper ^000000]";
+.@instance$ = "Training Room";
+	if (instance_live_info(ILI_NAME, instance_id(IM_CHAR)) == "Training Room" || instance_live_info(ILI_NAME, instance_id(IM_PARTY)) == "Training Room") {	
+		if(instance_live_info(ILI_NAME, instance_id(IM_CHAR)) == "Training Room"){ 
+			instance_enter("Training Room",-1,-1,getcharid(0),@create);
+			end;
+		}
+		if(instance_live_info(ILI_NAME, instance_id(IM_PARTY)) == "Training Room") { 
+			instance_enter("Training Room",-1,-1);
+			end;
+		}
+	}
+	if(!getcharid(1)){ 
+		@create = instance_create(.@instance$,IM_CHAR,getcharid(0));
+		if(@create < 0){
+				switch(@create){
+					case -1: 	callfunc "F_DISPBOTTOM","Training Room","ERROR: Invalid type.","RED"; break;
+					case -3:	callfunc "F_DISPBOTTOM","Training Room","ERROR: Instance already exists.","RED"; break;
+					case -4: 	callfunc "F_DISPBOTTOM","Training Room","ERROR: No free instances.","RED"; break;
+				}
+			}
+		instance_enter(.@instance$,-1,-1,getcharid(0),@create);
+		end;
+	} else {
+		if(is_party_leader()){
+			if (instance_create(.@instance$) < 0) {
+				callfunc "F_DISPBOTTOM","Training Room",.@md_name$+" - Reservation Failed!","RED";
+				end;
+			}
+			instance_enter(.@instance$,-1,-1);
+			end;
+		} else {
+			callfunc "F_DISPBOTTOM","Training Room","Only the party leader ["+rid2name(getpartyleader(getcharid(1),1))+"] can create a party MVP Room","RED";
+			end;
+		}
+	}
+}	
+
+-	script	TrainingRoom#Core	-1,{
+
+OnMyMobDead:
+OnInstanceInit:
+	removemapflag instance_mapname("quiz_02"),mf_noskill;
+	getunitdata(getnpcid(0), .@d);
+	monster strnpcinfo(4),.@d[UNPC_X],.@d[UNPC_Y],"Punching Bag",2411,1,strnpcinfo(0)+"::OnMyMobDead";
+	.@dupid = atoi(strnpcinfo(2));
+	.gid[.@dupid] = $@mobid[0];
+	.mhp[.@dupid] = strmobinfo(4,2411);
+	setunitdata .gid[.@dupid],UMOB_MODE,.@d[UMOB_MODE]|0x4000000|0x0200000; // Set MD_STATUS_IMMUNE (0x4000000) because EDP/burn/%MHP based status can skew the DPS counter so much.
+	initnpctimer;
+	end;
+
+OnTimer5000:
+	.@dupid = atoi(strnpcinfo(2));
+	if(unitexists(.gid[.@dupid])){
+		getunitdata(.gid[.@dupid],.@d);
+		.@diff = (.mhp[.@dupid] - .@d[UMOB_HP]);
+		if(.@diff > 0){
+			npctalk "Punching Bag : I've taken " + callfunc("F_InsertComma",(.@diff/5)) + " DPS in last 5 seconds.";
+			setunitdata .gid[.@dupid],UMOB_HP,.mhp[.@dupid];
+			specialeffect EF_HEAL;
+		}
+	}
+	initnpctimer;
+}
+
+
+quiz_02,340,389,4	duplicate(TrainingRoom#Core)	PunchingBag#1	844
+
+quiz_02,346,389,4	script	Settings#TRS	4_M_JOB_ASSASSIN,{
+	.name$ = "[^FF0000Training Room Settings^000000]";
+	.gid = getvariableofnpc(.gid[1],"PunchingBag#1");
+L_MAIN:
+	getunitdata(.gid, .@d);
+	switch(.@d[UMOB_RACE]){
+		default: 	.@race$ = "Formless"; break;
+		case 1: 	.@race$ = "Undead"; break;
+		case 2: 	.@race$ = "Brute"; break;
+		case 3: 	.@race$ = "Plant"; break;
+		case 4: 	.@race$ = "Insect"; break;
+		case 5: 	.@race$ = "Fish"; break;
+		case 6: 	.@race$ = "Demon"; break;
+		case 7: 	.@race$ = "Demi-Human"; break;
+		case 8: 	.@race$ = "Angel"; break;
+		case 9: 	.@race$ = "Dragon"; break;
+		case 10: 	.@race$ = "Player "; break;
+
+	}
+	switch(.@d[UMOB_ELETYPE]){
+		default: 	.@element$ = "Neutral"; break;
+		case 1: 	.@element$ = "Water"; break;
+		case 2: 	.@element$ = "Earth"; break;
+		case 3: 	.@element$ = "Fire"; break;
+		case 4: 	.@element$ = "Wind"; break;
+		case 5: 	.@element$ = "Poison"; break;
+		case 6: 	.@element$ = "Holy"; break;
+		case 7: 	.@element$ = "Dark"; break;
+		case 8: 	.@element$ = "Ghost"; break;
+		case 9: 	.@element$ = "Undead"; break;
+	}
+	switch(.@d[UMOB_SIZE]){
+		default: 	.@size$ = "Small"; break;
+		case 1: 	.@size$ = "Medium"; break;
+		case 2: 	.@size$ = "Large"; break;
+	}
+	mes .name$;
+	mes "Wanna change any of the punching bag stats?";
+	menu	"Size          - [^FF0000"+.@size$+"^000000]",PB_SIZE,
+			"Race        - [^FF0000"+.@race$+"^000000]",PB_RACE,
+			"LVL           - [^FF0000"+.@d[UMOB_LEVEL]+"^000000]",PB_LVL,
+			"STR          - [^FF0000"+.@d[UMOB_STR]+"^000000]",PB_STR,
+			"AGI             - [^FF0000"+.@d[UMOB_AGI]+"^000000]",PB_AGI,
+			"VIT             - [^FF0000"+.@d[UMOB_VIT]+"^000000]",PB_VIT,
+			"INT           - [^FF0000"+.@d[UMOB_INT]+"^000000]",PB_INT,
+			"DEX          - [^FF0000"+.@d[UMOB_DEX]+"^000000]",PB_DEX,
+			"LUK          - [^FF0000"+.@d[UMOB_LUK]+"^000000]",PB_LUK,
+			"DEF          - [^FF0000"+.@d[UMOB_DEF]+"^000000]",PB_DEF,
+			"MDEF       - [^FF0000"+.@d[UMOB_MDEF]+"^000000]",PB_MDEF,
+			"FLEE        - [^FF0000"+.@d[UMOB_FLEE]+"^000000]",PB_FLEE,
+			"PDodge   - [^FF0000"+.@d[UMOB_PDODGE]+"^000000]",PB_PDODGE,
+			"Element    - [^FF0000"+.@element$+"^000000]",PB_ELET,
+			"Ele lvl        - [^FF0000"+.@d[UMOB_ELELEVEL]+"^000000]",PB_ELEL,
+			"[^FF0000CANCEL^000000]",-;
+				close;
+PB_SIZE:
+	.@var = (select("Small:Medium:Large")) - 1;
+	setunitdata .gid,UMOB_SIZE,.@var;
+	clear;
+	goto L_MAIN;
+PB_LVL:
+	input .@var;
+	setunitdata .gid,UMOB_LEVEL,.@var;
+	clear;
+	goto L_MAIN;
+PB_STR:
+	input .@var;
+	setunitdata .gid,UMOB_STR,.@var;
+	clear;
+	goto L_MAIN;
+PB_AGI:
+	input .@var;
+	setunitdata .gid,UMOB_AGI,.@var;
+	clear;
+	goto L_MAIN;
+PB_VIT:
+	input .@var;
+	setunitdata .gid,UMOB_VIT,.@var;
+	clear;
+	goto L_MAIN;
+PB_INT:
+	input .@var;
+	setunitdata .gid,UMOB_INT,.@var;
+	clear;
+	goto L_MAIN;
+PB_DEX:
+	input .@var;
+	setunitdata .gid,UMOB_DEX,.@var;
+	clear;
+	goto L_MAIN;
+PB_LUK:
+	input .@var;
+	setunitdata .gid,UMOB_LUK,.@var;
+	clear;
+	goto L_MAIN;
+PB_DEF:
+	input .@var;
+	setunitdata .gid,UMOB_DEF,.@var;
+	clear;
+	goto L_MAIN;
+PB_MDEF:
+	input .@var;
+	setunitdata .gid,UMOB_MDEF,.@var;
+	clear;
+	goto L_MAIN;
+PB_FLEE:
+	input .@var;
+	setunitdata .gid,UMOB_FLEE,.@var;
+	clear;
+	goto L_MAIN;
+PB_PDODGE:
+		input .@var;
+	setunitdata .gid,UMOB_PDODGE,.@var;
+	clear;
+	goto L_MAIN;
+PB_RACE:
+	.@var = (select("Formless:Undead:Brute:Plant:Insect:Fish:Demon:Demi-Human:Angel:Dragon:Player")) - 1;
+	setunitdata .gid,UMOB_RACE,.@var;
+	clear;
+	goto L_MAIN;
+PB_ELET:
+	.@var = (select("Neutral:Water:Earth:Fire:Wind:Poison:Holy:Dark:Ghost:Undead")) - 1;
+	setunitdata .gid,UMOB_ELETYPE,.@var;
+	clear;
+	goto L_MAIN;
+PB_ELEL:
+	.@var = (select("1:2:3:4"));
+	setunitdata .gid,UMOB_ELELEVEL,.@var;
+	clear;
+	goto L_MAIN;
+	close;
+}
+
+quiz_02,353,389,2	script	ReturnWarp#TRW	WARPNPC,1,1,{
+	warp "prontera",263,90;
+	if(instance_live_info(ILI_NAME, instance_id(IM_CHAR)) == "Training Room"){ 
+		instance_destroy(instance_id(IM_CHAR));
+	}
+	end;
+}
