@@ -1,0 +1,61 @@
+prontera,155,224,4	script	EVENT MASTER#EMPront	660,{ 
+	set .name$,"[^FF0000Event Master^000000]";
+	switch($autoevcurrent){
+		default:
+			mes .name$;
+			mes "I don't know why I'm here, there's no event happening right now!";
+			close;
+		//	Treasure Map Event
+		case 3: 
+			break;
+	}
+	mes .name$;
+	switch($EVTMap){
+		case 1:		//Geffen
+			mes "I am purple and am I round, I love the magic I've found, which city am I?"; break;
+		case 2:		//Izlude
+			mes "I'm small but I am bright, catch a cruise or take flight, which city am I?"; break;
+		case 3:		//Lutie
+			mes "I'm cold but I'm  cosy, your cheeks will be rosy, which city am I?"; break;
+		case 4:		//Niflheim
+			mes "I'm spooky and scary, you'll have to be wary! Which city am I?"; break;
+		case 5:		//Payon
+			mes "I'm am green and I am old, my temples are beautiful so I'm told. Which city am I?"; break;
+		case 6:		//Umbala
+			mes "I am high in the trees, watch your step in the breeze, which city am I?"; break;
+		case 7:		//Jawaii
+			mes "I am romantic and calm, sit in the sun or under a palm, which city am I?"; break;
+		case 8:		//Alberta
+			mes "I have ships in my docks, my roads are paved with rocks, which city am I?"; break;
+		case 9:		//Morocc
+			mes "I am hot and I am scarred, by satan I am marred, which city am I?"; break;
+		case 10:	//Rachel
+			mes "I am an oasis in the sand, though my sanctuary is so grand. Which city am I?"; break;
+		case 11:	//Aldebaran
+			mes "I'm surrounded by a moat, but my clock tower can't float. Which city am I?"; break;
+		case 12:	//Moscovia
+			mes "I'm an island but I'm small... I've got nothing, get to Moscovia as fast as you can."; break;
+		case 13:	//Splendide
+			mes "I am green and I am airy, you'd live here if you were a fairy, which city am I?"; break;
+		case 14:	//Gonryun
+			mes "I am floating in the sky, if you fall over my edge you may die, which city am I?"; break;
+		case 15:	//Brasilis
+			mes "I'm tropical and I'm by the sea, tourists and botanists flock to me, which city am I?"; break;
+	}
+	next;
+	mes .name$;
+	mes  "Figure out the answer to my riddle, then rush to the city and find the treasure!!";
+	close;
+		
+OnInit:
+	while(1){
+		for(.@i = 0; .@i < 6; .@i++){
+			sleep 1000;
+			specialeffect 53;
+			if(.@i == 5){showscript "Solve my riddle and win prizes!";}
+			sleep 1000;
+			specialeffect 53;
+		}
+	}
+	end;
+}
