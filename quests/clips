@@ -1,0 +1,99 @@
+splendide,131,230,5	script	Fairy Crafter::clip1	617,{
+
+	set .name$,"[^FF0000Fairy Crafter^000000]";
+	
+if (isequipped(2782) == 1) {
+		mes .name$;
+		mes "Do you seek that which makes you stronger?";
+			switch(select("Yes:No")){
+				case 1:
+					break;
+				case 2:
+					clear;
+					mes .name$;
+					mes "Very well.";
+					close;
+			}
+		clear;
+		mes .name$;
+		mes "I am the only crafter in the world capable of creating the fabled multi-slotted clip.";
+		next;
+		mes .name$;
+		mes "Which would you like me to create?";
+			switch(select("Clip[2]:Clip[3]:Nevermind")){
+				case 1:
+					clear;
+					mes .name$;
+					mes "Bring me the following:";
+					mes "10x Clip[1]";
+					mes "100x Mythril Coin";
+					mes "2,500,000 zeny";
+					if(countitem(674) >= 100 && countitem(2607) >= 10 && Zeny >= 2500000){
+						next;
+						mes .name$;
+						mes "You have the required items, would you like me to proceed?";
+						switch(select("Yes:No")){
+							case 1:
+								break;
+							case 2:
+								clear;
+								mes .name$;
+								mes "Very well.";
+								close;
+						}
+						delitem 674,100;
+						delitem 2607,10;
+						set Zeny,Zeny-2500000;
+						getitem 30049,1;
+						clear;
+						mes .name$;
+						mes "You are now stronger. Do not put my skills to waste by proving yourself unworthy in the future.";
+						close;
+					} else {
+					close; }
+				case 2:
+					clear;
+					mes .name$;
+					mes "Bring me the following:";
+					mes "1x Clip[2]";
+					mes "10x Clip[1]";
+					mes "250x Mythril Coin";
+					mes "25,000,000 zeny";
+					if(countitem(30049) >= 1 && countitem(674) >= 250 && countitem(2607) >= 10 && Zeny >= 25000000){
+						next;
+						mes .name$;
+						mes "You have the required items, would you like me to proceed?";
+						switch(select("Yes:No")){
+							case 1:
+								break;
+							case 2:
+								clear;
+								mes .name$;
+								mes "Very well.";
+								close;
+						}
+						delitem 30049,1;
+						delitem 674,250;
+						delitem 2607,10;
+						set Zeny,Zeny-25000000;
+						getitem 30050,1;
+						clear;
+						mes .name$;
+						mes "You are now stronger. Do not put my skills to waste by proving yourself unworthy in the future.";
+						close;
+					} else { close; }
+				case 3:
+					break;
+					
+		}
+		clear;
+		mes .name$;
+		mes "Very well.";
+		close;
+	}
+	else {
+		mes .name$;
+		mes "ObeResco donde ra Estu fir KoMa boRunde?";
+		close;
+	}
+}
