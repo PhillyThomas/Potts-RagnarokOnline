@@ -4,7 +4,7 @@
 //	Created by PottScilgrim for BlitzRO.					//
 //	Gives GMs the functionality to gift players items or	//
 //	money even if they are offline.							//
-//															//
+//								    						//
 //	GMs access the NPC and enter the player's name or ID	//
 //	a reward is specified by either Zeny or item ID and qty	//
 //	The player will receive this reward upon their			//
