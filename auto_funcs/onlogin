@@ -1,0 +1,91 @@
+-	script	autoevent#onlogin	-1,{
+	
+	function SetKC;
+	function HC_Check;
+	function NewMOTD;
+	function RewardScan;
+
+//=================================================================================//
+//	Script to run when the player logs in
+//=================================================================================//
+OnPCLoginEvent:
+	SetKC;
+	NewMOTD;
+	HC_Check;
+	RewardScan;
+	end;
+
+//==============================================================================//
+//	Sets @kc to match the previous SQL DB kill count number
+//==============================================================================//
+function SetKC{
+	query_sql("SELECT `char_id`,`kills`,`month`,`name` FROM `killcount` WHERE `char_id` = "+getcharid(0)+" AND `month` = "+gettime(DT_MONTH)+"",.@id,.@kills,.@month,.@name$);
+	@kc = .@kills[0];
+	return;
+}
+//==============================================================================//
+//	HC Mode check / Warning message
+//	Provides daily rewards for HC players (account variable)
+//==============================================================================//
+function HC_Check{
+	if(BRPDeathTog == 1) {
+		dispbottom "========================";
+		callfunc("F_DISPBOTTOM","BlitzRO","!!! WARNING !!!","RED");
+		callfunc("F_DISPBOTTOM","BlitzRO","Character '"+strcharinfo(0)+"' is currently on a hardcore playthrough, don't die!","RED");
+		dispbottom "========================";
+		if(!#dailyreward) { set #dailyreward,(gettime(DT_DAYOFMONTH)-1); }
+		if(#dailyreward >= gettime(DT_DAYOFMONTH)){
+			dispbottom "[Daily Reward]: You have already received your daily reward today!";
+			end;
+		} else {
+			dispbottom "[Daily Reward]: Welcome back "+strcharinfo(0)+", here's your daily reward for playing on hardcore mode!";
+			dispbottom "[Daily Reward]: Mythril Coin x5";
+			dispbottom "[Daily Reward]: Zeny x10,000";
+			dispbottom "[Daily Reward]: Treasure Chest x5";
+			dispbottom "[Daily Reward]: Old Card Album x1";
+			set #dailyreward,gettime(DT_DAYOFMONTH);
+			getitem 674,5;
+			set Zeny,Zeny+10000;
+			getitem 12863,5;
+			getitem 616,1;
+			end;
+		}
+		dispbottom "========================";
+		return;
+	} else {return;}
+}
+//==============================================================================//
+//	Script-based MOTD/Welcome & "Login Options" displayed
+//	Also checks if the player is on a Bounty and displays their progress
+//==============================================================================//
+function NewMOTD{
+	dispbottom "========================";
+	if(BaseLevel==1){ dispbottom "Welcome to BlitzRO, "+strcharinfo(0)+". Thank you for joining us!",0xFFA100; } else { dispbottom "Welcome back, "+strcharinfo(0)+"!",0xFFA100; }
+	dispbottom "News: Item [Ymir's Dream] is now unbound, you will now be able to trade/store them!",0xFFA100;
+	if (#pcloginflag&1)		atcommand "@autoloot " + #pcloginalp;
+	if (#pcloginflag&2)		atcommand "@showdelay";
+	if (#pcloginflag&4)		atcommand "@rates";
+	if (#pcloginflag&8)		atcommand "@showexp";
+	if (#pcloginflag&16)	atcommand "@showzeny";
+	if (#pcloginflag&32)	atcommand "@uptime";
+	if(#bountyquest != 0) {dispbottom "[Bounty Progress]: "+(#bountymax-#bountyamt)+"/"+#bountymax+" "+getitemname(#bountyreq)+".",0x05b5eb;}
+	return;
+}
+//=================================================================================//
+//	RewardScan Function
+//	-	Checks the DB if there are any unredeemed rewards for that account ID
+//=================================================================================//
+//	-	Runs on char login
+//=================================================================================//
+function RewardScan {
+	query_sql("SELECT `id`,`account_id`,`item_id`,`item_amt`,`event_name`,`assign`,`redeemed` FROM `rewards` WHERE `redeemed` = 0 AND `account_id` = "+getcharid(3)+"", .@pid,.@paccid,.@pitemid,.@pitemamt,.@peventname$,.@passign$,.@predeemed);
+	for(.@i = 0; .@i < getarraysize(.@paccid); .@i++){
+		//if(.@paccid[.@i] == getcharid(3) && .@predeemed[.@i] == 0){
+			callfunc("F_DISPBOTTOM","BlitzRO","You have been assigned a reward: ["+getitemname(.@pitemid[.@i])+"] x"+.@pitemamt[.@i]+" Reason: '"+.@peventname$[.@i]+"'","BLUE");
+			getitem .@pitemid[.@i],.@pitemamt[.@i];
+			query_sql("UPDATE `rewards` SET `redeemed`=1 WHERE id="+.@pid[.@i]+"");
+		//}
+	}
+	return;
+}
+}
