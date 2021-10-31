@@ -1,0 +1,342 @@
+s_atelier,76,116,3	script	Crystal Expert::crystalq1	897,{
+	set .name$,"[^FF0000Crystal Expert^000000]";
+switch(crystalquest){
+	default:
+		mes .name$;
+		mes "Ho ho, you look like you're interested in powerful crystals am I right?";
+		switch(select("Yes!:What? No!")){
+			case 1:
+				break;
+			case 2:
+				clear;
+				mes .name$;
+				mes "I misjudged you, I apologize!";
+				close;
+		}
+		clear;
+		mes .name$;
+		mes "I've been looking into powerful crystals that are strong enough to teleport someone vast distances, instantly!";
+		next;
+		mes .name$;
+		mes "I've come across two rare jewels with such power...";
+		next;
+		mes .name$;
+		mes "Unfortunately our research has hit a dead end, and we're so underfunded we aren't able to continue...";
+		switch(select("What are you hinting, old man...:I'd love to help!:That's sad...:Goodbye!")){
+			case 1:
+				clear;
+				mes .name$;
+				mes "Oh ho ho... Quite the perceptive one, aren't you?";
+				break;
+			case 2:
+				clear;
+				mes .name$;
+				mes "Marvelous! That's the spirit!";
+				break;
+			case 3:
+				clear;
+				mes .name$;
+				mes "It is very sad...";
+				break;
+			case 4:
+				clear;
+				mes .name$;
+				mes "You didn't even hear me out...";
+				close;
+		}
+		next;
+		mes .name$;
+		mes "All we need is... around ^b38000100,000^000000z to continue our research!";
+		switch(select("Here's what you need:I'll find the funding for you!:Goodbye")){
+			case 1:
+				clear;
+				if(Zeny >= 100000){
+				set Zeny,Zeny-100000;
+				mes .name$;
+				mes "Wonderful! Splendid! Incredible! Thank you from the bottom of my heart!";
+				next;
+				mes .name$;
+				mes "Return tomorrow, I'll be sure to have something for you!";
+				set crystalquest,1;
+				set crystalquestdate,gettime(DT_DAYOFYEAR);
+				close;
+				}
+				mes .name$;
+				mes "You don't seem to have that kind of funding right now, come back later perhaps?";
+				close;
+			case 2:
+				clear;
+				mes .name$;
+				mes "I knew I could count on you, looking forward to your return!";
+				close;
+			case 3:
+				clear;
+				mes .name$;
+				mes "I thought you could help, guess not...";
+				close;
+		}
+	case 1:
+		mes .name$;
+		mes "Welcome back!";
+		mes "I suppose you're inquiring if any progress has been made?";
+		switch(select("Yes!:No")){
+			case 1:
+				break;
+			case 2:
+				clear;
+				mes .name$;
+				mes "Oh, bit abrupt... Why are you here then?";
+				close;
+		}
+		if(gettime(DT_DAYOFYEAR) > crystalquestdate){
+			clear;
+			mes .name$;
+			mes "Of course we've made progress, I did tell you to come back!";
+			next;
+			mes .name$;
+			mes "Here's one of the crystals we've already found... We're already making huge progress into researching another crystal!";
+			getitembound 30047,1,Bound_Char;
+			set crystalquest,2;
+			next;
+			mes .name$;
+			mes "We require a bit more zeny to continue, however... Would you be interested in funding us again?";
+			switch(select("How much?:Not this time")){
+				case 1:
+					break;
+				case 2:
+					clear;
+					mes .name$;
+					mes "Ok, come back if you have a change of heart!";
+					close;
+			}
+			clear;
+			mes .name$;
+			mes "We'll require ^b38000300,000^000000z. I assure you this will be worth it though!";
+			switch(select("I have the zeny:I'll think about it")){
+				case 1:
+					break;
+				case 2:
+					clear;
+					mes .name$;
+					mes "I hope you do, and I hope we meet again soon!";
+					close;
+			}
+			clear;
+			if(Zeny >= 300000){
+				set Zeny,Zeny-300000;
+				set crystalquest,3;
+				set crystalquestdate,gettime(DT_DAYOFYEAR);
+				mes .name$;
+				mes "Wonderful! You've once again come through for us!";
+				next;
+				mes .name$;
+				mes "Come back tomorrow and I will have something for you!";
+				close;
+			} else {
+				mes .name$;
+				mes "Oh, looks like you don't have the money...";
+				close;
+			}
+		} else {
+			clear;
+			mes .name$;
+			mes "I'm afraid we haven't made any progress... Please check back tomorrow.";
+			close;
+		}
+	case 2:
+	mes .name$;
+		mes "We require a bit more zeny to continue, however... Would you be interested in funding us again?";
+		switch(select("How much?:Not this time")){
+			case 1:
+				break;
+			case 2:
+				clear;
+				mes .name$;
+				mes "Ok, come back if you have a change of heart!";
+				close;
+		}
+		clear;
+		mes .name$;
+		mes "We'll require ^b38000300,000^000000z. I assure you this will be worth it though!";
+		switch(select("I have the zeny:I'll think about it")){
+			case 1:
+				break;
+			case 2:
+				clear;
+				mes .name$;
+				mes "I hope you do, and I hope we meet again soon!";
+				close;
+		}
+		clear;
+		if(Zeny >= 300000){
+			set Zeny,Zeny-300000;
+			set crystalquest,3;
+			set crystalquestdate,gettime(DT_DAYOFYEAR);
+			mes .name$;
+			mes "Wonderful! You've once again come through for us!";
+			next;
+			mes .name$;
+			mes "Come back tomorrow and I will have something for you!";
+			close;
+		} else {
+				mes .name$;
+				mes "Oh, looks like you don't have the money...";
+				close;
+			}
+	case 3:
+		mes .name$;
+		mes "Welcome back!";
+		mes "I suppose you're inquiring if any progress has been made?";
+		switch(select("Yes!:No")){
+			case 1:
+				break;
+			case 2:
+				clear;
+				mes .name$;
+				mes "Oh, bit abrupt... Why are you here then?";
+				close;
+		}
+		if(gettime(DT_DAYOFYEAR) > crystalquestdate){
+			clear;
+			mes .name$;
+			mes "You're in luck... We managed to excavate and capture the second powerful crystal!";
+			next;
+			mes .name$;
+			mes "This one will warp you home, each and every time you want to go home!";
+			next;
+			getitembound 30048,1,Bound_Char;
+			set crystalquest,4;
+			set crystalquestdate,0;
+			mes .name$;
+			mes "Keep hold of them, and don't lose them!";
+			close;
+		} else {
+			clear;
+			mes .name$;
+			mes "I'm afraid we haven't made any progress... Please check back tomorrow.";
+			close;
+		}
+	case 4:
+		mes .name$;
+		mes "Thank you for helping us!";
+		mes "Is there anything I can do for you?";
+		switch(select("I've lost a crystal...:Not this time!")){
+			case 1:
+				break;
+			case 2:
+				clear;
+				mes .name$;
+				mes "No problem, looking forward to speaking to you again!";
+				close;
+		}
+		if(!countitem(30047) && !countitem(30048)){
+			switch(crystalrecovery){
+				default:
+					clear;
+					mes .name$;
+					mes "You lost them BOTH?!";
+					mes "How could you even do such a thing?! Do you know how rare those crystals are?";
+					next;
+					mes .name$;
+					mes "Bring me ^b38000500,000^000000z... I'll find a way to get more crystals for you.";
+					switch(select("I have the zeny:Ok, I'll be back")){
+						case 1:
+							break;
+						case 2:
+							clear;
+							mes .name$;
+							mes "See you soon... That is, if you don't lose the zeny on your way back(!)";
+							close;
+					}
+					clear;
+					mes .name$;
+						if(Zeny >= 500000){
+							set Zeny,Zeny-500000;
+							mes "Thank you. Come back tomorrow, I'll have your stones.";
+							set crystalrecovery,1;
+							set crystalquestdate,gettime(DT_DAYOFYEAR);
+							close;
+							} else {
+							mes "Right, you're lacking in the zeny department... Did you lose it just like you lost BOTH crystals?!";
+							close;
+							}
+				case 1:
+					if(gettime(DT_DAYOFYEAR) > crystalquestdate){
+						clear;
+						mes .name$;
+						mes "Here is your replacement for BOTH crystals...";
+						mes "DON'T LOSE THEM. Do you know how much of a pain it is to find these?!";
+						if(!countitem(30047)){ getitembound 30047,1,Bound_Char; }
+						if(!countitem(30048)){ getitembound 30048,1,Bound_Char; }
+						set crystalrecovery,0;
+						set crystalquestdate,0;
+						close;
+					} else {
+						clear;
+						mes .name$;
+						mes "I said come back tomorrow... Do you not remember the conversation we had earlier?!";
+						close;
+					}
+			}		
+		}
+		if(!countitem(30047) || !countitem(30048)){
+			switch(crystalrecovery){
+				default:
+					clear;
+					mes .name$;
+					mes "I guess accidents happen...";
+					next;
+					mes .name$;
+					if(!countitem(30047)){ mes "At least it's just your Jump Crystal that's missing"; } else { mes "At least it's just your Hearthstone that's missing"; }
+					next;
+					mes .name$;
+					mes "Bring me ^b38000300,000^000000z, I'll get you a replacement.";
+					switch(select("I have the zeny:Ok, I'll be back!")){
+						case 1:
+							break;
+						case 2:
+							clear;
+							mes .name$;
+							mes "See you soon... That is, if you don't lose the zeny on your way back(!)";
+							close;
+					}
+					clear;
+					mes .name$;
+						if(Zeny >= 300000){
+							set Zeny,Zeny-300000;
+							mes "Thank you. Come back tomorrow, I'll have your stones.";
+							set crystalrecovery,1;
+							set crystalquestdate,gettime(DT_DAYOFYEAR);
+							close;
+							} else {
+							mes "Right, you're lacking in the zeny department... Did you lose it just like you lost BOTH crystals?!";
+							close;
+							}
+				case 1:
+					if(gettime(DT_DAYOFYEAR) > crystalquestdate){
+						clear;
+						mes .name$;
+						mes "Ok, I've managed to replace your missing crystal.";
+						mes "DON'T LOSE THIS ONE! Do you know how much of a pain it is to find these?!";
+						if(!countitem(30047)){ getitembound 30047,1,Bound_Char; }
+						if(!countitem(30048)){ getitembound 30048,1,Bound_Char; }
+						set crystalrecovery,0;
+						set crystalquestdate,0;
+						close;
+					} else {
+						clear;
+						mes .name$;
+						mes "I said come back tomorrow... Do you not remember the conversation we had earlier?!";
+						close;
+					}
+			}
+		}
+		clear;
+		mes .name$;
+		mes "I'm confused... You appear to have both of the crystals I've given to you!";
+		set crystalrecovery,0;
+		set crystalquestdate,0;
+		close;
+}
+	
+}
