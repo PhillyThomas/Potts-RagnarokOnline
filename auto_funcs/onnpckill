@@ -1,0 +1,161 @@
+-	script	autoevent#onnpckill	-1,{
+
+	function MonsterArena;
+	function KillCounter;
+	function HunterMissions;
+	function UniversalDrops;
+
+//=================================================================================//
+//	Script to run when the player kills any monster
+//=================================================================================//
+OnNPCKillEvent:
+	if(#FAW_Q == 2 && isequipped(5256)){#FAW_Q_M = #FAW_Q_M+1;}
+	KillCounter;
+	HunterMissions;
+	MonsterArena;
+	UniversalDrops;
+	end;
+
+//=================================================================================//
+//	MonsterArena Function
+//	-	Currently unused
+//=================================================================================//
+function MonsterArena {
+	return;
+}
+//=================================================================================//
+//	KillCounter Function
+//	-	Raises '@kc' by 1 if the player is not a GM.
+//	-	Checks to see if the player is now #1 in the PvE ranking
+//=================================================================================//
+//	-	Runs every time the player kills a mob
+//=================================================================================//
+function KillCounter {
+	if(!getgmlevel()){
+		@kc = @kc+1;
+		callfunc("RankCheck",28,strcharinfo(0),@kc,getcharid(0));
+	}
+	return;
+}
+//=================================================================================//
+//	HunterMissions Function
+//	-	Checks to see if the killed monster was part of a hunter quest
+//	-	Checks to see if a party member within 28 cells also is on a quest
+//=================================================================================//
+//	-	Runs every time the player kills a mob
+//=================================================================================//
+function HunterMissions {
+	if (!getcharid(1) || !.Party) {
+		if (!#Mission_Count || !Mission0) return;
+		for (.@i = 0; .@i < .Quests; .@i++) {
+			if (strmobinfo(1,killedrid) == strmobinfo(1,getd("Mission" + .@i))) {
+				if (getd("Mission" + .@i + "_") < #Mission_Count) {
+					dispbottom "[Hunting Mission] Killed " + (set(getd("Mission" + .@i + "_"),getd("Mission" + .@i + "_") + 1)) +
+					           " of " + #Mission_Count + " " + strmobinfo(1,killedrid) + ".";
+					return;
+				}
+			}
+		}
+	} else if (.Party) {
+		.@mob = killedrid;
+		getmapxy(.@map1$,.@x1,.@y1,BL_PC);
+		getpartymember getcharid(1),1;
+		getpartymember getcharid(1),2;
+		for (.@i = 0; .@i < $@partymembercount; .@i++) {
+			if (isloggedin($@partymemberaid[.@i], $@partymembercid[.@i])) {
+				attachrid $@partymemberaid[.@i];
+				if (#Mission_Count && Mission0 && HP > 0) {
+					getmapxy(.@map2$,.@x2,.@y2,BL_PC);
+					if ((.@map1$ == .@map2$ || .Party == 1) && (distance(.@x1,.@y1,.@x2,.@y2) <= 30 || .Party < 3)) {
+						for (.@j = 0; .@j < .Quests; .@j++) {
+							if (strmobinfo(1,.@mob) == strmobinfo(1,getd("Mission"+.@j))) {
+								if (getd("Mission"+.@j+"_") < #Mission_Count) {
+									dispbottom "[Hunting Mission] Killed " + (set(getd("Mission" + .@j + "_"),getd("Mission" + .@j + "_") + 1)) +
+									           " of " + #Mission_Count + " " + strmobinfo(1,.@mob) + ".";
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return;
+}
+//=================================================================================//
+//	UniversalDrops Function
+//	-	dreamchance is the first 3 occurrences of global drops
+//	-	Checks if the player is on a HC playthrough and adjusts drop rates accordingly
+//	- 	Ymir's dreams are account bound, the rest are tradeable
+//=================================================================================//
+//	-	Runs every time the player kills a mob
+//=================================================================================//
+function UniversalDrops {
+	if(!dreamchance){
+		getitem 30045,1;
+		specialeffect2 58;
+		callfunc("F_DISPBOTTOM"," TUTORIAL ","You obtained a 'Ymir's Dream' as a global drop! Global drops are random rewards for killing ANY monster! They're quite rare, so keep killing monsters!","YELLOW");
+		callfunc("F_DISPBOTTOM"," TUTORIAL ","A 'Ymir's Dream' is an account bound item. Open your World-Map and select a destination, then click 'TELEPORT' to use a Ymir's Dream! You won't be able to use it during the tutorial though!","YELLOW");
+		set dreamchance,1;
+		end;
+	}
+	if(BRPDeathTog == 1) {
+		if(getmonsterinfo(killedgid,MOB_LV) < 50) { set @randnum,rand(1,100000); if(@randnum >= 99998){goto L_getprize;}}
+		if(getmonsterinfo(killedgid,MOB_LV) < 75) { set @randnum,rand(1,10000); if(@randnum >= 9998){goto L_getprize;}}
+		if(getmonsterinfo(killedgid,MOB_LV) < 99) { set @randnum,rand(1,10000); if(@randnum >= 9996){goto L_getprize;}}
+		if(getmonsterinfo(killedgid,MOB_LV) < 149) { set @randnum,rand(1,10000); if(@randnum >= 9994){goto L_getprize;}}
+		if(getmonsterinfo(killedgid,MOB_LV) >= 150) { set @randnum,rand(1,10000); if(@randnum >= 9985){goto L_getprize;}}
+		return;
+	} else {
+		if(getmonsterinfo(killedgid,MOB_LV) < 50) { set @randnum,rand(1,100000); if(@randnum >= 99999){goto L_getprize;}}
+		if(getmonsterinfo(killedgid,MOB_LV) < 75) { set @randnum,rand(1,10000); if(@randnum >= 9999){goto L_getprize;}}
+		if(getmonsterinfo(killedgid,MOB_LV) < 99) { set @randnum,rand(1,10000); if(@randnum >= 9998){goto L_getprize;}}
+		if(getmonsterinfo(killedgid,MOB_LV) < 149) { set @randnum,rand(1,10000); if(@randnum >= 9997){goto L_getprize;}}
+		if(getmonsterinfo(killedgid,MOB_LV) >= 150) { set @randnum,rand(1,10000); if(@randnum >= 9990){goto L_getprize;}}
+		return;
+		}
+L_getprize:
+// Array holds the global drop Item IDs and the weight for random selection. 999 is a dummy ID and gives nothing in this script.
+setarray .UNIV_DROP$[0],	"999","50","674","150", "30045","10", "30078","1", "30044","1", "30084","2", "30083","2","30082","2";
+	.@UNIV_DROPF = callfunc("F_RandWeight",Implode(.UNIV_DROP$,","));
+	switch(.@UNIV_DROPF){
+		case 674:
+			// Rewards Mythril Coins based on the current global amount of coins in circulation.
+			if($MCV_MCTot >= 25000){ getitem 674,1; return;}
+			if($MCV_MCTot >= 12500){ getitem 674,rand(1,2); return;}
+			if($MCV_MCTot >= 7500){ getitem 674,rand(1,3); return;}
+			if($MCV_MCTot >= 5000){ getitem 674,rand(1,5); return;} 
+			else { getitem 674,rand(1,6); return; }
+		case 999:
+			// Dummy prize to lower global drop success chance.
+			return;
+		default: 
+			// Obtain item if F_RandWeight returns neither 674 or 999.
+			getitem .@UNIV_DROPF,1; return;
+	}
+return;
+}
+
+OnInit:
+	set $InstancePartyMin,1;
+	.Party = 3;             // Party options: 0 (exclude party kills), 1 (include party kills), 2 (same map only), 3 (screen area only)
+	.Delay = 0;            // Quest delay, in hours (0 to disable).
+	.Quests = 3;            // Number of subquests per mission (increases rewards).
+	.Reset = -1;            // Reset options: -1 (abandoning mission sets delay time), 0 (no delay time), [Zeny] (cost to abandon mission, no delay time)
+	setarray .Count[0],     // Min and max monsters per subquest (increases rewards).
+		30,80;
+	setarray .Modifier[0],  // Multipliers for Base Exp, Job Exp, and Zeny rewards.
+		getbattleflag("base_exp_rate")/100,getbattleflag("job_exp_rate")/100,20;
+	.mob_db$ =              // Table name of SQL mob database
+		(checkre(0))?"mob_db_re":"mob_db";
+	setarray .Shop[0],      // Reward items: <ID>,<point cost> (about 10~20 points per hunt).
+		512,1,513,1,514,1,538,5,539,5,558,10,561,10;
+	.Blacklist$ =           // Blacklisted mob IDs.
+		"1062,1088,1183,1186,1200,1212,1220,1221,1234,1235,"+
+		"1244,1245,1250,1268,1290,1293,1294,1296,1298,1299,"+
+		"1300,1301,1303,1304,1305,1306,1308,1309,1311,1313,"+
+		"1515,1588,1618,1676,1677,1678,1679,1796,1797,1974,"+
+		"1975,1976,1977,1978,1979";
+		end;
+}
