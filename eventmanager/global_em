@@ -1,0 +1,579 @@
+//================================================================//
+//	Event Manager Script
+//	Created by PottScilgrim for BlitzRO
+//================================================================//
+//	callfunc("poringinvasion");
+//	callfunc("goldenporinghunt");
+//	callfunc("treasuremap");
+//================================================================//
+prontera,192,173,5	script	Event Manager::broevents	620,8,8,{ 
+
+
+//================================================================//
+//	Load settings
+//================================================================//
+	set .name$,"[^FF0000Event Manager^000000]";
+	function PlayerMenu;
+	function ChangeSettings;
+	function TriggerEvent;
+	function BigTalk;
+	function SelectEvent;
+	function BeginEvent;
+	
+//=============================
+//	Event Functions
+//=============================
+	function EVPoringInv;
+	function EVGoldPoring;
+	function EVTreasureMap;
+	function EVEXPBoost;
+	function EVWorldBoss;
+	
+	function EVEndEvent;
+
+//================================================================//
+//	Player section
+//================================================================//
+if(!getgmlevel()){
+	PlayerMenu;
+	}
+
+//================================================================//
+//	GM section
+//================================================================//
+	mes .name$;
+	mes "Hello ^FF0000GM "+strcharinfo(0)+"^000000.";
+	menu	"1) Player Menu",EM_PM,
+			"2) Change Settings",EM_CS,
+			"3) Trigger Event Manually",EM_TE,
+			"4) End Event Prematurely",EM_EE,
+			"5) [^FF0000Cancel^000000]",-;
+			
+			close;
+			
+EM_PM: clear; PlayerMenu;
+EM_CS: ChangeSettings;
+EM_TE: clear; TriggerEvent;
+EM_EE: close2; EVEndEvent;
+
+//================================================================//
+//	Functions
+//================================================================//	
+function PlayerMenu {
+	mes .name$;
+	mes "Hi "+strcharinfo(0)+", how can I assist?";
+		switch(select("1) When's the next event?:2) Full Event List:3) Nevermind")){
+			case 1:
+				clear;
+				if(gettime(DT_MINUTE) <= 30) { set .@curmin,(30-(gettime(DT_MINUTE))); } else { set .@curmin,90-(gettime(DT_MINUTE)); }
+				mes .name$;
+				mes "The next event will be in ^FF0000"+.@curmin+"^000000 minutes";
+				mes "Then every 60 minutes after that!";
+				mes "Players online to trigger event:";
+				if(getusers(1) >= $autoevminusers) {mes "[ ^4ea102"+getusers(1)+"^000000 / "+ $autoevminusers +" ]";} else {mes "[ ^bf2300"+getusers(1)+"^000000 / "+ $autoevminusers +" ]";}
+				close;
+			case 2:
+				while(1){
+				clear;
+				mes .name$;
+				mes "We currently have "+getarraysize($autoevnames$)+" events:";
+					cleararray .@menulist$[0],"",10;
+					for(.@i = 0; .@i < (getarraysize($autoevnames$)+1); .@i++){
+						if(.@i == getarraysize($autoevnames$)){set .@menulist$[.@i],"[ ^FF0000Cancel^000000 ]";} else {
+						set .@menulist$[.@i],(.@i+1)+") - [ ^de721b"+$autoevnames$[.@i]+"^000000 ]";}
+					}
+					menu	.@menulist$[0],-,
+							.@menulist$[1],-,
+							.@menulist$[2],-,
+							.@menulist$[3],-,
+							.@menulist$[4],-,
+							.@menulist$[5],-,
+							.@menulist$[6],-,
+							.@menulist$[7],-,
+							.@menulist$[8],-,
+							.@menulist$[9],-;
+					if(@menu == getarraysize($autoevnames$)+1){close;} else {
+					clear;
+					mes .name$;
+					mes "[ ^de721b"+$autoevnames$[@menu-1]+"^000000 ]";
+					mes "[ Time Limit - ^de721b"+.autoevtl$[@menu-1]+"^000000 Minutes ]";
+					mes .autoevdesc$[@menu-1];
+					next; }
+				}
+				close;
+			case 3:
+				close;
+		}
+}
+function ChangeSettings {
+GM_Menu:
+	clear;
+	mes .name$;
+	mes "Minutes between events = ^00FF00"+$autoevinter+"^000000 (Currently unimplemented)";
+	mes "Event EXP prize = "+(($autoevexp)?"^00FF00 On":"^FF0000 Off")+"^000000 (Currently unimplemented)";
+	mes "Event item prize = "+(($autoevdrops)?"^00FF00 On":"^FF0000 Off")+"^000000 (Currently unimplemented)";
+	mes "Min users to trigger EV = ^00FF00"+$autoevminusers+"^000000";
+		switch(select("$autoevinter:$autoevexp:$autoevdrops:$autoevminusers:Exit")){
+			case 1: 
+				switch(select("1 hour:2 Hours:3 Hours:4 Hours:5 Hours:6 Hours:Cancel")){
+					case 1: set $autoevinter,60; goto GM_Menu;
+					case 2: set $autoevinter,120; goto GM_Menu;
+					case 3: set $autoevinter,180; goto GM_Menu;
+					case 4: set $autoevinter,240; goto GM_Menu;
+					case 5: set $autoevinter,300; goto GM_Menu;
+					case 6: set $autoevinter,360; goto GM_Menu;
+					case 7: close;
+				}
+			case 2: set $autoevexp,($autoevexp)?0:1; goto GM_Menu;
+			case 3: set $autoevdrops,($autoevdrops)?0:1; goto GM_Menu;
+			case 4: input .@tempval; set $autoevminusers,.@tempval; goto GM_Menu;
+			default: close;
+		}
+}
+function TriggerEvent {
+	clear;
+	mes .name$;
+	if(!.mantrigger){
+		if(!$eventactive){
+			mes "Please select an event to trigger";
+			mes "Note: If you trigger an event manually the next scheduled event will be skipped!";
+			cleararray .@menulist$[0],"",10;
+			for(.@i = 0; .@i < (getarraysize($autoevnames$)+1); .@i++){
+				if(.@i == getarraysize($autoevnames$)){set .@menulist$[.@i],"[ ^FF0000Cancel^000000 ]";} else {
+				set .@menulist$[.@i],(.@i+1)+") - [ ^de721b"+$autoevnames$[.@i]+"^000000 ]";}
+			}
+			menu	.@menulist$[0],-,
+					.@menulist$[1],-,
+					.@menulist$[2],-,
+					.@menulist$[3],-,
+					.@menulist$[4],-,
+					.@menulist$[5],-,
+					.@menulist$[6],-,
+					.@menulist$[7],-,
+					.@menulist$[8],-,
+					.@menulist$[9],-;
+			if(@menu == getarraysize($autoevnames$)+1){close;} else {
+				clear;
+				set .secondstill,(60-gettime(DT_SECOND));
+				mes "Event will be triggered in "+.secondstill+" seconds.";
+				addtimer (.secondstill*1000),"broevents::OnManualTrigger";
+				$autoevcurrent = @menu;
+				.mantrigger = 1;
+				$globalEVskip = 1;
+				close; 
+			}
+		} else {
+			mes "An event is already active:";
+			mes "Event name: "+$autoevnames$[$autoevcurrent-1];
+			mes "Please end it manually to trigger a new event.";
+			close;
+		}
+	} else {
+		mes "An event has already been queued:";
+		mes "Event name: "+$autoevnames$[$autoevcurrent-1];
+		mes "Starting in: "+(60-gettime(DT_SECOND))+" seconds";
+		close;
+	}
+}
+function BigTalk {
+	announce "[BlitzRO Events]: "+ getarg(0),bc_all; 
+	return;
+}
+function SelectEvent {
+	if(getusers(1) < $autoevminusers || $globalEVskip == 1) { set $globalEVskip,0; end; }
+	set $autoevcurrent,rand(1,getarraysize($autoevnames$));
+	initnpctimer "broevents";
+	debugmes "Event choice is "+$autoevcurrent+", starting event '"+$autoevnames$[($autoevcurrent-1)];
+	BigTalk("The event '"+ $autoevnames$[($autoevcurrent-1)]+"' will begin in 60 seconds! Use @joinevent to warp to the event once it begins!");
+	return; 
+}
+function BeginEvent {
+set $eventactive,1;
+.mantrigger = 0;
+switch($autoevcurrent){
+	default:
+		return;
+	//Poring Invasion	
+	case 1:	
+		BigTalk("The event '"+ $autoevnames$[($autoevcurrent-1)]+"' has begun, you have 10 minutes to destroy the invading Blitzrings!");
+		EVPoringInv;
+		return;
+	//Golden Poring Hunt	
+	case 2:	
+		BigTalk("The event '"+ $autoevnames$[($autoevcurrent-1)]+"' has begun! You have 10 minutes till the event ends!");
+		BigTalk("Find and kill the GOLDEN Blitzring, but don't kill the Blitzrings!");
+		EVGoldPoring;
+		return;
+	//Treasure Map
+	case 3:	
+		BigTalk("The event '"+ $autoevnames$[($autoevcurrent-1)]+"' will now begin! Use @joinevent to warp straight to the Event Master!");
+		EVTreasureMap;
+		return;
+	//EXP Boost
+	case 4:
+		BigTalk("The '"+ $autoevnames$[($autoevcurrent-1)]+"' event has started!");
+		BigTalk("2x EXP has been activated for 30 minutes!");
+		EVEXPBoost;
+		return;
+	//World Boss
+	case 5:
+		BigTalk("The '"+ $autoevnames$[($autoevcurrent-1)]+"' event has begun, the boss has spawned! Use @joinevent to join the fight!");
+		EVWorldBoss;
+		return;
+ }
+}
+
+function EVPoringInv{
+	set $@eventmobkilled,0;
+	set .@EVPoringInvnum,50;
+	set $eventtarget,.@EVPoringInvnum*4;
+	setmapflag "prontera",mf_noskill;
+	monster "prontera",0,0,"Blitzring",21001,.@EVPoringInvnum,"broevents::OnEVPorInv",2;
+	monster "prontera",0,0,"Blitzring",21002,.@EVPoringInvnum,"broevents::OnEVPorInv",2;
+	monster "prontera",0,0,"Blitzring",21003,.@EVPoringInvnum,"broevents::OnEVPorInv",2;
+	monster "prontera",0,0,"Blitzring",21004,.@EVPoringInvnum,"broevents::OnEVPorInv",2;
+	end;
+}
+function EVGoldPoring{
+	set .@EVPoringInvnum,50;
+	monster "prontera",0,0,"Blitzring",21001,.@EVPoringInvnum,"broevents::OnEVGPor",2;
+	monster "prontera",0,0,"Blitzring",21002,.@EVPoringInvnum,"broevents::OnEVGPor",2;
+	monster "prontera",0,0,"Blitzring",21003,.@EVPoringInvnum,"broevents::OnEVGPor",2;
+	monster "prontera",0,0,"Blitzring",21004,.@EVPoringInvnum,"broevents::OnEVGPor",2;
+	monster "prontera",0,0,"Golden Blitzring",21005,1,"broevents::OnEVGPorWin",1;
+	end;
+}
+function EVTreasureMap{
+	set .@EVTreasurenum,10;
+	set $TreasureTarget,.@EVTreasurenum;
+	enablenpc "EVENT MASTER#EMPront";
+	set $EVTMap,rand(1,15);
+	switch($EVTMap){
+				case 1:		//Geffen
+					monster "geffen",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 2:		//Izlude
+					monster "izlude",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 3:		//Lutie
+					monster "xmas",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 4:		//Niflheim
+					monster "niflheim",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 5:		//Payon
+					monster "payon",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 6:		//Umbala
+					monster "umbala",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 7:		//Jawaii
+					monster "jawaii",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 8:		//Alberta
+					monster "alberta",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 9:		//Morocc
+					monster "morocc",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 10:	//Rachel
+					monster "rachel",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 11:	//Aldebaran
+					monster "aldebaran",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 12:	//Moscovia
+					monster "moscovia",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 13:	//Splendide
+					monster "splendide",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 14:	//Gonryun
+					monster "gonryun",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+				case 15:	//Brasilis
+					monster "brasilis",0,0,"TREASURE",21000,.@EVTreasurenum,"broevents::OnEVTreas",2; break;
+			}
+	end;
+}
+function EVEXPBoost{
+	set .@expr,getbattleflag("base_exp_rate");
+	setbattleflag "base_exp_rate",(.@expr*2),true;
+	setbattleflag "job_exp_rate",(.@expr*2),true;
+	end;
+}
+
+function EVWorldBoss{
+	monster "evt_swar_b",0,0,"[World Boss]",rand(21009,21014),1,"broevents::OnEVWBDead",2; 
+	end;
+}
+
+function EVEndEvent {
+BigTalk("The '"+ $autoevnames$[($autoevcurrent-1)]+"' event is over!"); 
+	switch($autoevcurrent){
+	
+		//Blitzring Invasion
+		case 1:		
+			killmonsterall "prontera";
+			set $eventtarget,0;
+			set $@eventmobkilled,0;
+			removemapflag "prontera",mf_noskill;
+			break;
+			
+		//Golden Blitzring Hunt
+		case 2:		
+			killmonsterall "prontera";
+			removemapflag "prontera",mf_noskill;
+			break;
+			
+		//Treasure Map
+		case 3:	
+			disablenpc "EVENT MASTER#EMPront";
+			switch($EVTMap){
+				case 1:		//Geffen
+					killmonster "geffen","broevents::OnEVTreas"; break;
+				case 2:		//Izlude
+					killmonster "izlude","broevents::OnEVTreas"; break;
+				case 3:		//Lutie
+					killmonster "xmas","broevents::OnEVTreas"; break;
+				case 4:		//Niflheim
+					killmonster "niflheim","broevents::OnEVTreas"; break;
+				case 5:		//Payon
+					killmonster "payon","broevents::OnEVTreas"; break;
+				case 6:		//Umbala
+					killmonster "umbala","broevents::OnEVTreas"; break;
+				case 7:		//Jawaii
+					killmonster "jawaii","broevents::OnEVTreas"; break;
+				case 8:		//Alberta
+					killmonster "alberta","broevents::OnEVTreas"; break;
+				case 9:		//Morocc
+					killmonster "morocc","broevents::OnEVTreas"; break;
+				case 10:	//Rachel
+					killmonster "rachel","broevents::OnEVTreas"; break;
+				case 11:	//Aldebaran
+					killmonster "aldebaran","broevents::OnEVTreas"; break;
+				case 12:	//Moscovia
+					killmonster "moscovia","broevents::OnEVTreas"; break;
+				case 13:	//Splendide
+					killmonster "splendide","broevents::OnEVTreas"; break;
+				case 14:	//Gonryun
+					killmonster "gonryun","broevents::OnEVTreas"; break;
+				case 15:	//Brasilis
+					killmonster "brasilis","broevents::OnEVTreas"; break;
+			}
+			set $EVTMap,0;
+			set $TreasureTarget,0;
+			break;
+			
+		//EXP Boost
+		case 4:	
+			set .@expr,getbattleflag("base_exp_rate");
+			setbattleflag "base_exp_rate",(.@expr/2),true;
+			setbattleflag "job_exp_rate",(.@expr/2),true;
+			break;
+			
+		//World Boss
+		case 5:
+			killmonsterall "evt_swar_b";
+			break;
+		//Error
+		default:	
+			break;
+	}
+	stopnpctimer "broevents";
+	set $eventactive,0;
+	set $autoevcurrent,0;
+	
+	end;
+}
+OnEVWBDead:
+	BigTalk(strcharinfo(0)+" killed the world boss! They've triggered an item rain!");
+	getitem 30053,1;
+	.@randnum = rand(25,100);
+	donpcevent "itemeffect#WB1::OnWinEvent";
+	EVEndEvent; 
+	end;
+
+OnEVTreas:
+	set $TreasureTarget, $TreasureTarget-1;
+	if(!$TreasureTarget){ BigTalk("Treasure Found! "+strcharinfo(0)+" found the last chest! The event is now over!"); EVEndEvent; end; }
+	BigTalk("Treasure Found! "+strcharinfo(0)+" just claimed a treasure chest! Only "+$TreasureTarget+" left!");
+	switch(rand(1,5)){
+		case 1:
+			getitem 674,rand(1,10);
+			getitem 617,rand(1,10);
+			switch(rand(1,99)){
+				default:
+					break;
+				case 69:
+					getitem 30053,1;
+					break;
+			}
+			break;
+		case 2:
+			getitem 616,rand(1,5);
+			getitem 674,rand(1,5);
+			switch(rand(1,99)){
+				default:
+					break;
+				case 69:
+					getitem 30053,1;
+					break;
+			}
+			break;
+		case 3:
+			getitem 674,1;
+			getitembound 30045,1,Bound_Account;
+			getitem 616,1;
+			getitem 617,5;
+			switch(rand(1,99)){
+				default:
+					break;
+				case 69:
+					getitem 30053,1;
+					break;
+			}
+			break;
+		case 4:
+			getitem 674,rand(1,20);
+			switch(rand(1,99)){
+				default:
+					break;
+				case 69:
+					getitem 30053,1;
+					break;
+			}
+			break;
+		case 5:
+			getitem 674,rand(1,5);
+			getitem 616,rand(1,5);
+			switch(rand(1,99)){
+				default:
+					break;
+				case 69:
+					getitem 30053,1;
+					break;
+			}
+			break;
+		default:
+			getitem 674,rand(1,20);
+			break;
+	}
+	end;
+OnEVGPor:
+switch(rand(1,4)){
+	case 1:
+		sc_start SC_STONE,rand(1000,2000),100;
+		percentheal -20,-20;
+		end;
+	case 2:
+		sc_start SC_CURSE,rand(5000,10000),100;
+		percentheal -20,-20;
+		end;
+	case 3:
+		sc_start SC_CONFUSION,rand(1000,5000),100;
+		percentheal -20,-20;
+		end;
+	case 4:
+		sc_start SC_BLIND,rand(2500,5500),100;
+		percentheal -20,-20;
+		end;
+	default:
+		sc_start SC_BLIND,rand(2500,5500),100;
+		percentheal -20,-20;
+		end;
+	}
+	
+OnEVGPorWin:
+	BigTalk("Hooray! "+strcharinfo(0)+" killed the Golden Blitzring! Item rain inbound, get ready!"); 
+	
+	donpcevent "itemeffect#PRONT::OnWinEvent";
+	EVEndEvent; 
+	end;
+OnEVPorInv:
+	set $@eventmobkilled,$@eventmobkilled+1;
+	set .@ten,$eventtarget/10;
+	set .@twentyfive,$eventtarget/4;
+	set .@fifty,$eventtarget/2;
+	set .@finalkill,$eventtarget-1;
+	if($@eventmobkilled == .@ten) { BigTalk("10% of the Blitzrings have been cleared!"); getitem 674,1; }
+	if($@eventmobkilled == .@twentyfive) {  BigTalk("25% of the Blitzrings have been hunted!"); getitem 674,2; }
+	if($@eventmobkilled == .@fifty) {  BigTalk("50% of the Blitzrings have been cleared!"); getitem 674,3; }
+	if($@eventmobkilled == .@finalkill) {  BigTalk("One Blitzring remains, hunt it!"); getitem 674,5; }
+	if($@eventmobkilled == $eventtarget) {  BigTalk("It's all over! "+strcharinfo(0)+" killed the final Blitzring!"); getitem 674,5; getitem 674,5; getitem 674,5; getitem 674,5; getitem 674,5; EVEndEvent; }
+	end;
+
+OnManualTrigger:
+	initnpctimer "broevents";
+	debugmes "Event choice is "+$autoevcurrent+", starting event '"+$autoevnames$[($autoevcurrent-1)];
+	BigTalk("The event '"+ $autoevnames$[($autoevcurrent-1)]+"' will begin in 60 seconds! Use @joinevent to warp to the event once it begins!");
+	end;
+//================================================================//
+//	Hourly Triggers
+//================================================================//
+
+OnMinute29:
+	SelectEvent;
+	end;
+OnTimer60000:
+	if(!$autoevcurrent) { end; }
+	BeginEvent;
+	end;
+OnTimer600000:
+	if($eventactive == 1 && $autoevcurrent != 4) { EVEndEvent; }
+	end;
+OnTimer1800000:
+	if($autoevcurrent != 4){ end; }
+	if($eventactive == 1) { EVEndEvent; }
+	end;
+	
+OnTouch:
+	showscript "[ Event Master ]",getnpcid(0);
+	end;
+//================================================================//
+//	Load Settings for the first time
+//================================================================//
+OnInit:
+	if(!$autoevinter) set $autoevinter,60;
+	if(!$autoevexp) set $autoevexp,1;
+	if(!$autoevdrops) set $autoevdrops,1;
+	if(!$autoevminusers) set $autoevminusers,5;
+	set .name$,"[^FF0000Event Manager^000000]";
+	setarray $autoevnames$[0],"Blitzring Invasion","Golden Blitzring Hunt","Treasure Map","EXP Boost","World Boss";
+	setarray .autoevtl$[0],		"10","10","10","30","10";
+	setarray .autoevdesc$[0],	"Kill the invading Blitzrings in under 10 minutes, prizes awarded to participants for killing Blitzrings, and a big prize for killing the last one!",
+								"Hunt down the Golden Blitzring but make sure you don't touch the ordinary Blitzrings!",
+								"Solve the riddle to find out which map the treasure is hiding on, find the treasure to claim it!",
+								"The whole server gets 2x EXP for 30 mins!",
+								"You have 10 minutes to kill the world boss, but you'll need to work together! Use @joinevent to warp to the event room.";
+	disablenpc "EVENT MASTER#EMPront"; //disable the Event Master NPC
+	end;
+}
+
+evt_swar_b,157,33,0	script	itemeffect#WB1	139,{
+end;
+
+OnWinEvent:
+.@randnum = rand(25,100);
+	for(.@i = 1; .@i < .@randnum; .@i++){
+		.@randx = rand(38,163);
+		.@randy = rand(33,147);
+		movenpc strnpcinfo(0),.@randx,.@randy;
+		sleep 250;	
+		specialeffect rand(172,179);
+		if(rand(1,150) <= 3){ makeitem 30053,1,"evt_swar_b",.@randx,.@randy; } else { makeitem 674,1,"evt_swar_b",.@randx,.@randy; }
+	}
+	movenpc strnpcinfo(0),157,33;
+	end;
+}
+
+prontera,269,360,0	script	itemeffect#PRONT	139,{
+end;
+OnWinEvent:
+.@randnum = rand(50,200);
+	for(.@i = 1; .@i < .@randnum; .@i++){
+		.@randx = rand(43,269);
+		.@randy = rand(46,360);
+		movenpc strnpcinfo(0),.@randx,.@randy;	
+		specialeffect rand(172,179);
+		if(rand(1,150) <= 3){ makeitem 30053,1,"prontera",.@randx,.@randy; } else { makeitem 674,1,"prontera",.@randx,.@randy; }
+		sleep 100;
+	}
+	movenpc strnpcinfo(0),269,360;
+	end;
+}
+
+evt_swar_b	mapflag	nosave	SavePoint
+evt_swar_b	mapflag	nomemo
+evt_swar_b	mapflag	notrade
+evt_swar_b	mapflag	nopenalty
+evt_swar_b	mapflag	nochat
+evt_swar_b	mapflag	novending
+evt_swar_b	mapflag	nobranch
+evt_swar_b	mapflag	hidemobhpbar
