@@ -1,0 +1,98 @@
+-	script	autoevent#ontime	-1,{
+
+	function RestartAnnounce;
+	function PVPRotate;
+	function GlobalReset;
+	function MonthlyReset;
+
+//=================================================================================//
+//	(servertime) daily triggers
+//=================================================================================//
+//	-	Announces when the server is about to restart (daily restart)
+//	-	Rotates the daily PVP map to 'guild_vs[1,2,3,4,5]'
+//	-	Wipes PVP Ladder on first day of the month 
+//	-	Rewards #1 ranked PVP player with 1x Item 31056
+//=================================================================================//
+OnClock0950:
+	RestartAnnounce(10);
+	end;
+OnClock0955:
+	RestartAnnounce(5);
+	end;
+OnClock0959:
+	RestartAnnounce(1);
+	end;
+OnManualReset:
+OnClock1100:
+	PVPRotate;
+	GlobalReset;
+	MonthlyReset;
+	end;
+	
+
+//==============================================================================//
+//	Announces to the server leading up to the daily restart.
+//	getarg(0)	= minutes till restart
+//==============================================================================//
+function RestartAnnounce{
+	switch(getarg(0)){
+		case 1:
+			switch($BRO_MAINTENANCE){
+				case 1:	announce "[BlitzRO]: The server will be restarting in "+getarg(0)+" minute. Following the restart, the server will be in maintenance mode for 30 minutes.",bc_all; return;	
+				default:announce "[BlitzRO]: The server will be restarting in "+getarg(0)+" minute.",bc_all; return;	
+			}
+		default:
+			switch($BRO_MAINTENANCE){
+				case 1:	announce "[BlitzRO]: The server will be restarting in "+getarg(0)+" minutes. Following the restart, the server will be in maintenance mode for 30 minutes.",bc_all; return;	
+				default:announce "[BlitzRO]: The server will be restarting in "+getarg(0)+" minutes.",bc_all; return;	
+			}
+	}
+}
+//==============================================================================//
+//	Automatically rotates between PVP Maps
+//==============================================================================//
+function PVPRotate{
+	if($pvpmap_r == 5){ $pvpmap_r = 1; } else { $pvpmap_r = $pvpmap_r+1; }
+	$pvpmap_rs$ = "guild_vs"+$pvpmap_r;
+	debugmes "PVP Map rotated successfully, new map: "+$pvpmap_rs$;
+	return;
+}
+//==============================================================================//
+//	Adds 1 to $GLOBAL_RESET allowing players to use daily functions again
+//==============================================================================//
+function GlobalReset{
+	$GLOBAL_RESET = $GLOBAL_RESET+1;
+	debugmes "$GLOBAL_RESET var set successfully, new value: "+$GLOBAL_RESET;
+	return;
+}
+//==============================================================================//
+//	Checks if it's the beginning of a new  month
+//	If so, wipes Ladder DBs and awards #1 with "Add_Reward_Item" function
+//==============================================================================//
+function MonthlyReset{
+	if(gettime(DT_DAYOFMONTH) == 1){ 
+		query_sql( "SELECT char.account_id, pvpladder.char_id,  pvpladder.name,  pvpladder.kills/( pvpladder.death+1) FROM `pvpladder` LEFT JOIN `char` ON pvpladder.char_id = char.char_id WHERE  pvpladder.kills > 0 ORDER BY  pvpladder.kills/( pvpladder.death+1) DESC LIMIT 1", .@pvprewaccid,.@pvprewid, .@pvprewname$, .@pvprewval$);
+		callfunc("Add_Reward_Item",.@pvprewaccid[0],31056,1,"PVP Ladder Rank 1","BlitzRO");
+		debugmes "PVP Reward given to account - "+.@pvprewaccid[0];
+		query_sql "DELETE FROM `pvpladder`"; 
+		debugmes "PVP Table refreshed for new month"; 
+		
+		query_sql( "SELECT char.account_id, killcount.char_id,  killcount.name,  killcount.kills FROM `killcount` LEFT JOIN `char` ON killcount.char_id = char.char_id WHERE  killcount.kills > 0 ORDER BY  killcount.kills DESC LIMIT 1", .@pverewaccid,.@pverewid, .@pverewname$, .@pverewval$);
+		callfunc("Add_Reward_Item",.@pverewaccid[0],20407,1,"PVE Ladder Rank 1","BlitzRO");
+		debugmes "PVE Reward given to account - "+.@pverewaccid[0];
+		query_sql "DELETE FROM `killcount`"; 
+		debugmes "PVE Table refreshed for new month"; 
+		
+		query_sql( "SELECT char.account_id, MVPLadder.char_id, MVPLadder.name, MVPLadder.value FROM `MVPLadder` LEFT JOIN `char` ON MVPLadder.char_id = char.char_id WHERE  MVPLadder.value > 0 ORDER BY  MVPLadder.value DESC LIMIT 1", .@mvprewaccid,.@mvprewid, .@mvprewname$, .@mvprewval$);
+		callfunc("Add_Reward_Item",.@pverewaccid[0],30044,15,"MVP Arena Ladder Rank 1","BlitzRO");
+		callfunc("Add_Reward_Item",.@pverewaccid[0],674,100,"MVP Arena Ladder Rank 1","BlitzRO");
+		debugmes "MVP Arena Reward given to account - "+.@mvprewaccid[0];
+		query_sql "DELETE FROM `MVPLadder`"; 
+		debugmes "PVE Table refreshed for new month";
+
+		callfunc("F_DCMes","**The monthly reset has completed**\n> **PVP Rank Winner:** "+.@pvprewname$[0]+"\n> **PvE Rank Winner:** "+.@pverewname$[0]+"\n> **MVP Arena Rank Winner:** "+.@mvprewname$[0]+".",1);
+		return;
+	} else { return; }
+}
+
+}
