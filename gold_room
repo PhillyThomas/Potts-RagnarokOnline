@@ -1,0 +1,179 @@
+prontera,148,206,2	script	Gold Room Warper::groom	10010,8,8,{
+
+function grinfo;
+
+.name$ = "[^e61919 Gold Room Warper ^000000]";
+.@instance$ = "Gold Room";
+
+L_MAIN:
+	mes .name$;
+	mes "Hey there!";
+	emotion ET_HO;
+	mes "What can I do for you?";
+	switch(select("I'd like information [^e69719Info^000000]:Warp me to the gold room [^e69719Warp^000000]:[^e61919Cancel^000000]")){
+		case 1:
+			clear;
+			grinfo;
+			goto L_MAIN;
+		case 2:
+			clear;
+			break;
+		case 3:
+			clear;
+			mes .name$;
+			mes "No worries, speak soon!";
+			emotion ET_OK;
+			close;
+	}
+L_WARP:
+	if(#goldroomwarp > gettimetick(2)) { 
+		mes .name$;
+		mes "Oh no, I'm sorry "+strcharinfo(0)+".";
+		mes "You can enter the gold room again in "+ callfunc("timeleft__",#goldroomwarp-gettimetick(2));
+		close;
+	} else { 
+		mes .name$;
+		mes "Once you're in you have 60 seconds to choose which treasure to grab, you won't be allowed back in for 24 hours!";
+		switch(select("I'd like information [^e69719Info^000000]:Let me in [^e69719Warp^000000]:[^e61919Cancel^000000]")){
+			case 1:
+				clear;
+				grinfo;
+				goto L_WARP;
+			case 2:
+				clear;
+				break;
+			case 3:
+				close;
+			}
+	}
+	
+	set #goldroomwarp,gettimetick(2)+86400;
+	@create = instance_create(.@instance$,IM_CHAR,getcharid(0));
+	if(@create < 0){
+		clear;
+		mes .name$;
+		switch(@create){
+			case -1: mes "ERROR: Invalid type."; break;
+			case -2: mes "ERROR: Party not found."; break;
+			case -3: mes "ERROR: Instance already exists."; break;
+			case -4: mes "ERROR: No free instances."; break;
+		}
+	}
+	specialeffect2 587;
+	specialeffect2 589;
+	sleep2 500;
+	instance_enter(.@instance$,-1,-1,getcharid(0),@create);
+	close;
+	
+	
+function grinfo {
+	mes "[^e61919 Information ^000000]";
+	mes "^e697191^000000) You can enter the gold room once every 24 hours.";
+	mes "^e697192^000000) 44 Treasure Chests will spawn, you can only open 5!";
+	mes "^e697193^000000) You have 60 seconds to make your choices, after which you will be warped out.";
+	next;
+	mes "[^e61919 Possible Prizes ^000000]";
+	mes "(in rarity order, common first)";
+	for(.@i = 0; .@i < getarraysize(.grprizes$); .@i+=2){
+		mes "^e69719"+(.@k+1)+"^000000) <ITEM>"+getitemname(atoi(.grprizes$[.@i]))+"<INFO>"+.grprizes$[.@i]+"</INFO></ITEM>";
+		.@k += 1;
+	}
+	next;
+	return;
+	
+	
+}
+OnTouch:
+	showscript "[ Gold Room ]",getnpcid(0);
+	end;
+OnInit:
+	// .grprizes[0],"<item ID>","<rarity weight>",
+	setarray .grprizes$[0],	"730","60",
+							"731","50",
+							"732","40",
+							"674","40",
+							"969","30",
+							"616","20",
+							"12259","20",
+							"12690","10",
+							"12691","10",
+							"12692","10",
+							"12693","10",
+							"12694","10",
+							"12695","10",
+							"19126","10",
+							"30053","2",
+							"12246","2",
+							"5013","2";
+							
+	end;
+	//callfunc	"F_RandWeight",Implode(<ArrayName>,",");
+}
+
+1@ge_st,88,49,0	script	goldroomspawner	139,{
+OnInstanceInit:
+	setmapflag instance_mapname("1@ge_st"),mf_noskill;
+	enablenpc instance_npcname("goldroomeffects");
+	setarray .grprizes$[0],	"730","60",
+							"731","50",
+							"732","40",
+							"674","40",
+							"969","30",
+							"616","20",
+							"12259","20",
+							"12690","10",
+							"12691","10",
+							"12692","10",
+							"12693","10",
+							"12694","10",
+							"12695","10",
+							"19126","10",
+							"30053","2",
+							"12246","2",
+							"5013","2";
+
+	setarray .@spawnx[0],94,94,94,94,96,98,	100,102,104,106,108,110,112,114,116,118,120,122,124,124,124,124,124,124,124,124,122,120,118,116,114,112,110,108,106,104,102,100,98,96,94,94,94,94;
+	setarray .@spawny[0],52,54,56,58,58,58,	58,	58,	58,	58,	58,	58,	58,	58,	58,	58,	58,	58,	58, 56,	54,	52,	44,	42,	40,	38,	38,	38,	38,	38,	38,	38,	38,	38,	38,	38,	38,	38,	38,38,38,40,42,44;	
+	for(.@i = 0; .@i < getarraysize(.@spawnx); .@i++){
+		monster instance_mapname("1@ge_st"),.@spawnx[.@i],.@spawny[.@i],"TREASURE",21000,1,instance_npcname("goldroomspawner")+"::OnMyMobDead";
+	}
+	end;
+OnMyMobDead: 
+	'count += 1;
+	callfunc("F_RandWeight",Implode(.grprizes$,","));
+	if('count == 5){ 
+		disablenpc instance_npcname("goldroomeffects");
+		killmonsterall instance_mapname("1@ge_st");
+		callfunc("F_DISPBOTTOM","Gold Room","That's 5! Warping you back in 5 seconds.","BLUE"); 
+		addtimer 5000,instance_npcname("goldroomspawner")+"::OnTimerDone";
+		end;
+	} else {
+		callfunc("F_DISPBOTTOM","Gold Room","You've selected "+'count+" treasure chests, "+(5-'count)+" to go.","BLUE");
+		end;
+	}
+	
+OnTimerDone:
+	specialeffect2 587;
+	specialeffect2 589;
+	sleep2 500;
+	warp "SavePoint",0,0;
+	instance_destroy;
+	end;
+}
+1@ge_st,94,52,0	script	goldroomeffects	139,{
+OnInstanceInit:
+	setarray .@spawnx[0],94,94,94,94,96,98,	100,102,104,106,108,110,112,114,116,118,120,122,124,124,124,124,124,124,124,124,122,120,118,116,114,112,110,108,106,104,102,100,98,96,94,94,94,94;
+	setarray .@spawny[0],52,54,56,58,58,58,	58,	58,	58,	58,	58,	58,	58,	58,	58,	58,	58,	58,	58, 56,	54,	52,	44,	42,	40,	38,	38,	38,	38,	38,	38,	38,	38,	38,	38,	38,	38,	38,	38,38,38,40,42,44;	
+	while(1){
+		for(.@i = 0; .@i < getarraysize(.@spawnx); .@i++){
+			movenpc instance_npcname("goldroomeffects"),.@spawnx[.@i],.@spawny[.@i];	
+			specialeffect rand(172,179);
+			specialeffect 665;
+			sleep 100;
+		}
+	}
+OnInstanceDestroy:
+	removemapflag instance_mapname("1@ge_st"),mf_noskill;
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
