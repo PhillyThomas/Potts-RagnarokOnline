@@ -1,0 +1,103 @@
+-	script	autoevent#onpckill	-1,{
+
+	function PVPKills;
+	function PVPLevel;
+//=================================================================================//
+//	Script to run when the player kills another player
+//	-	PVPKills 
+//		Updates the DB with the player's K/D
+//=================================================================================//
+OnPCKillEvent:
+	PVPKills;
+	PVPLevel;
+	end;
+
+
+//=================================================================================//
+//	PVPKills Function
+//	-	Checks player location for map and coordinates
+//	-	If the player is not on a PVP map, script ends
+//	-	Updates the DB with player K/D information, announces death to the PVP arena
+//	-	"PVPRankCheck" function checks if player has become rank #1 in PVP Ladder
+//=================================================================================//
+//	-	Runs every time a player kills another player
+//=================================================================================//	
+function PVPKills{
+	if(strcharinfo(3) == "guild_vs1" || strcharinfo(3) == "guild_vs2" || strcharinfo(3) == "guild_vs3" || strcharinfo(3) == "guild_vs4" || strcharinfo(3) == "guild_vs5"){
+		if ( killedrid == getcharid(3) ) { 	//Killing self should only increase death count.
+			query_sql "INSERT INTO `pvpladder` VALUES ( "+ getcharid(0) +", '"+ escape_sql( strcharinfo(0) )+"', 0,1 ) ON DUPLICATE KEY UPDATE `death` = `death` +1";
+			mapannounce strcharinfo(3),strcharinfo(0)+" just killed themselves!",bc_map|bc_blue;
+			return;
+		}
+		mapannounce strcharinfo(3),strcharinfo(0)+" just killed "+rid2name(killedrid)+"!",bc_map|bc_blue;
+		.@pvpcheck = callfunc("BRO_PVPCHECK",getcharid(3),killedrid);
+		if(.@pvpcheck == 1){
+			query_sql "INSERT INTO `pvpladder` VALUES ( "+ getcharid(0) +", '"+ escape_sql( strcharinfo(0) )+"', 1,0 ) ON DUPLICATE KEY UPDATE `kills` = `kills` +1";
+			callfunc("PVPRankCheck",32,getcharid(0),strcharinfo(0));
+			attachrid killedrid;
+			query_sql "INSERT INTO `pvpladder` VALUES ( "+ getcharid(0) +", '"+ escape_sql( strcharinfo(0) )+"', 0,1 ) ON DUPLICATE KEY UPDATE `death` = `death` +1";
+			return;
+		} else { 
+			debugmes "Killer "+strcharinfo(0)+" IP address matches dead player's "+rid2name(killedrid)+" IP address. PVP Kill void!";
+			return;}	
+	} else { return; }
+}
+//=================================================================================//
+//	PVPLevel Function
+//	-	Checks player location for map and coordinates
+//	-	If the player is not on a PVP map, script ends
+//	-	Updates the DB with player K/D information, announces death to the PVP arena
+//	-	"PVPRankCheck" function checks if player has become rank #1 in PVP Ladder
+//=================================================================================//
+//	-	Runs every time a player kills another player
+//=================================================================================//	
+function PVPLevel{
+	if(strcharinfo(3) == "guild_vs1" || strcharinfo(3) == "guild_vs2" || strcharinfo(3) == "guild_vs3" || strcharinfo(3) == "guild_vs4" || strcharinfo(3) == "guild_vs5"){
+		if ( killedrid == getcharid(3) ) { 	//Killing self should not increase PVP EXP.
+			return;
+		}
+		mapannounce strcharinfo(3),strcharinfo(0)+" just killed "+rid2name(killedrid)+"!",bc_map|bc_blue;
+		.@pvpcheck = callfunc("BRO_PVPCHECK",getcharid(3),killedrid);
+		if(.@pvpcheck == 1){
+			if(@killedplayer == killedrid){ @pvplevelpenalty = @pvplevelpenalty+1; } else { @pvplevelpenalty = 0; @killedplayer = killedrid; }
+				switch(@pvplevelpenalty){
+					case 1:
+						.@pvpexp = 5; break;
+					case 2:
+						.@pvpexp = 2; break;
+					case 3:
+						.@pvpexp = 1; break;
+					default:
+						if(@pvplevelpenalty > 3) { .@pvpexp = 0; break; } else { .@pvpexp = 10; break; }
+				}
+				PVP_EXP = PVP_EXP + .@pvpexp;
+				if(PVP_EXP >= $PVPLEVELS[PVP_LEVEL]){ 
+					specialeffect2 338;
+					showscript "PVP Level up! Now Level "+PVP_LEVEL+"!",getcharid(0),AREA;
+					PVP_LEVEL = PVP_LEVEL + 1;
+				}
+				query_sql "INSERT INTO `pvplevel` VALUES ( "+ getcharid(0) +", '"+ escape_sql( strcharinfo(0) )+"', "+PVP_LEVEL+","+PVP_EXP+","+PVP_PRESTIGE+","+PVP_EXPLOIT+") ON DUPLICATE KEY UPDATE `lvl` = "+PVP_LEVEL+", `exp` = "+PVP_EXP+", `prestige` = "+PVP_PRESTIGE+", `exploit` = "+PVP_EXPLOIT+"";
+				return;
+		} else { PVP_EXPLOIT = PVP_EXPLOIT+1; return;}
+	} else { return; }
+}
+OnInit:
+	if(!$pvpmap_r){
+		$pvpmap_r	=	1;
+		$pvpmap_rs$ = 	"guild_vs"+$pvpmap_r;
+		debugmes "PVP Map initialised successfully, new map: "+$pvpmap_rs$;
+	}
+	if(!$PVPLEVELS[0]){
+		setarray $PVPLEVELS,20, 40, 60, 80, 100, 120, 140, 160, 180, 210, 
+							240, 270, 300, 330, 360, 390, 420, 450, 480, 520, 
+							560, 600, 640, 680, 720, 760, 800, 840, 880, 930,
+							980, 1030, 1080, 1130, 1180, 1230, 1280, 1330, 1380, 1440, 
+							1500, 1560, 1620, 1680, 1740, 1800, 1860, 1920, 1980, 2050, 
+							2120, 2190, 2260, 2330, 2400, 2470, 2540, 2610, 2680, 2760, 
+							2840, 2920, 3000, 3080, 3160, 3240, 3320, 3400, 3480, 3570, 
+							3660, 3750, 3840, 3930, 4020, 4110, 4200, 4290, 4380, 4480, 
+							4580, 4680, 4780, 4880, 4980, 5080, 5180, 5280, 5380, 5490, 
+							5610, 5740, 5880, 6030, 6190, 6360, 6540, 6730, 6930, 7230;
+	}
+	end;
+}
