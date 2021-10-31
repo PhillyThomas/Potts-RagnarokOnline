@@ -1,0 +1,136 @@
+//==========================================================//
+//	Add player reward										//
+//==========================================================//
+//	Created by PottScilgrim for BlitzRO						//
+//	Gives GMs the functionality to gift players items or	//
+//	money even if they are offline.							//
+//															//
+//	GMs access the NPC and enter the player's name or ID	//
+//	a reward is specified by either Zeny or item ID and qty	//
+//	The player will receive this reward upon their			//
+//	next login.												//
+//==========================================================//
+prontera,124,317,4	script	William#Pr1	56,{
+
+	mes "[William]";
+	mes "...";
+	emotion ET_SHY;
+	close;
+}
+
+//==========================================================//
+//	Add_Reward_Item function								//
+//==========================================================//
+//	getarg(0)	=	account_id	(account ID of recipient)	//
+//	getarg(1)	=	item_id		(item ID of reward)			//
+//	getarg(2)	=	item_amt	(amount of reward)			//
+//	getarg(3)	=	event_name	(why the reward was given	//
+//	getarg(4)	=	assign		(who created reward)		//
+//															//
+//	Returns 	'-1' on item ID error						//
+//	Returns 	'0'	 on 									//
+//	Returns 	'1'  on successful SQL insert				//
+//==========================================================//
+function	script	Add_Reward_Item	{
+	.@account_id 	= getarg(0);
+	.@item_id		= getarg(1);
+	.@item_amt		= getarg(2);
+	.@event_name$	= getarg(3);
+	.@assign$		= getarg(4);
+	if(getitemname(.@item_id) == "null" || !.@account_id || !.@item_amt || .@assign$ == "") {return -1;}
+	query_sql("INSERT INTO `rewards` (`account_id`,`item_id`,`item_amt`,`event_name`,`assign`,`redeemed`) VALUES ("+.@account_id+","+.@item_id+","+.@item_amt+",'"+.@event_name$+"','"+.@assign$+"',0)");	
+	return 1;
+}
+
+prontera,163,206,6	script	BlitzRO Rewards::creward	900,8,8,{
+	.name$ = "[^FF0000BlitzRO Rewards^000000]";
+	if(!getgmlevel()){
+		mes .name$;
+		mes "I'm sorry "+strcharinfo(0)+" but only GM's can access this! If you are due to receive a reward or prize you will automatically receive it upon logging in!";
+		close;
+	}
+	mes .name$;
+	mes "This is currently being built.";
+	menu	" ~ test SQL",BR_TEST,
+			" ~ Add Reward",BR_ADR,
+			" ~ Redeem Test",BR_REDT,
+			" ~ cancel",-;
+				close;
+BR_TEST:
+	if(callfunc("Add_Reward_Item",2000000,616,25,"Test Event",strcharinfo(0)) == 1){ callfunc("F_DISPBOTTOM","Debug","SQL Write - Success","WHITE");} else { callfunc("F_DISPBOTTOM","Debug","SQL Write - Failure","RED");}
+	close;
+BR_REDT:
+
+	query_sql("SELECT `id`,`account_id`,`item_id`,`item_amt`,`event_name`,`assign`,`redeemed` FROM `rewards` WHERE `redeemed` = 0 AND `account_id` = "+getcharid(3)+"", .@pid,.@paccid,.@pitemid,.@pitemamt,.@peventname$,.@passign$,.@predeemed);
+	for(.@i = 0; .@i < getarraysize(.@paccid); .@i++){
+		//if(.@paccid == getcharid(3) && .@predeemed == 0){
+			callfunc("F_DISPBOTTOM","BlitzRO","GM '"+.@passign$[.@i]+"' has sent you a reward: ["+getitemname(.@pitemid[.@i])+"] x"+.@pitemamt[.@i],"BLUE");
+			getitem .@pitemid[.@i],.@pitemamt[.@i];
+			query_sql("UPDATE `rewards` SET `redeemed`=1 WHERE id="+.@pid[.@i]+"");
+		//}
+	}
+	close;
+
+
+BR_ADR:
+while(1){
+	clear;
+	mes .name$;
+	mes "Please fill out the details below:";
+	mes "Account ID: "+.@account_id;
+	mes "Item ID/Name: "+.@item_id+"/"+getitemname(.@item_id);
+	mes "Amount: "+.@item_amt;
+	mes "Event Name: "+.@event_name$;
+	switch(select("Account ID:Item ID:Amount:Event Name:^0000FFAdd Reward^000000")){
+		case 1:
+			switch(select("Enter Account ID:Enter player name")){
+				case 1:
+					input .@acctemp;
+					.@account_id = .@acctemp;
+					break;
+				case 2:
+					input .@acctemp$;
+					.@account_id = getcharid(3,.@acctemp$);
+					break;
+			}
+			break;
+		case 2:
+			input .@itemtemp;
+			if(getitemname(.@itemtemp) == "null"){
+				callfunc("F_DISPBOTTOM","Debug","Item ID doesn't exist.","RED");
+				break;
+			} else {
+				.@item_id = .@itemtemp;
+				break;
+			}
+			break;
+		case 3:
+			input .@amttemp;
+			if(.@amttemp < 0){
+				callfunc("F_DISPBOTTOM","Debug","Amount cannot be below 0.","RED");
+				break;
+			} else {
+				.@item_amt = .@amttemp;
+				break;
+			}
+			break;
+		case 4:
+			input .@eventtemp$;
+			if(.@eventtemp$ == ""){
+				callfunc("F_DISPBOTTOM","Debug","Reward Reason / Event Name can't be blank.","RED");
+				break;
+			} else {
+				.@event_name$ = escape_sql(.@eventtemp$);
+				break;
+			}
+			break;
+		case 5:
+			if(callfunc("Add_Reward_Item",.@account_id,.@item_id,.@item_amt,.@event_name$,strcharinfo(0)) == 1){ callfunc("F_DISPBOTTOM","Debug","SQL Write - Success","WHITE");} else { callfunc("F_DISPBOTTOM","Debug","SQL Write - Failure","RED");}
+			close;
+	}
+}
+OnTouch:
+	showscript "[ "+ strnpcinfo(1)+" ]",getnpcid(0);
+	end;
+}
+
