@@ -1,0 +1,1744 @@
+function	script	Kafra_Rank	{
+	mes "[^FF0000bRO Kafra^000000]";
+	mes "Please select a ranking list to view the top adventurers:";
+menu	"[ ^0945b3Bounties^000000 ]",KR_Bounty,
+		"[ ^0945b3Deaths^000000 ]",KR_Deaths,
+		"[ ^0945b3Endless Tower^000000 ]",KR_Endless,
+		"[ ^0945b3Hunting Missions^000000 ]",KR_Hunting,
+		"[ ^0945b3Mythril Coins^000000 ]",KR_Mythril,
+		"[ ^0945b3MVP Arena Ladder^000000 ]",KR_MVP,
+		"[ ^FF0000CANCEL^000000 ]",-;
+			close;
+KR_MVP:
+		clear;
+		mes "[^FF0000bRO Kafra^000000]";
+		mes "The top MVP Arena rankings:";
+		query_sql "SELECT char.char_id, char.name, MVPLadder.value FROM MVPLadder LEFT JOIN `char` ON char.char_id=MVPLadder.char_id WHERE MVPLadder.key='#MVPCounter' ORDER BY CAST(MVPLadder.value AS UNSIGNED) DESC LIMIT 5", .@id, .@name$, .@val;
+		for (.@i = 0; .@i < 5; .@i++)
+			mes "  [Rank " + (.@i+1) + "]  " + ((.@name$[.@i] == "") ? "^777777none" : "^0055FF" + .@name$[.@i]+"^000000 : ^FF0000" + .@val[.@i] + " MVPs") + "^000000";
+		close;
+KR_Bounty:
+		clear;
+		mes "[^FF0000bRO Kafra^000000]";
+		mes "The top bounty hunters are:";
+		query_sql "SELECT char.char_id, char.name, bounty_log.value FROM bounty_log LEFT JOIN `char` ON char.char_id=bounty_log.char_id WHERE bounty_log.key='#bounty_points' ORDER BY CAST(bounty_log.value AS UNSIGNED) DESC LIMIT 5", .@id, .@name$, .@val;
+		for (.@i = 0; .@i < 5; .@i++)
+			mes "  [Rank " + (.@i+1) + "]  " + ((.@name$[.@i] == "") ? "^777777none" : "^0055FF" + .@name$[.@i]+"^000000 : ^FF0000" + .@val[.@i] + " pt.") + "^000000";
+		close;
+KR_Deaths:	//Death amount ranking
+		clear;
+		mes "[^FF0000bRO Kafra^000000]";
+		mes "The Rankings for most deaths are:";
+		query_sql "SELECT char.char_id, char.name, char_reg_num.value FROM char_reg_num LEFT JOIN `char` ON char.char_id=char_reg_num.char_id WHERE char_reg_num.key='PC_DIE_COUNTER' ORDER BY CAST(char_reg_num.value AS UNSIGNED) DESC LIMIT 5", .@id, .@name$, .@val;
+		for (.@i = 0; .@i < 5; .@i++)
+			mes "  [Rank " + (.@i+1) + "]  " + ((.@name$[.@i] == "") ? "^777777none" : "^0055FF" + .@name$[.@i]+"^000000 : ^FF0000" + .@val[.@i] + " deaths") + "^000000";
+		close;
+KR_Endless: // Endless Tower Ranking
+		clear;
+		mes "[^FF0000bRO Kafra^000000]";
+		mes "The Endless Dungeon Rankings are:";
+		query_sql "SELECT char.char_id, char.name, char_reg_num.value FROM char_reg_num LEFT JOIN `char` ON char.char_id=char_reg_num.char_id WHERE char_reg_num.key='Endless_Floors' ORDER BY CAST(char_reg_num.value AS UNSIGNED) DESC LIMIT 5", .@id, .@name$, .@val;
+		for (.@i = 0; .@i < 5; .@i++)
+			mes "  [Rank " + (.@i+1) + "]  " + ((.@name$[.@i] == "") ? "^777777none" : "^0055FF" + .@name$[.@i]+"^000000 : ^FF0000" + .@val[.@i] + "th floor") + "^000000";
+		close;
+KR_Hunting: // Hunting Mission Ranking
+		clear;
+		mes "[^FF0000bRO Kafra^000000]";
+		mes "The top hunters are:";
+		query_sql "SELECT char.char_id, char.name, char_reg_num.value FROM char_reg_num LEFT JOIN `char` ON char.char_id=char_reg_num.char_id WHERE char_reg_num.key='Mission_Total' ORDER BY CAST(char_reg_num.value AS UNSIGNED) DESC LIMIT 5", .@id, .@name$, .@val;
+		for (.@i = 0; .@i < 5; .@i++)
+			mes "  [Rank " + (.@i+1) + "]  " + ((.@name$[.@i] == "") ? "^777777none" : "^0055FF" + .@name$[.@i]+"^000000 : ^FF0000" + .@val[.@i] + " pt.") + "^000000";
+		close;
+KR_Mythril: // Mythril Coin Ranking
+		clear;
+		mes "[^FF0000bRO Kafra^000000]";
+		mes "The accounts with the most Mythril Coins are:";
+		query_sql "SELECT char.char_id, char.name, MythrilCoinRank.value FROM MythrilCoinRank LEFT JOIN `char` ON char.char_id=MythrilCoinRank.char_id WHERE MythrilCoinRank.key='KafraMCoin' ORDER BY CAST(MythrilCoinRank.value AS UNSIGNED) DESC LIMIT 5", .@id, .@name$, .@val;
+		for (.@i = 0; .@i < 5; .@i++)
+			mes "  [Rank " + (.@i+1) + "]  " + ((.@name$[.@i] == "") ? "^777777none" : "^0055FF" + .@name$[.@i]+"^000000 : ^FF0000" + .@val[.@i] + " coins.") + "^000000";
+		close;
+}
+
+function	script	Kafra_CoinCalc	{
+	if(getgmlevel()){return;}
+	if(checkcart()){if(cartcountitem(674)){set .@KafraMCoin,.@KafraMCoin + cartcountitem(674);}} 	// Checks if the player has a cart, then counts coins if available.
+	if(storagecountitem(674)){set .@KafraMCoin, .@KafraMCoin + storagecountitem(674); } 			// Checks if player has coins in storage, adds to previous number if needed.
+	set .@KafraMCoin,.@KafraMCoin + countitem(674);													// Checks if player has coins in their inventory, adds to previous number if needed.
+	if (#KafraMCoin) { 	query_sql("UPDATE `MythrilCoinRank` SET `value` = " + .@KafraMCoin + " WHERE account_id = " + getcharid(3) + " AND `key` = 'KafraMCoin'"); 		// Sets value of coins against account_id
+						query_sql("UPDATE `MythrilCoinRank` SET `char_id` = " + getcharid(0)+ " WHERE account_id = " + getcharid(3) + " AND `key` = 'KafraMCoin'"); }	// Changes char_id to reflect latest char used
+		else { query_sql("INSERT INTO `MythrilCoinRank` (`char_id`,`key`,`index`,`value`,`account_id`) VALUES (" + getcharid(0) + ",'KafraMCoin','0'," + .@KafraMCoin + ","+getcharid(3)+")"); }
+	set #KafraMCoin,.@KafraMCoin;	// Checks if player has used the function or not, to determine if a new record should be created or a previous should be updated. Account wide variable.
+	set .@KafraMCoin,0;				// Deletes temporary variable
+	return;
+}
+
+//Mythril Vendor
+//(0) = NPC Name
+//(1) = Mythril Coin Amount Needed
+//(2) = Reward
+//(3) = Reward Amount
+//(4) = Try Item Flag
+function	script	Mythril_Check	{
+set .@FuncName$,getarg(0);
+ 	clear;
+	mes .@FuncName$;
+			mes "Are you sure you wish to purchase:";
+			mes "^ff7700"+ getarg(3) + " <ITEM>"+getitemname(getarg(2))+"<INFO>"+getarg(2)+"</INFO></ITEM>^000000 for ^0945b3" + getarg(1) + "^000000 Mythril Coins?";
+				switch(select("Yes:No")){
+					case 1:
+						if(countitem(674) < getarg(1)){clear; mes .@FuncName$, "You don't have enough Mythril Coins to complete this transaction."; close;}
+							else {
+									clear;
+									mes .@FuncName$;
+									mes "Perfect, looks like you've got enough Mythril Coins! Enjoy!"; 
+									getitem getarg(2),getarg(3); 
+									delitem 674,getarg(1);
+									close; }
+					case 2:
+						close;
+			}
+		}
+//Kafra - Rental
+function	script	Kafra_Rent	{
+	mes "[^FF0000bRO Kafra^000000]";
+	Mes "Let's see what I've got for you...";
+	next;
+		if (ismounting()) {
+		mes "[^FF0000bRO Kafra^000000]";
+		mes "You must first remove your mount.";
+		end;
+	} else if (((eaclass()&EAJ_THIRDMASK)==EAJ_RANGER) && !countitem(6124)) {
+		if (!checkfalcon() && getskilllv("HT_FALCON") && !checkwug()) {
+			if(select(" ~ Falcon: ~ Warg")==1) setfalcon;
+			else getitem 6124,1; //Wolf's_Flute
+		} else getitem 6124,1; //Wolf's_Flute
+	} else if (((eaclass()&EAJ_THIRDMASK)==EAJ_MECHANIC) && !checkcart() && getskilllv("MC_PUSHCART")) {
+		if (!checkmadogear() && getskilllv("NC_MADOLICENCE")) {
+			if(select(" ~ Cart: ~ Mado")==1) setcart;
+			else setmadogear;
+		} else setcart;
+	} else if (!checkcart() && getskilllv("MC_PUSHCART")) setcart;
+	else if (!checkfalcon() && getskilllv("HT_FALCON") && !checkwug()) setfalcon;
+	else if (!checkriding() && !checkdragon() && getskilllv("KN_RIDING")) {
+		if ((eaclass()&EAJ_THIRDMASK)==EAJ_RUNE_KNIGHT) setdragon;
+		else setriding;
+	} else if (!checkmadogear() && getskilllv("NC_MADOLICENCE")) setmadogear;
+	else {
+		mes "[^FF0000bRO Kafra^000000]";
+		mes "You do not meet requirements to rent. Please check you have the required skills and items.";
+		end;
+	}
+	specialeffect2 EF_TEIHIT3;
+	end;
+}
+
+//Kafra - Platinum Skills
+function	script	Kafra_Skill	{
+//mes "[^FF0000bRO Kafra^000000]";
+if(class == 0 || class == 4001) goto L_Plat_Novice;
+if(class == 1 || class == 7 || class == 13 || class == 14 || class == 21 || class == 4002 || class == 4008 || class == 4014 || class == 4015 || class == 4022) goto L_Plat_Swordsman;
+if(class == 2 || class == 9 || class == 16 || class == 4003 || class == 4010 || class == 4017) goto L_Plat_Mage;
+if(class == 3 || class == 11 || class == 19 || class == 20 || class == 4004 || class == 4012 || class == 4020 || class == 4021) goto L_Plat_Archer;
+if(class == 4 || class == 8 || class == 15 || class == 4005 || class == 4009 || class == 4016) goto L_Plat_Acolyte;
+if(class == 5 || class == 10 || class == 18 || class == 4006 || class == 4011 || class == 4019) goto L_Plat_Merchant;
+if(class == 6 || class == 12 || class == 17 || class == 4007 || class == 4013 || class == 4018) goto L_Plat_Thief;
+	//mes "You don't get any skills...";
+	return;
+L_Plat_Novice:
+	//mes "Novice skills activated.";
+	skill 142,1,0;
+	skill 143,1,0;
+	return;
+L_Plat_Swordsman:
+	//mes "Swordman skills activated.";
+	skill 142,1,0;
+	skill 144,1,0;
+	skill 145,1,0;
+	skill 146,1,0;
+	if(class == 7 || class == 13 || class == 4008 || class == 4014) goto L_Plat_Knight;
+	if(class == 14 || class == 21 || class == 4015 || class == 4022) goto L_Plat_Crusader;
+	return;
+L_Plat_Mage:
+	//mes "Magician skills activated.";
+	skill 142,1,0;
+	skill 157,1,0;
+	if(class == 9 || class == 4010) goto L_Plat_Wizard;
+	if(class == 16 || class == 4017) goto L_Plat_Sage;
+	return;
+L_Plat_Archer:
+	//mes "Archer skills activated.";
+	skill 142,1,0;
+	skill 147,1,0;
+	skill 148,1,0;
+	if(class == 11 || class == 4012) goto L_Plat_Hunter;
+	if(class == 19 || class == 4020) goto L_Plat_Bard;
+	if(class == 20 || class == 4021) goto L_Plat_Dancer;
+	return;
+L_Plat_Acolyte:
+	//mes "Acolyte skills activated.";
+	skill 142,1,0;
+	skill 156,1,0;
+	if(class == 8 || class == 4009) goto L_Plat_Priest;
+	if(class == 15 || class == 4016) goto L_Plat_Monk;
+	return;
+L_Plat_Merchant:
+	//mes "Merchant skills activated.";
+	skill 142,1,0;
+	skill 153,1,0;
+	skill 154,1,0;
+	skill 155,1,0;
+	if(class == 10 || class == 4011) goto L_Plat_Blacksmith;
+	if(class == 18 || class == 4019) goto L_Plat_Alchemist;
+	return;
+L_Plat_Thief:
+	//mes "Thief skills activated.";
+	skill 142,1,0;
+	skill 149,1,0;
+	skill 150,1,0;
+	skill 151,1,0;
+	skill 152,1,0;
+	if(class == 12 || class == 4013) goto L_Plat_Assassin;
+	if(class == 17 || class == 4018) goto L_Plat_Rogue;
+	return;
+L_Plat_Knight:
+	//mes "Knight skills activated.";
+	skill 495,1,0;
+	skill 1001,1,0;
+	return;
+L_Plat_Crusader:
+	//mes "Crusader skills activated.";
+	skill 1002,1,0;
+	return;
+L_Plat_Wizard:
+	//mes "Wizard skills activated.";
+	skill 1006,1,0;
+	return;
+L_Plat_Sage:
+	//mes "Sage skills activated.";
+	skill 1007,1,0;
+	skill 1008,1,0;
+	skill 1017,1,0;
+	skill 1018,1,0;
+	skill 1019,1,0;
+	return;
+L_Plat_Hunter:
+	//mes "Hunter skills activated.";
+	skill 499,1,0;
+	skill 1009,1,0;
+	return;
+L_Plat_Bard:
+	//mes "Bard skills activated.";
+	skill 1010,1,0;
+	return;
+L_Plat_Dancer:
+	//mes "Dancer skills activated.";
+	skill 1011,1,0;
+	return;
+L_Plat_Priest:
+	//mes "Priest skills activated.";
+	skill 1014,1,0;
+	return;
+L_Plat_Monk:
+	//mes "Monk skills activated.";
+	skill 1015,1,0;
+	skill 1016,1,0;
+	return;
+L_Plat_Blacksmith:
+	//mes "Blacksmith skills activated.";
+	skill 1012,1,0;
+	skill 1013,1,0;
+	return;
+L_Plat_Alchemist:
+	//mes "Alchemist skills activated.";
+	skill 496,1,0;
+	skill 497,1,0;
+	skill 498,1,0;
+	return;
+L_Plat_Assassin:
+	//mes "Assassin skills activated.";
+	skill 1003,1,0;
+	skill 1004,1,0;
+	return;
+L_Plat_Rogue:
+	//mes "Rogue skills activated.";
+	skill 1005,1,0;
+	return;
+}
+
+//Kafra - Guild Storage and Bank
+function	script	Kafra_Guild	{
+	next;
+	set @GuildID,getcharid(2);
+	set @GIDT,getcharid(2) - 10000;
+	if(@GuildID == 0) goto L_No_Guild;
+	Mes "[ ^FF0000" + getguildname(@GuildID) + "^000000 ]"; 
+	Mes "Guild Storage available to all guild members.";
+	Mes "Guild Banking Rules:";
+	Mes "Guild Master: Withdraw, Deposit.";
+	Mes "Guild Members: Deposit.";
+	next;
+	Menu "Guild Storage",-,"Guild Bank",L_Guild_Bank;
+if(getgdskilllv(getcharid(2),10001)!=1) {
+Mes "You need the contract skill...";
+close;
+}
+	guildopenstorage();
+	close;
+L_Guild_Bank:
+	if(strcharinfo(0)!=getguildmaster(@GuildID)) goto L_Guild_Bank_Member;
+L_Guild_Bank_Master:
+	Menu "Current Balance",L_Guild_Balance,"Deposit",L_Guild_Deposit,"Withdraw",L_Guild_Withdraw;
+L_Guild_Bank_Member:
+	Menu "Current Balance",L_Guild_Balance,"Deposit",L_Guild_Deposit;
+L_Guild_Balance:
+	next;
+	Mes "[ ^FF0000" + getguildname(@GuildID) + "^000000 ]";
+	Mes "The current balance is " + $guildbank[@GIDT] + " zeny.";
+	goto L_Guild_Bank;
+L_Guild_Deposit:
+	next;
+	Mes "Maximum deposit at one time is 1,000,000 zeny.";
+	Input @deposit;
+	if(@deposit < 0 || @deposit > 1000000 ) goto L_Guild_Bank;
+	if(Zeny < @deposit) close;
+	Set Zeny,Zeny - @deposit;
+	set $guildbank[@GIDT],$guildbank[@GIDT] + @deposit;
+	Mes @deposit + " added to the " + getguildname(@GuildID) + " account.";
+	Mes "The balance is now " + $guildbank[@GIDT] + " zeny.";
+	close;
+L_Guild_Withdraw:
+	next;
+	Mes "Maximum withdraw at one time is 1,000,000 zent.";
+	Input @withdraw;
+	if(@withdraw < 0 || @withdraw > 1000000 || @withdraw > $guildbank[@GIDT]) goto L_Guild_Bank;
+	set $guildbank[@GIDT],$guildbank[@GIDT] - @withdraw;
+	set Zeny,Zeny + @withdraw;
+	Mes @withdraw + " taken from the " + getguildname(@GuildID) + " account.";
+	Mes "The balance is now " + $guildbank[@GIDT] + " zeny.";
+	close;
+L_No_Guild:
+	Mes "You'll need to be in a guild to use these options.";
+	close;
+}
+//Kafra - Bank
+function	script	Kafra_Bank	{
+L_Bank_Start:
+	set .@i$, callfunc("int_format",#bankstorage);
+	mes "[^FF0000bRO Kafra^000000]";
+	mes "Welcome to the Bank of BlitzRO.";
+	mes "^2a52be" + strcharinfo(0) + "'s^000000 balance is currently...";
+	mes "^d2691e"+ .@i$ + "^000000 zeny.";
+	next;
+	menu "Deposit",L_Bank_Deposit,"Withdrawal",L_Bank_Withdrawl,"Deposit All",L_Bank_Deposit_All,"Withdraw All",L_Bank_Withdrawl_All,"Cancel",L_Bank_Cancel;
+L_Bank_Deposit:
+	mes "[^FF0000bRO Kafra^000000]";
+	mes "How much would you like to deposit?";
+	Input @Bank;
+	if(@Bank < 0) goto L_Bank_Bad_Input;
+	if(@Bank > Zeny) goto L_Zeny_Deposit_Fail;
+	Set #bankstorage,#bankstorage + @Bank;
+	Set Zeny,Zeny - @Bank;
+	next;
+	mes "[^FF0000bRO Kafra^000000]";
+	Mes "Deposit successful.";
+	next;
+	goto L_Bank_Start;
+L_Bank_Withdrawl:
+	mes "[^FF0000bRO Kafra^000000]";
+	Mes "How much would you like to withdraw?";
+	Input @Bank;
+	if(@Bank < 0) goto L_Bank_Bad_Input;
+	if(@Bank > #bankstorage) goto L_Zeny_Withdrawl_Fail;
+	Set #bankstorage,#bankstorage - @Bank;
+	Set Zeny,Zeny + @Bank;
+	next;
+	mes "[^FF0000bRO Kafra^000000]";
+	Mes "Withdrawal Successful";
+	next;
+	goto L_Bank_Start;
+L_Bank_Deposit_All:
+	mes "[^FF0000bRO Kafra^000000]";
+	set .@ZenyTemp$, callfunc("int_format",Zeny);
+	Mes "Depositing ^d2691e" + .@ZenyTemp$ + "^000000 zeny...";
+	Set #bankstorage,#bankstorage + Zeny;
+	Set Zeny,0;
+	next;
+	mes "[^FF0000bRO Kafra^000000]";
+	Mes "Succesfully deposited ^d2691e"+ .@ZenyTemp$ + "^000000z.";
+	next;
+	goto L_Bank_Start;
+L_Bank_Withdrawl_All:
+	mes "[^FF0000bRO Kafra^000000]";
+	Set .@BankTemp$, callfunc ("int_format",#bankstorage);
+	Mes "Withdrawing ^d2691e" + .@BankTemp$ + "^000000 zeny...";
+	Set Zeny,Zeny + #bankstorage;
+	Set #bankstorage,0;
+	next;
+	mes "[^FF0000bRO Kafra^000000]";
+	Mes "Succesfully withdrew ^d2691e"+ .@BankTemp$ +"^000000z.";
+	next;
+	goto L_Bank_Start;
+L_Bank_Cancel:
+	mes "[^FF0000bRO Kafra^000000]";
+	Mes "See you again.";
+	close;
+L_Bank_Bad_Input:
+	mes "[^FF0000bRO Kafra^000000]";
+	Mes "Unacceptable input...";
+	next;
+	goto L_Bank_Start;
+L_Zeny_Deposit_Fail:
+	next;
+	mes "[^FF0000bRO Kafra^000000]";
+	Mes "You don't seem to have enough zeny to deposit that amount.";
+	next;
+	goto L_Bank_Start;
+L_Zeny_Withdrawl_Fail:
+	next;
+	mes "[^FF0000bRO Kafra^000000]";
+	Mes "You don't have enough banked zeny to withdraw that amount.";
+	next;
+	goto L_Bank_Start;
+}
+
+function	script	int_format	{
+	set .@int,  getarg(0);
+	set .@sep$, getarg(1,",");
+	set .@str$, "";
+		if ( .@int < 0 ) {
+			 set .@int, -.@int;
+			 set .@neg, 1;
+		}
+	set .@len, getstrlen(.@int+"") - .@neg;
+
+	for ( set .@i,0; .@i<.@len; set .@i,.@i+1 )
+		 set .@str$, ( .@i % 3 == 2 && 1 < .@len-1 ? .@sep$ : "" ) + ( .@int / pow(10,.@i) ) % 10 + .@str$;
+		return ( .@neg ? "-" : "" ) + .@str$;
+}
+
+function	script	F_DRESSROOM	{
+
+	if((Class >= 0 && Class <= 4052) || (Class >= 4190 && Class <=4244)){ // Job ID check so only 3rd Class chars can change costume.
+		mes "[Stylist]";
+		mes "I can't do anything for you, come back when you're stronger!";
+		close;
+	}
+	if(zeny < 10000){ //Edit the amount of zeny it needs to change costume here. Default = 10k Zeny.
+		mes "[Stylist]";
+		mes "I'm sorry, you don't have enough zeny with you!";
+		close;
+	}
+
+	mes "[Stylist]";
+	mes "I can change your appearance to another class of your classline at a cost of ^FF0000" + 10000 + "^000000z!";
+	mes "Which class do you want to change your appearance to?";
+	next;
+	if(select("Restore costume:New jRO costume") == 1) {
+		set newstyle,0;
+		setlook LOOK_BODY2,0;
+		close;
+	}
+	setlook LOOK_BODY2,1;
+	set newstyle,1;
+	close;
+
+OnPCLoginEvent:
+	if(newstyle == 1){
+		setlook LOOK_BODY2,1;
+	}
+	end;
+}
+
+function	script	F_DISPBOTTOM	{
+if(getargcount() == 2){
+	.@colour = 3;
+} else {
+	setarray .@colourswitch$[0],"RED","1",
+								"BLUE","2",
+								"GREEN","3",
+								"ORANGE","4",
+								"BROWN","5",
+								"PINK","6",
+								"WHITE","7",
+								"YELLOW","8";
+	.@index = inarray(.@colourswitch$[0],getarg(2));
+	.@colour = atoi(.@colourswitch$[.@index+1]);
+}
+	switch(.@colour){
+	case 1:	//red
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0xe65c5c; break;
+	case 2:	//blue
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0x5cd4e6; break;
+	case 3:	//green
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0x5be002; break;
+	case 4:	//orange
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0xf0aa54; break;
+	case 5:	//brown
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0x91714a; break;
+	case 6:	//pink
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0xf0a5ec; break;
+	case 7:	//white
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0xffffff; break;
+	case 8:	//yellow
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0xffee8f; break;
+	default:
+		dispbottom "["+getarg(0)+"]: " + getarg(1),0x5be002; break;
+	}
+	return;
+}
+
+function	script	F_Mapname	{
+	.@i = inarray($@Mapnames$,getarg(0,"prontera"));
+	if(.@i == -1)
+		return "("+getarg(0,"")+") Unknown";
+	else return $@Mapnames2$[.@i]+"";
+}
+
+-	script	MapnameConvert	-1,{
+OnInit:
+	setarray .FullList$,
+//		"Mapname", "Readable Name"
+		"prontera", "Prontera",
+		"1@gol1", "Bio Experiment Center",
+		"1@gol2", "Morgue",
+		"prt_mz03_i", "Twisted Labyrinth Forest",
+		"1@halo", "Halloween Festival Hall",
+		"1@momo", "Momotaro Experience Hall",
+		"1@ant01", "Ant Hell",
+		"1@izd02", "Undersea Tunnel",
+		"1@tre02", "Sunken Ship",
+		"1@sewb2", "Sewer",
+		"1@gl_prq", "The Fall of Glastheim",
+		"mag_dun03", "Nogg Road",
+		"gl_cas01_", "Glastheim",
+		"1@cor", "Core Memorial",
+		"1@os_a", "OS preoccupation",
+		"1@os_b", "Sealed OS",
+		"1@rgsr", "Regenschirm",
+		"rgsr_in", "Rekenber Institute",
+		"pub_cat", "Gun Bullet Cat",
+		"sp_cor", "Special border Core",
+		"sp_os", "Special border OS",
+		"sp_rudus", "Rudus",
+		"sp_rudus2", "Rudus",
+		"sp_rudus3", "Rudus",
+		"star_frst", "Yu Seong Lim",
+		"star_in", "Yu Seong Lim",
+		"1@soul", "The passage of Soul",
+		"com_d02_i", "Luanda, the North Cave",
+		"ein_d02_i", "Nasarin Empire",
+		"vis_h01", "Welcome Corridor",
+		"vis_h02", "Welcome Corridor",
+		"vis_h03", "Welcome Corridor",
+		"vis_h04", "Welcome Corridor",
+		"2@gl_kh", "Old Glastheim Chivalry",
+		"1@gl_kh", "Old Glastheim Chivalry",
+		"prt_evt_in", "Hunting Lodge",
+		"x_prt", "Beyond Dimension",
+		"x_lhz", "Beyond Dimension",
+		"x_ra", "Beyond Dimension",
+		"lasa_sea", "Cat Tunnel",
+		"1@drdo", "Legend of Dorado",
+		"1@crd", "Volcanic island Korodo",
+		"tur_d03_i", "Desolate Village",
+		"tur_d04_i", "Bleak Turtle Palace",
+		"1@begi", "Poring Town",
+		"1@tre", "Suspicious Shipwreck",
+		"ice_d03_i", "Frozen Memory",
+		"gef_d01_i", "250 Pages",
+		"pay_d03_i", "Nightmare of Moonlight",
+		"1@xm_d2", "Horror Toy Factory",
+		"1@gl_k2", "Old Glastheim Chivalry",
+		"2@gl_k2", "Old Glastheim Chivalry",
+		"har_in01", "Rockridge",
+		"harboro1", "Rockridge",
+		"harboro2", "Underground Waterway",
+		"rockmi1", "Rockridge Mine",
+		"rockmi2", "Rockridge Mine",
+		"rockrdg1", "Kiwawa Desert",
+		"rockrdg2", "Kiwawa Desert",
+		"1@md_gef", "Friday Memorial",
+		"1@md_pay", "Weekend Memorial",
+		"1@slw", "Central chamber of Werner Institute",
+		"1@swat", "Heart Hunter military base",
+		"que_swat", "Heart Hunter military base",
+		"slabw01", "Werner Institute",
+		"rebel_in", "Clara Nemieri",
+		"1@pop1", "Pope's Office",
+		"1@pop2", "Way Back Home",
+		"1@pop3", "Sky Garden",
+		"lasagna", "Port Town Lasagna",
+		"lasa_fild01", "Ravioli Plain, Border post",
+		"lasa_fild02", "Ravioli Forest",
+		"lasa_dun01", "Dragon Nest",
+		"lasa_dun02", "Dragon Nest",
+		"lasa_dun03", "Dragon Nest",
+		"conch_in", "Conch",
+		"lasa_in01", "Lasagna",
+		"lasa_dun_q", "Dragon Nest",
+		"int_land", "Remote Island",
+		"int_land01", "Remote Island",
+		"int_land02", "Remote Island",
+		"int_land03", "Remote Island",
+		"int_land04", "Remote Island",
+		"1@mir", "Ritual room",
+		"2@mir", "Ritual room",
+		"1@sthb", "Aerial Fortress",
+		"1@sthc", "Secret Chamber of Aerial Fortress",
+		"1@sthd", "Aerial Fortress",
+		"prt_cas", "Prontera Central Palace",
+		"prt_cas_q", "Prontera Imperial Villa",
+		"prt_prison", "Prontera Dungeon",
+		"prt_lib", "Memorial of Royal Family",
+		"prt_lib_q", "Memorial of Past Royal Family",
+		"prt_q", "Invaded Prontera",
+		"prt_pri00", "Prontera Prison",
+		"1@ffp", "Remnant Hideout",
+		"1@infi", "Infinite Space",
+		"paramk", "Para Market",
+		"verus01", "Laboratory-OPTATIO",
+		"verus02", "Research Building-WISH",
+		"un_bk_q", "Underground Bunker",
+		"un_bunker", "Underground Bunker",
+		"un_myst", "Underground Tunnel",
+		"1@uns", "The last room",
+		"1@lab", "Central Laboratory",
+		"lhz_dun_n", "Tomb of the fallen",
+		"1@glast", "Past Glastheim",
+		"1@air1", "Airship",
+		"1@air2", "Airship",
+		"job_gun", "Shelter of Rebellion",
+		"ver_eju", "Eastern Ruins of Juperos",
+		"ver_tunn", "Verus, Tunnel Outskirts",
+		"verus04", "Verus, Excavation Site",
+		"verus03", "Verus, Central Plaza",
+		"1@mcd", "Charleston Factory",
+		"e_hugel", "Invaded Hugel",
+		"c_tower2_", "Clock Tower",
+		"c_tower3_", "Clock Tower",
+		"silk_lair", "Pythons Lair",
+		"moro_vol", "Flaming Basin",
+		"moro_cav", "Fire Cave",
+		"1@dth1", "Bios Island",
+		"1@dth2", "Bios Island",
+		"1@dth3", "Bios Island",
+		"1@rev", "Morse Cave",
+		"1@xm_d", "Horror Toy Factory",
+		"1@eom", "Former Devil",
+		"1@jtb", "Nightmare Jitterbug",
+		"dali02", "Dimensional Rift",
+		"1@face", "Faceworm's Nest",
+		"1@sara", "Sara's Memory",
+		"dali", "Dimensional Rift",
+		"1@tnm1", "Masin Tower",
+		"1@tnm2", "Masin Tower",
+		"1@tnm3", "Morocc Castle's Basement",
+		"1@ge_st", "Geffen Magic Tournament",
+		"1@gef", "Geffen Magic Tournament",
+		"1@gef_in", "Geffen Magic Tournament",
+		"1@spa", "Ghost Palace",
+		"1@def01", "Wave Dungeon",
+		"1@def02", "Wave Dungeon",
+		"1@def03", "Wave Dungeon",
+		"evt_bomb", "Labyrinth Events",
+		"gl_cas02_", "Corridor",
+		"gl_chyard_", "Monastery Cemetery",
+		"2@gl_k", "Old Glast Heim Chivalry",
+		"1@gl_k", "Old Glast Heim Chivalry",
+		"te_prt_gld", "Gloria",
+		"te_prtcas01", "Gae Bolg",
+		"te_prtcas02", "Richard",
+		"te_prtcas03", "Wigner",
+		"te_prtcas04", "Hein",
+		"te_prtcas05", "Aquarius",
+		"teg_dun01", "Guild Underground Dungeon",
+		"te_alde_gld", "Kafra's Den",
+		"te_aldecas01", "Glarice",
+		"te_aldecas02", "Deporte",
+		"te_aldecas03", "Sorin",
+		"te_aldecas04", "Vinit",
+		"te_aldecas05", "Curly Sue",
+		"teg_dun02", "Guild Underground Dungeon",
+		"prt_fild08d", "Prontera Field",
+		"prt_fild08c", "Prontera Field",
+		"prt_fild08b", "Prontera Field",
+		"prt_fild08a", "Prontera Field",
+		"iz_ac01_d", "Academy",
+		"iz_ac02_d", "Academy",
+		"iz_ac01_c", "Academy",
+		"iz_ac02_c", "Academy",
+		"iz_ac01_b", "Academy",
+		"iz_ac02_b", "Academy",
+		"iz_ac01_a", "Academy",
+		"iz_ac02_a", "Academy",
+		"izlude_d", "Satellite city Izlude",
+		"izlude_c", "Satellite city Izlude",
+		"izlude_b", "Satellite city Izlude",
+		"izlude_a", "Satellite city Izlude",
+		"iz_int", "Intro",
+		"iz_int01", "Intro",
+		"iz_int02", "Intro",
+		"iz_int03", "Intro",
+		"iz_int04", "Intro",
+		"iz_ac01", "Academy",
+		"iz_ac02", "Academy",
+		"iz_ng01", "Ninja tutorial map",
+		"treasure_n1", "Izlude wreck",
+		"treasure_n2", "Izlude wreck",
+		"moc_prydn1", "Morocc Pyramid Underground",
+		"moc_prydn2", "Morocc Pyramid Underground",
+		"eclage", "Eclage, Forestic Village",
+		"ecl_fild01", "Blooming Flower Land",
+		"ecl_in01", "Eclage",
+		"ecl_in02", "Eclage",
+		"ecl_in03", "Eclage",
+		"ecl_in04", "Eclage",
+		"1@ecl", "Eclage Interior",
+		"ecl_tdun01", "Eclage",
+		"ecl_tdun02", "Eclage",
+		"ecl_tdun03", "Eclage",
+		"ecl_tdun04", "Eclage",
+		"ecl_hub01", "Eclage Perimeter",
+		"que_avan01", "Avant's Laboratory",
+		"malaya", "Port Malaya",
+		"ma_fild01", "Baryo Mahiwaga",
+		"ma_fild02", "Forest",
+		"ma_scene01", "Bakonawa Lake",
+		"ma_in01", "of Malaya",
+		"ma_dun01", "Bangungot Hospital",
+		"1@ma_h", "Bangungot Hospital",
+		"1@ma_c", "Buwaya Cave",
+		"1@ma_b", "Bakonawa Hideout",
+		"ma_zif01", "of Jeepney",
+		"ma_zif02", "of Jeepney",
+		"ma_zif03", "of Jeepney",
+		"ma_zif04", "of Jeepney",
+		"ma_zif05", "of Jeepney",
+		"ma_zif06", "of Jeepney",
+		"ma_zif07", "of Jeepney",
+		"ma_zif08", "of Jeepney",
+		"ma_zif09", "of Jeepney",
+		"job_ko", "Hidden Place",
+		"gld_dun01_2", "Baldur Guild Dungeon",
+		"gld_dun02_2", "Luina Guild Dungeon",
+		"gld_dun03_2", "Valkyrie Guild Dungeon",
+		"gld_dun04_2", "Britoniah Guild Dungeon",
+		"gld2_ald", "Al De Baran Guild Dungeon",
+		"gld2_gef", "Geffen Guild Dungeon",
+		"gld2_pay", "Payon Guild Dungeon",
+		"gld2_prt", "Prontera Guild Dungeon",
+		"lhz_dun04", "Lighthalzen Biolab",
+		"que_lhz", "Lighthalzen Indoor",
+		"1@lhz", "Lighthalzen Indoor",
+		"iz_dun05", "Undersea Tunnel",
+		"malangdo", "Malangdo",
+		"mal_in01", "Malangdo Inside",
+		"mal_in02", "the Ship",
+		"mal_dun01", "Starry Coral Area",
+		"1@cash", "Octopus Cave",
+		"1@pump", "Culvert",
+		"2@pump", "Culvert",
+		"evt_hello", "Dead Angel's landing",
+		"dic_dun03", "Scaraba Hole",
+		"que_house_s", "Strange House",
+		"dewata", "Dewata",
+		"dew_in01", "Dewata",
+		"dew_fild01", "Dewata Field",
+		"dew_dun01", "Volcanic Island of Krakatoa",
+		"dew_dun02", "Tina Grace Cave",
+		"1@mist", "The Hazy Maze Forest",
+		"mora", "Mora Village",
+		"bif_fild01", "Bifrost Bridge",
+		"bif_fild02", "Bifrost Bridge",
+		"dicastes01", "El Dicastes, the Sapha Capital",
+		"dicastes02", "Dicastes Diel",
+		"dic_in01", "of El Dicastes",
+		"dic_fild01", "Outskirts of Kamidal Mountain",
+		"dic_fild02", "Outskirts of Kamidal Mountain",
+		"dic_dun01", "Kamidal Tunnel",
+		"dic_dun02", "Scaraba Hall",
+		"job3_gen01", "Geneticist Lab",
+		"s_atelier", "Shadow Workshop",
+		"brasilis", "Brasilis",
+		"bra_in01", "Brasilis",
+		"bra_fild01", "Brasilis Field",
+		"bra_dun01", "Beyond the Waterfall",
+		"bra_dun02", "Beyond the Waterfall",
+		"moc_para01", "of Paradise Group Building in Morroc",
+		"job3_arch01", "Waiting room for Arch Bishop Job Change",
+		"job3_arch02", "Odin Temple",
+		"job3_arch03", "Waiting room for Arch Bishop Job Change",
+		"job3_guil01", "Secret Tavern",
+		"job3_guil02", "the Old Warehouse",
+		"job3_guil03", "An isolated mansion",
+		"job3_rang01", "Waiting room for Ranger Job Change",
+		"job3_rang02", "Test room for Ranger Job Change",
+		"job3_rune01", "of Rune Knight Templar",
+		"job3_rune02", "Test room for Rune Knight Job Change",
+		"job3_rune03", "Test room for Rune Knight Job Change",
+		"job3_war01", "Test room for Warlock Job Change",
+		"job3_war02", "Test room for Warlock Job Change",
+		"jupe_core2", "The center of Juperos",
+		"1@nyd", "Nidhoggr's Nest",
+		"2@nyd", "Nidhoggr's Nest",
+		"nyd_dun01", "Yggdrasil Root",
+		"nyd_dun02", "Yggdrasil Root",
+		"manuk", "Manuk",
+		"man_fild02", "Manuk Field",
+		"man_in01", "Manuk",
+		"splendide", "Splendide",
+		"spl_fild01", "Splendide Field",
+		"spl_in01", "Splendide",
+		"spl_in02", "Splendide",
+		"bat_c01", "Kreiger Von Midgard",
+		"bat_c02", "Kreiger Von Midgard",
+		"bat_c03", "Kreiger Von Midgard",
+		"mid_camp", "Midgard Expedition Camp",
+		"mid_campin", "Midgard Expedition Camp",
+		"man_fild01", "Manuk Field",
+		"man_fild03", "Manuk Field",
+		"spl_fild02", "Splendide Field",
+		"spl_fild03", "Splendide Field",
+		"moc_fild22b", "Dimensional Gorge",
+		"que_dan01", "Hugel Field",
+		"que_dan02", "of the Abandoned House in Yuno",
+		"schg_que01", "Morestone Prairie",
+		"schg_dun01", "Schwartzvald Guild Dungeon",
+		"arug_que01", "Morestone Prairie",
+		"arug_dun01", "Arunafeltz Guild Dungeon",
+		"1@orcs", "Subterranean Orc Cave",
+		"2@orcs", "Subterranean Orc Cave",
+		"1@cata", "Catacombs",
+		"2@cata", "Sealed Shrine",
+		"e_tower", "Misty Island",
+		"1@tower", "Endless Tower",
+		"2@tower", "Endless Tower",
+		"3@tower", "Endless Tower",
+		"4@tower", "Endless Tower",
+		"5@tower", "Endless Tower",
+		"6@tower", "Endless Tower",
+		"bat_room", "Battlegrounds Waiting Room",
+		"bat_a01", "Tierra Valley",
+		"bat_a02", "Tierra Valley",
+		"bat_b01", "Flavian",
+		"bat_b02", "Flavian",
+		"que_qsch01", "Fallacious Okolnir",
+		"que_qsch02", "Fallacious Okolnir",
+		"que_qsch03", "Fallacious Okolnir",
+		"que_qsch04", "Fallacious Okolnir",
+		"que_qsch05", "Fallacious Okolnir",
+		"que_qaru01", "Fallacious Okolnir",
+		"que_qaru02", "Fallacious Okolnir",
+		"que_qaru03", "Fallacious Okolnir",
+		"que_qaru04", "Fallacious Okolnir",
+		"que_qaru05", "Fallacious Okolnir",
+		"arug_cas01", "Valfreyja Guild",
+		"arug_cas02", "Valfreyja Guild",
+		"arug_cas03", "Valfreyja Guild",
+		"arug_cas04", "Valfreyja Guild",
+		"arug_cas05", "Valfreyja Guild",
+		"aru_gld", "Valfreyja",
+		"moscovia", "Moscovia",
+		"mosk_in", "Moscovia",
+		"mosk_ship", "Charabel",
+		"mosk_fild01", "Okrestnosti Of Moscovia",
+		"mosk_fild02", "Okrestnosti Of Moscovia",
+		"mosk_dun01", "Les Forest",
+		"mosk_dun02", "Temny Forest",
+		"mosk_dun03", "Dremuci Forest",
+		"mosk_que", "Marozka's Cave",
+		"schg_cas01", "Nidhoggur Guild",
+		"schg_cas02", "Nidhoggur Guild",
+		"schg_cas03", "Nidhoggur Guild",
+		"schg_cas04", "Nidhoggur Guild",
+		"schg_cas05", "Nidhoggur Guild",
+		"sch_gld", "Nidhoggur",
+		"cave", "Cave Village",
+		"moc_fild20", "Sograt Desert",
+		"moc_fild21", "Dimensional Gorge",
+		"moc_fild22", "Dimensional Gorge",
+		"bossnia_01", "Bossnia",
+		"bossnia_02", "Bossnia",
+		"bossnia_03", "Bossnia",
+		"bossnia_04", "Bossnia",
+		"itemmall", "Kafra Shop",
+		"poring_w01", "Poring War Waiting Room",
+		"poring_w02", "Poring War Market",
+		"nameless_i", "Nameless Island",
+		"nameless_n", "Nameless Island",
+		"nameless_in", "Nameless Island",
+		"abbey01", "Cursed Abbey Dungeon",
+		"abbey02", "Cursed Abbey Dungeon",
+		"abbey03", "Cursed Abbey Dungeon",
+		"que_temsky", "Pope's Room",
+		"z_agit", "Z Gang's Hideout",
+		"veins", "Veins, the Canyon Village",
+		"ve_in", "Veins",
+		"ve_in02", "Veins",
+		"ve_fild01", "Veins Field",
+		"ve_fild02", "Veins Field",
+		"ve_fild03", "Veins Field",
+		"ve_fild04", "Veins Field",
+		"ve_fild05", "Veins Field",
+		"ve_fild06", "Veins Field",
+		"ve_fild07", "Veins Field",
+		"thor_camp", "Thor Volcano Camp",
+		"que_thor", "Thor Volcano Dungeon",
+		"thor_v01", "Thor Volcano Dungeon",
+		"thor_v02", "Thor Volcano Dungeon",
+		"thor_v03", "Thor Volcano Dungeon",
+		"06guild_r", "Guild Arena Waiting Room",
+		"06guild_01", "Guild Arena",
+		"06guild_02", "Guild Arena",
+		"06guild_03", "Guild Arena",
+		"06guild_04", "Guild Arena",
+		"06guild_05", "Guild Arena",
+		"06guild_06", "Guild Arena",
+		"06guild_07", "Guild Arena",
+		"06guild_08", "Guild Arena",
+		"rachel", "Rachel, Capital of Arunafelz, the Study Nation",
+		"ra_in01", "Rachel",
+		"ra_temple", "Freya's Grand Temple",
+		"ra_temin", "Rachel Sanctuary",
+		"que_rachel", "Freya's Temple",
+		"ra_temsky", "Pope's Room",
+		"ra_fild01", "Audumra Grass Land",
+		"ra_fild02", "Oz Gorge",
+		"ra_fild03", "Ida Plane",
+		"ra_fild04", "Audumra Grass Land",
+		"ra_fild05", "Audumra Grass Land",
+		"ra_fild06", "Fortu Luna",
+		"ra_fild07", "Oz Gorge",
+		"ra_fild08", "Ida Plane",
+		"ra_fild09", "Audumra Grass Land",
+		"ra_fild10", "Oz Gorge",
+		"ra_fild11", "Ida Plane",
+		"ra_fild12", "Ida Plane",
+		"ra_fild13", "Beach of Tears",
+		"ra_san01", "Freya's Sacred Precinct",
+		"ra_san02", "Freya's Sacred Precinct",
+		"ra_san03", "Freya's Sacred Precinct",
+		"ra_san04", "Freya's Sacred Precinct",
+		"ra_san05", "Freya's Sacred Precinct",
+		"ice_dun01", "Ice Cave",
+		"ice_dun02", "Ice Cave",
+		"ice_dun03", "Ice Cave",
+		"ice_dun04", "Ice Cave",
+		"hugel", "Hugel, the Quaint Garden Village",
+		"hu_in01", "Hugel",
+		"que_bingo", "Bingo Game Room",
+		"que_hugel", "Odin Shrine's Underground",
+		"p_track01", "Monster Race Arena",
+		"p_track02", "Monster Race Arena",
+		"odin_tem01", "Odin Shirine",
+		"odin_tem02", "Odin Shirine",
+		"odin_tem03", "Odin Shirine",
+		"hu_fild02", "Hugel Field",
+		"hu_fild03", "Hugel Field",
+		"hu_fild06", "Hugel Field",
+		"ein_fild01", "Einbroch Field",
+		"ein_fild02", "Einbroch Field",
+		"ein_fild05", "Einbroch Field",
+		"yuno_fild10", "Yuno Field",
+		"kh_kiehl02", "Kiehl's Room",
+		"kh_kiehl01", "Kiehl's Room",
+		"kh_dun02", "Robot Factory",
+		"kh_dun01", "Robot Factory",
+		"kh_mansion", "Kiel Hyre's Mansion",
+		"kh_rossi", "The Rosimier's Mansion",
+		"kh_school", "Kiel Hyre's Academy",
+		"kh_vila", "Kiel Hyre's Cottage",
+		"auction_01", "Auction Hall",
+		"auction_02", "Auction Hall",
+		"que_job01", "Private Pub",
+		"abyss_01", "Abyss Lake",
+		"abyss_02", "Abyss Lake",
+		"abyss_03", "Abyss Lake",
+		"tha_t01", "Thanatos Tower",
+		"tha_t02", "Thanatos Tower",
+		"tha_t03", "Thanatos Tower",
+		"tha_t04", "Thanatos Tower",
+		"tha_t05", "Thanatos Tower",
+		"tha_t06", "Thanatos Tower",
+		"tha_t07", "Thanatos Tower",
+		"tha_t08", "Thanatos Tower",
+		"tha_t09", "Thanatos Tower",
+		"tha_t10", "Thanatos Tower",
+		"tha_t11", "Thanatos Tower",
+		"tha_t12", "Thanatos Tower",
+		"thana_step", "Thanatos Tower",
+		"thana_boss", "Thanatos Tower",
+		"tha_scene01", "Thanatos Tower",
+		"job_soul", "Your Heart",
+		"job_star", "Sun, Moon and Stars",
+		"hu_fild07", "Hugel Field",
+		"hu_fild05", "The Abyss Lakes",
+		"hu_fild04", "Hugel Field",
+		"hu_fild01", "Hugel Field",
+		"yuno_fild06", "El Mes Plateau",
+		"quiz_02", "Quiz Arena",
+		"jupe_cave", "Juperos",
+		"juperos_01", "Juperos",
+		"juperos_02", "Juperos",
+		"jupe_gate", "Juperos",
+		"jupe_area1", "Juperos",
+		"jupe_area2", "Juperos",
+		"jupe_ele", "Juperos",
+		"jupe_ele_r", "Juperos",
+		"jupe_core", "Juperos",
+		"lighthalzen", "Lighthalzen",
+		"lhz_in01", "Rekenber HQ",
+		"lhz_in02", "Lighthalzen",
+		"lhz_in03", "Lighthalzen",
+		"lhz_cube", "Cube Room",
+		"lhz_que01", "Lighthalzen",
+		"lhz_airport", "Lhz Airport",
+		"airplane_01", "Airship",
+		"airplane_02", "Airship",
+		"lhz_dun01", "Somatology Laboratory",
+		"lhz_dun02", "Somatology Laboratory",
+		"lhz_dun03", "Somatology Laboratory",
+		"lhz_fild01", "Lighthalzen Field",
+		"yuno_pre", "Schwarzwald",
+		"y_airport", "Yuno Airport",
+		"lhz_fild03", "Lighthalzen Field",
+		"lhz_fild02", "Lighthalzen Field",
+		"ein_fild04", "Einbroch Field",
+		"ein_fild03", "Einbroch Field",
+		"ein_dun02", "Mine Dungeon",
+		"ein_dun01", "Mine Dungeon",
+		"ein_fild10", "Einbroch Field",
+		"ein_fild09", "Einbroch Field",
+		"ein_fild08", "Einbroch Field",
+		"ein_fild07", "Einbroch Field",
+		"ein_fild06", "Einbroch Field",
+		"airplane", "Airship",
+		"airport", "Airport",
+		"ein_in01", "Einbroch",
+		"einbech", "Einbech, the Mining Village",
+		"einbroch", "Einbroch, the City of Steel",
+		"turbo_e_16", "Turbo Track Stadium",
+		"turbo_e_8", "Turbo Track Stadium",
+		"turbo_e_4", "Turbo Track Stadium",
+		"turbo_n_16", "Turbo Track Stadium",
+		"turbo_n_8", "Turbo Track Stadium",
+		"turbo_n_4", "Turbo Track Stadium",
+		"turbo_n_1", "Turbo Track Stadium",
+		"turbo_room", "Waiting Room",
+		"yuno_fild12", "Border Checkpoint",
+		"yuno_fild11", "Yuno Field",
+		"yuno_fild09", "Schwarzwald Guards Camp",
+		"yuno_fild08", "Kiel Hyre's Academy",
+		"yuno_fild07", "El Mes Gorge",
+		"yuno_fild05", "El Mes Plateau",
+		"ayo_in02", "Ayothaya",
+		"ayo_in01", "Ayothaya",
+		"ayo_dun02", "Ancient Shrine",
+		"ayo_dun01", "Ancient Shrine Maze",
+		"ayo_fild02", "Ayothaya Field",
+		"ayo_fild01", "Ayothaya Field",
+		"ayothaya", "Ayothaya",
+		"que_god02", "Quest Map",
+		"que_god01", "Quest Map",
+		"quiz_test", "Quiz Hall",
+		"gefenia04", "Geffenia",
+		"gefenia03", "Geffenia",
+		"gefenia02", "Geffenia",
+		"gefenia01", "Geffenia",
+		"himinn", "Valkyrie Hall",
+		"jawaii_in", "Jawaii",
+		"jawaii", "Jawaii, the Honeymoon Island",
+		"lou_in02", "Louyang",
+		"lou_in01", "Louyang",
+		"lou_dun03", "Suei Long Gon",
+		"lou_dun02", "the Royal Tomb",
+		"lou_dun01", "The Royal Tomb",
+		"lou_fild01", "Louyang Field",
+		"louyang", "Louyang, the Highland",
+		"valkyrie", "Valkyrie Hall",
+		"nif_in", "Niflheim",
+		"yggdrasil01", "Hvergelmir's Fountain",
+		"nif_fild02", "Valley of Gyoll",
+		"nif_fild01", "Skellington",
+		"niflheim", "Niflheim",
+		"um_dun01", "Umbala Dungeon",
+		"um_dun02", "Umbala Dungeon",
+		"um_in", "Umbala",
+		"um_fild01", "Luluka Forest",
+		"um_fild02", "Hoomga Forest",
+		"um_fild03", "Kalala Swamp",
+		"um_fild04", "Hoomga Jungle",
+		"umbala", "Umbala",
+		"sec_in01", "Valhalla",
+		"sec_in02", "Valhalla",
+		"sec_pri", "Room of Meditation",
+		"gon_test", "Arena",
+		"gon_dun01", "Shrine of Gonryun Queen",
+		"gon_dun02", "Hermit's Checkers",
+		"gon_dun03", "Arcadia",
+		"gon_fild01", "Gonryun Field",
+		"gon_in", "Gonryun",
+		"gonryun", "Gonryun, the Hermit Land",
+		"ama_test", "Momotaro Experience Place",
+		"ama_dun03", "Amatsu Underground Shrine",
+		"ama_dun02", "Underground Forest",
+		"ama_dun01", "Tatami Maze",
+		"ama_fild01", "Amatsu Field",
+		"ama_in02", "Himezi Castle",
+		"ama_in01", "Amatsu",
+		"amatsu", "Amatsu",
+		"alde_alche", "Alchemist Realm",
+		"yuno_in05", "Power Plant of Ymir's Heart",
+		"yuno_in04", "Republic Library",
+		"job_duncer", "Comodo Theatre",
+		"job_sage", "Sage Realm",
+		"job_cru", "Crusader Realm",
+		"job_monk", "Saint Capitolina Abbey",
+		"monk_test", "Saint Capitolina Abbey",
+		"in_rogue", "the Rogue Guild",
+		"mag_dun02", "Nogg Road",
+		"mag_dun01", "Nogg Road",
+		"yuno_fild04", "El Mes Plateau",
+		"yuno_fild03", "El Mes Plateau",
+		"yuno_fild02", "Kiel Hyre's Cottage",
+		"yuno_fild01", "Border Posts",
+		"yuno_in03", "Yuno",
+		"yuno_in02", "the Sage Castle",
+		"yuno_in01", "Yuno",
+		"yuno", "Yuno",
+		"job_wiz", "Wizard Realm",
+		"job_prist", "Priest Realm",
+		"job_knt", "Knight Realm",
+		"job_hunte", "Hunter Job Change Place",
+		"gld_dun04", "Britoniah Guild Dungeon",
+		"gld_dun03", "Valkyrie Guild Dungeon",
+		"gld_dun02", "Luina Guild Dungeon",
+		"gld_dun01", "Baldur Guild Dungeon",
+		"payg_cas05", "Greenwood Lake Guild",
+		"payg_cas04", "Greenwood Lake Guild",
+		"payg_cas03", "Greenwood Lake Guild",
+		"payg_cas02", "Greenwood Lake Guild",
+		"payg_cas01", "Greenwood Lake Guild",
+		"pay_gld", "Greenwood Lake",
+		"aldeg_cas05", "Luina Guild",
+		"aldeg_cas04", "Luina Guild",
+		"aldeg_cas03", "Luina Guild",
+		"aldeg_cas02", "Luina Guild",
+		"aldeg_cas01", "Luina Guild",
+		"alde_gld", "Luina",
+		"gefg_cas05", "Britoniah Guild",
+		"gefg_cas04", "Britoniah Guild",
+		"gefg_cas03", "Britoniah Guild",
+		"gefg_cas02", "Britoniah Guild",
+		"gefg_cas01", "Britoniah Guild",
+		"prtg_cas05", "Valkyrie Realm Guild",
+		"prtg_cas04", "Valkyrie Realm Guild",
+		"prtg_cas03", "Valkyrie Realm Guild",
+		"prtg_cas02", "Valkyrie Realm Guild",
+		"prtg_cas01", "Valkyrie Realm Guild",
+		"prt_gld", "Valkyrie Realm",
+		"tur_dun01", "Turtle Island",
+		"tur_dun02", "Turtle Island Dungeon",
+		"tur_dun03", "Good Turtles Village",
+		"tur_dun04", "Turtle Palace",
+		"tur_dun05", "Underground Swamp",
+		"tur_dun06", "Underground Swamp",
+		"guild_vs5", "Guild Arena",
+		"guild_vs4", "Guild Arena",
+		"guild_vs3", "Guild Arena",
+		"guild_vs2", "Guild Arena",
+		"guild_vs1", "Guild Arena",
+		"guild_room", "Guild Arena Waiting Room",
+		"quiz_00", "Quiz Revolution",
+		"quiz_01", "Quiz Revolution",
+		"gef_fild12", "Kordt Forest",
+		"gef_fild13", "Britoniah",
+		"gef_fild14", "West Orc Village",
+		"cmd_in02", "Comodo",
+		"cmd_in01", "Comodo",
+		"comodo", "Beach town, Comodo",
+		"beach_dun", "Karu, the West Cave",
+		"beach_dun2", "Ruande, the North Cave",
+		"beach_dun3", "Mao, the East Cave",
+		"cmd_fild01", "Papuchicha Forest",
+		"cmd_fild02", "Kokomo Beach",
+		"cmd_fild03", "Zenhai Marsh",
+		"cmd_fild04", "Kokomo Beach",
+		"cmd_fild05", "Border of Papuchica Forest",
+		"cmd_fild06", "Fortress Saint Darmain",
+		"cmd_fild07", "Beacon Island, Pharos",
+		"cmd_fild08", "Fortress Saint Darmain",
+		"cmd_fild09", "Fortress Saint Darmain",
+		"xmas_in", "Lutie",
+		"xmas_dun02", "Toy Monitoring Room",
+		"xmas_dun01", "Toy Factory Warehouse",
+		"xmas_fild01", "Lutie Field",
+		"xmas", "Lutie, the Snow Village",
+		"mjolnir_01", "Mt.Mjolnir",
+		"mjolnir_02", "Mt.Mjolnir",
+		"mjolnir_03", "Mt.Mjolnir",
+		"mjolnir_04", "Mt.Mjolnir",
+		"mjolnir_05", "Mt.Mjolnir",
+		"mjolnir_06", "Mt.Mjolnir",
+		"mjolnir_07", "Mt.Mjolnir",
+		"mjolnir_08", "Mt.Mjolnir",
+		"mjolnir_09", "Mt.Mjolnir",
+		"mjolnir_10", "Mt.Mjolnir",
+		"mjolnir_11", "Mt.Mjolnir",
+		"mjolnir_12", "Mt.Mjolnir",
+		"prt_fild00", "Prontera Field",
+		"prt_fild01", "Prontera Field",
+		"prt_fild02", "Prontera Field",
+		"prt_fild03", "Prontera Field",
+		"prt_fild04", "Prontera Field",
+		"prt_fild05", "Prontera Field",
+		"prt_fild06", "Prontera Field",
+		"prt_fild07", "Prontera Field",
+		"prt_fild08", "Prontera Field",
+		"prt_fild09", "Prontera Field",
+		"prt_fild10", "Prontera Field",
+		"prt_fild11", "Prontera Field",
+		"prt_monk", "St. Capitolina Abbey",
+		"gef_fild00", "Geffen Field",
+		"gef_fild01", "Geffen Field",
+		"gef_fild02", "Geffen Field",
+		"gef_fild03", "Geffen Field",
+		"gef_fild04", "Geffen Field",
+		"gef_fild05", "Geffen Field",
+		"gef_fild06", "Geffen Field",
+		"gef_fild07", "Geffen Field",
+		"gef_fild08", "Geffen Field",
+		"gef_fild09", "Geffen Field",
+		"gef_fild10", "Geffen Field",
+		"in_orcs01", "Orc Village",
+		"gef_fild11", "Geffen Field",
+		"moc_fild01", "Sograt Desert",
+		"moc_fild02", "Sograt Desert",
+		"moc_fild03", "Sograt Desert",
+		"moc_fild04", "Sograt Desert",
+		"moc_fild05", "Sograt Desert",
+		"moc_fild06", "Sograt Desert",
+		"moc_fild07", "Sograt Desert",
+		"moc_fild08", "Sograt Desert",
+		"moc_fild09", "Sograt Desert",
+		"moc_fild10", "Sograt Desert",
+		"moc_fild11", "Sograt Desert",
+		"moc_fild12", "Sograt Desert",
+		"moc_fild13", "Sograt Desert",
+		"moc_fild14", "Sograt Desert",
+		"moc_fild15", "Sograt Desert",
+		"moc_fild16", "Sograt Desert",
+		"in_moc_16", "Assassin Clan",
+		"moc_fild17", "Sograt Desert",
+		"moc_fild18", "Sograt Desert",
+		"moc_fild19", "Sograt Desert",
+		"pay_fild01", "Payon Forest",
+		"pay_fild02", "Payon Forest",
+		"pay_fild03", "Payon Forest",
+		"pay_fild04", "Payon Forest",
+		"pay_fild05", "Payon Forest",
+		"pay_fild06", "Payon Forest",
+		"pay_fild07", "Payon Forest",
+		"pay_fild08", "Payon Forest",
+		"pay_fild09", "Payon Forest",
+		"pay_fild10", "Payon Forest",
+		"pay_fild11", "Payon Forest",
+		"new_1-1", "Training Ground",
+		"new_2-1", "Training Ground",
+		"new_3-1", "Training Ground",
+		"new_4-1", "Training Ground",
+		"new_5-1", "Training Ground",
+		"new_1-2", "Training Ground",
+		"new_2-2", "Training Ground",
+		"new_3-2", "Training Ground",
+		"new_4-2", "Training Ground",
+		"new_5-2", "Training Ground",
+		"new_1-3", "Training Ground",
+		"new_2-3", "Training Ground",
+		"new_3-3", "Training Ground",
+		"new_4-3", "Training Ground",
+		"new_5-3", "Training Ground",
+		"new_1-4", "Training Ground",
+		"new_2-4", "Training Ground",
+		"new_3-4", "Training Ground",
+		"new_4-4", "Training Ground",
+		"new_5-4", "Training Ground",
+		"anthell01", "Ant Hell",
+		"anthell02", "Ant Hell",
+		"gef_dun00", "Geffen Dungeon",
+		"gef_dun01", "Geffen Dungeon",
+		"gef_dun02", "Geffen Dungeon",
+		"gef_dun03", "Geffenia Dungeon",
+		"iz_dun00", "Undersea Tunnel",
+		"iz_dun01", "Undersea Tunnel",
+		"iz_dun02", "Undersea Tunnel",
+		"iz_dun03", "Undersea Tunnel",
+		"iz_dun04", "Undersea Tunnel",
+		"iz_dun05", "Undersea Tunnel",
+		"in_sphinx1", "Sphinx",
+		"in_sphinx2", "Sphinx",
+		"in_sphinx3", "Sphinx",
+		"in_sphinx4", "Sphinx",
+		"in_sphinx5", "Sphinx",
+		"moc_pryd01", "Pyramid",
+		"moc_pryd02", "Pyramid",
+		"moc_pryd03", "Pyramid",
+		"moc_pryd04", "Pyramid",
+		"moc_pryd05", "Pyramid",
+		"moc_pryd06", "Pyramid",
+		"moc_prydb1", "Thief Guild",
+		"mjo_dun01", "Mjolnir Dead Pit",
+		"mjo_dun02", "Mjolnir Dead Pit",
+		"mjo_dun03", "Mjolnir Dead Pit",
+		"orcsdun01", "Orc Dungeon",
+		"orcsdun02", "Orc Dungeon",
+		"pay_dun00", "Payon Cave",
+		"pay_dun01", "Payon Cave",
+		"pay_dun02", "Payon Cave",
+		"pay_dun03", "Payon Cave",
+		"pay_dun04", "Payon Cave",
+		"prt_maze01", "Labyrinth Forest",
+		"prt_maze02", "Labyrinth Forest",
+		"prt_maze03", "Labyrinth Forest",
+		"prt_sewb1", "Prontera Culvert",
+		"prt_sewb2", "Prontera Culvert",
+		"prt_sewb3", "Prontera Culvert",
+		"prt_sewb4", "Prontera Culvert",
+		"treasure01", "Sunken Ship",
+		"treasure02", "Sunken Ship",
+		"hunter_1-1", "Hunter Guild",
+		"hunter_2-1", "Hunter Guild",
+		"hunter_3-1", "Hunter Guild",
+		"in_hunter", "Hunter Guild",
+		"knight_1-1", "The Chivalry",
+		"knight_2-1", "The Chivalry",
+		"knight_3-1", "The Chivalry",
+		"priest_1-1", "The Sanctum",
+		"priest_2-1", "The Sanctum",
+		"priest_3-1", "The Sanctum",
+		"sword_1-1", "Swordman Test Hall",
+		"sword_2-1", "Swordman Test Hall",
+		"sword_3-1", "Swordman Test Hall",
+		"job_thief1", "Mushroom Farm",
+		"wizard_1-1", "Wizard Academy",
+		"wizard_2-1", "Wizard Academy",
+		"wizard_3-1", "Wizard Academy",
+		"force_1-1", "Time Limit Fight",
+		"force_2-1", "Time Limit Fight",
+		"force_3-1", "Time Limit Fight",
+		"force_1-2", "Time Limit Fight",
+		"force_2-2", "Time Limit Fight",
+		"force_3-2", "Time Limit Fight",
+		"force_1-3", "Time Limit Fight",
+		"force_2-3", "Time Limit Fight",
+		"force_3-3", "Time Limit Fight",
+		"ordeal_1-1", "Battle Ordeal Mode",
+		"ordeal_2-1", "Battle Ordeal Mode",
+		"ordeal_3-1", "Battle Ordeal Mode",
+		"ordeal_1-2", "Battle Ordeal Mode",
+		"ordeal_2-2", "Battle Ordeal Mode",
+		"ordeal_3-2", "Battle Ordeal Mode",
+		"ordeal_1-3", "Battle Ordeal Mode",
+		"ordeal_2-3", "Battle Ordeal Mode",
+		"ordeal_3-3", "Battle Ordeal Mode",
+		"ordeal_1-4", "Battle Ordeal Mode",
+		"ordeal_2-4", "Battle Ordeal Mode",
+		"ordeal_3-4", "Battle Ordeal Mode",
+		"alb_ship", "Alberta Ship",
+		"alberta", "Alberta",
+		"alberta_in", "Alberta",
+		"alb2trea", "Alberta Island",
+		"aldebaran", "Aldebaran",
+		"aldeba_in", "Aldebaran",
+		"gef_tower", "Geffen Tower",
+		"geffen", "Geffen",
+		"geffen_in", "Geffen",
+		"moc_castle", "Morocc Castle",
+		"moc_ruins", "Morocc Ruins",
+		"morocc", "Morocc Town",
+		"morocc_in", "Morocc",
+		"pay_arche", "Archer Village",
+		"payon", "Payon Town",
+		"payon_in01", "Payon",
+		"payon_in02", "Payon",
+		"payon_in03", "Payon",
+		"prt_in", "Prontera",
+		"prt_castle", "Prontera Castle",
+		"prt_church", "The Sanctuary",
+		"izlude", "Izlude Town",
+		"izlude_in", "Izlude",
+		"izlu2dun", "Byalan Island",
+		"monk_in", "St. Abbey",
+		"prt_are_in", "Waiting room",
+		"arena_room", "Waiting room",
+		"prt_arena01", "ARENA",
+		"prt_are01", "ARENA",
+		"glast_01", "Glast Heim",
+		"alde_dun01", "Clock Tower",
+		"alde_dun02", "Clock Tower",
+		"alde_dun03", "Clock Tower",
+		"alde_dun04", "Clock Tower",
+		"c_tower1", "Clock Tower",
+		"c_tower2", "Clock Tower",
+		"c_tower3", "Clock Tower",
+		"c_tower4", "Clock Tower",
+		"gl_cas01", "Glast Heim",
+		"gl_cas02", "Glast Heim",
+		"gl_church", "Glast Heim St. Abbey",
+		"gl_chyard", "Glast Heim Churchyard",
+		"gl_dun01", "The Lowest Cave in Glast Heim",
+		"gl_dun02", "The Lowest Cave in Glast Heim",
+		"gl_in01", "Glast Heim",
+		"gl_knt01", "Glast Heim Chivalry",
+		"gl_knt02", "Glast Heim Chivalry",
+		"gl_prison", "Glast Heim Underprison",
+		"gl_prison1", "Glast Heim Underprison",
+		"gl_sew01", "Glast Heim Culvert",
+		"gl_sew02", "Glast Heim Culvert",
+		"gl_sew03", "Glast Heim Culvert",
+		"gl_sew04", "Glast Heim Culvert",
+		"gl_step", "Glast Heim Staircase Dungeon",
+		"que_job02", "Job Quest",
+		"que_job03", "Job Quest",
+		"ordeal_a00", "Battle Ordeal Mode",
+		"ordeal_a02", "Battle Ordeal Mode",
+		"force_map1", "Time Limit Fight",
+		"force_map2", "Time Limit Fight",
+		"force_map3", "Time Limit Fight",
+		"job_hunter", "Hunter Guild",
+		"job_knight", "The Chivalry",
+		"job_priest", "The Sanctum",
+		"job_sword1", "Swordman Test Hall",
+		"job_wizard", "Wizard Academy",
+		"pvp_room", "PvP : Waiting Room",
+		"que_sign02", "Valley of Gyoll",
+		"g_room1-1", "Quiz Revolution",
+		"g_room1-2", "Quiz Revolution",
+		"g_room1-3", "Quiz Revolution",
+		"g_room2", "Quiz Revolution",
+		"guild_vs1-1", "Guild Arena",
+		"guild_vs1-2", "Guild Arena",
+		"guild_vs1-3", "Guild Arena",
+		"guild_vs1-4", "Guild Arena",
+		"guild_vs2-1", "Guild Arena",
+		"guild_vs2-2", "Guild Arena",
+		"new_zone01", "Training Ground",
+		"new_zone02", "Training Ground",
+		"new_zone03", "Training Ground",
+		"new_zone04", "Training Ground",
+		"que_san04", "Freya's Temple",
+		"prontera_x", "Prontera City, Capital of Rune Midgard",
+		"alberta_x", "Alberta",
+		"aldebaran_x", "Aldebaran",
+		"geffen_x", "Geffen",
+		"izlude_x", "Izlude Town",
+		"prt_church_x", "The Sanctuary",
+		"prontera_s", "Prontera City, Capital of Rune Midgard",
+		"pay_arche_s", "Archer Village",
+		"rwc01", "Ragnarok World Championship",
+		"rwc02", "Ragnarok World Championship",
+		"rwc03", "Ragnarok World Championship",
+		"2007rwc_r", "Ragnarok World Championship Waiting Room",
+		"2007rwc_01", "Ragnarok World Championship",
+		"2007rwc_02", "Ragnarok World Championship",
+		"2007rwc_03", "Ragnarok World Championship",
+		"2007rwc_04", "Ragnarok World Championship",
+		"2007rwc_05", "Ragnarok World Championship",
+		"2007rwc_06", "Ragnarok World Championship",
+		"2007rwc_07", "Ragnarok World Championship",
+		"2007rwc_08", "Ragnarok World Championship",
+		"2007rwc_09", "Ragnarok World Championship",
+		"2007rwc_10", "Ragnarok World Championship",
+		"izlude07", "Izlude Town",
+		"guild_rwc1", "Training Room",
+		"guild_rwc2", "Training Room",
+		"guild_rwc3", "Training Room",
+		"guild_rwc4", "Training Room",
+		"guild_rwc5", "Training Room",
+		"fay_vilg00", "Payon Village",
+		"fay_vilg01", "Payon Village",
+		"gef_vilg00", "Geffen Village",
+		"gef_vilg01", "Geffen Village",
+		"moc_dugn01", "Morocc Dungeon",
+		"moc_dugn02", "Morocc Dungeon",
+		"moc_fild01", "Morocc Field",
+		"moc_fild02", "Morocc Field",
+		"moc_fild03", "Morocc Field",
+		"moc_fild04", "Morocc Field",
+		"moc_intr00", "Morocc",
+		"moc_intr01", "Morocc",
+		"moc_intr02", "Morocc",
+		"moc_intr04", "Morocc",
+		"moc_vilg00", "Morocc Village",
+		"moc_vilg01", "Morocc Village",
+		"moc_vilg02", "Morocc Village",
+		"probemap", "Probe Map",
+		"probemap02", "Probe Map",
+		"prt_cstl01", "Prontera Castle",
+		"prt_dugn00", "Prontera Dungeon",
+		"prt_dugn01", "Prontera Dungeon",
+		"prt_fild00", "Prontera Field",
+		"prt_fild01", "Prontera Field",
+		"prt_fild03", "Prontera Field",
+		"prt_fild04", "Prontera Field",
+		"prt_fild05", "Prontera Field",
+		"prt_intr01", "Prontera",
+		"prt_intr01_a", "Prontera",
+		"prt_intr02", "Prontera",
+		"prt_vilg00", "Prontera Village",
+		"prt_vilg01", "Prontera Village",
+		"prt_vilg02", "Prontera Village",
+		"tank_test", "Tank Test",
+		"tank_test2", "Tank Test",
+		"test", "Test Map",
+		"oldpayon", "Old Payon",
+		"oldpay_in01", "Old Payon",
+		"oldpay_in02", "Old Payon",
+		"xmas_x", "Lutie, the Snow Village",
+		"alberta_d", "Alberta",
+		"holy_gold", "Gold Sanctuary",
+		"holy_silver", "Silver Sanctuary",
+		"darkness_z", "Darkness Island",
+		"baby_para", "Playground",
+		"dragon_nest", "Evil Dragon Nest",
+		"dragon_nes2", "Evil Dragon Nest",
+		"que_new01", "New Year Day Place",
+		"que_new02", "New Year Day Place",
+		"jp_stage_a", "Stage",
+		"jp_castle", "Halloween Castle",
+		"jp_ruins", "Sandy Beach of Ruins",
+		"jp_magic", "House of Magical",
+		"jp_stage_b", "Stage",
+		"jp_dress_a", "Back Stage",
+		"jp_dress_b", "Back Stage",
+		"anothership", "Another Ship",
+		"jp_event02", "Japanese Event",
+		"jp_event03", "Japanese Event",
+		"jp_event04", "Japanese Event",
+		"jp_event05", "Japanese Event",
+		"jp_event06", "Japanese Event",
+		"pvp_2vs2b", "Event Coliseum",
+		"pvp_2vs2c", "Event Coliseum",
+		"room_00", "Room",
+		"room_01", "Room",
+		"room_02", "Room",
+		"moonlight_a", "Moonlight",
+		"guild_vs2pa", "Prontera Room",
+		"guild_vs2pb", "Prontera Room",
+		"guild_vs2pc", "Prontera Room",
+		"guild_vs2ia", "Izlude Room",
+		"guild_vs2ib", "Izlude Room",
+		"guild_vs2ic", "Izlude Room",
+		"guild_vs2ga", "Geffen Room",
+		"guild_vs2gb", "Geffen Room",
+		"guild_vs2gc", "Geffen Room",
+		"guild_vs2ma", "Morocc Room",
+		"guild_vs2mb", "Morocc Room",
+		"guild_vs2mc", "Morocc Room",
+		"tower_a0", "Tower",
+		"tower_a1", "Tower",
+		"tower_a2", "Tower",
+		"tower_a3", "Tower",
+		"tower_a4", "Tower",
+		"tower_a5", "Tower",
+		"tower_a6", "Tower",
+		"tower_a7", "Tower",
+		"tower_a8", "Tower",
+		"tower_a9", "Tower",
+		"tower_a10", "Tower",
+		"tower_a11", "Tower",
+		"tower_a12", "Tower",
+		"tower_b0", "Tower",
+		"tower_b1", "Tower",
+		"tower_b2", "Tower",
+		"tower_b3", "Tower",
+		"tower_b4", "Tower",
+		"tower_b5", "Tower",
+		"tower_b6", "Tower",
+		"tower_b7", "Tower",
+		"tower_b8", "Tower",
+		"tower_b9", "Tower",
+		"tower_b10", "Tower",
+		"tower_b11", "Tower",
+		"tower_b12", "Tower",
+		"tower_c0", "Tower",
+		"tower_c1", "Tower",
+		"tower_c2", "Tower",
+		"tower_c3", "Tower",
+		"tower_c4", "Tower",
+		"tower_c5", "Tower",
+		"tower_c6", "Tower",
+		"tower_c7", "Tower",
+		"tower_c8", "Tower",
+		"tower_c9", "Tower",
+		"tower_c10", "Tower",
+		"tower_c11", "Tower",
+		"tower_c12", "Tower",
+		"tower_d0", "Tower",
+		"tower_d1", "Tower",
+		"tower_d2", "Tower",
+		"tower_d3", "Tower",
+		"tower_d4", "Tower",
+		"tower_d5", "Tower",
+		"tower_d6", "Tower",
+		"tower_d7", "Tower",
+		"tower_d8", "Tower",
+		"tower_d9", "Tower",
+		"tower_d10", "Tower",
+		"tower_d11", "Tower",
+		"tower_d12", "Tower",
+		"que_moon", "Moon Palace",
+		"que_moc_16", "Moon Palace",
+		"ein_polu", "Indoor",
+		"poring_c01", "Poring Waiting Room",
+		"poring_c02", "Poring Market",
+		"gl_in01_ev", "Event Crazy Drops",
+		"evt_zombie", "Run From Zombies",
+		"arcadanias", "Arcadanias, Satellite World",
+		"pvp_y_room", "PvP : Waiting Room",
+		"pvp_n_room", "PvP : Waiting Room",
+		"pvp_c_room", "PvP : Waiting Room",
+		"pvp_n_1-1", "PvP : Room Sandwich",
+		"pvp_n_2-1", "PvP : Room Sandwich",
+		"pvp_n_3-1", "PvP : Room Sandwich",
+		"pvp_n_4-1", "PvP : Room Sandwich",
+		"pvp_n_5-1", "PvP : Room Sandwich",
+		"pvp_n_6-1", "PvP : Room Sandwich",
+		"pvp_n_7-1", "PvP : Room Sandwich",
+		"pvp_n_8-1", "PvP : Room Sandwich",
+		"pvp_n_1-2", "PvP : Room Rock On",
+		"pvp_n_2-2", "PvP : Room Rock On",
+		"pvp_n_3-2", "PvP : Room Rock On",
+		"pvp_n_4-2", "PvP : Room Rock On",
+		"pvp_n_5-2", "PvP : Room Rock On",
+		"pvp_n_6-2", "PvP : Room Rock On",
+		"pvp_n_7-2", "PvP : Room Rock On",
+		"pvp_n_8-2", "PvP : Room Rock On",
+		"pvp_n_1-3", "PvP : Four Room",
+		"pvp_n_2-3", "PvP : Four Room",
+		"pvp_n_3-3", "PvP : Four Room",
+		"pvp_n_4-3", "PvP : Four Room",
+		"pvp_n_5-3", "PvP : Four Room",
+		"pvp_n_6-3", "PvP : Four Room",
+		"pvp_n_7-3", "PvP : Four Room",
+		"pvp_n_8-3", "PvP : Four Room",
+		"pvp_n_1-4", "PvP : Room Undercross",
+		"pvp_n_2-4", "PvP : Room Undercross",
+		"pvp_n_3-4", "PvP : Room Undercross",
+		"pvp_n_4-4", "PvP : Room Undercross",
+		"pvp_n_5-4", "PvP : Room Undercross",
+		"pvp_n_6-4", "PvP : Room Undercross",
+		"pvp_n_7-4", "PvP : Room Undercross",
+		"pvp_n_8-4", "PvP : Room Undercross",
+		"pvp_n_1-5", "PvP : Room Copass",
+		"pvp_n_2-5", "PvP : Room Copass",
+		"pvp_n_3-5", "PvP : Room Copass",
+		"pvp_n_4-5", "PvP : Room Copass",
+		"pvp_n_5-5", "PvP : Room Copass",
+		"pvp_n_6-5", "PvP : Room Copass",
+		"pvp_n_7-5", "PvP : Room Copass",
+		"pvp_n_8-5", "PvP : Room Copass",
+		"pvp_y_1-1", "PvP : Room Prontera",
+		"pvp_y_2-1", "PvP : Room Prontera",
+		"pvp_y_3-1", "PvP : Room Prontera",
+		"pvp_y_4-1", "PvP : Room Prontera",
+		"pvp_y_5-1", "PvP : Room Prontera",
+		"pvp_y_6-1", "PvP : Room Prontera",
+		"pvp_y_7-1", "PvP : Room Prontera",
+		"pvp_y_8-1", "PvP : Room Prontera",
+		"pvp_y_1-2", "PvP : Room Izlude",
+		"pvp_y_2-2", "PvP : Room Izlude",
+		"pvp_y_3-2", "PvP : Room Izlude",
+		"pvp_y_4-2", "PvP : Room Izlude",
+		"pvp_y_5-2", "PvP : Room Izlude",
+		"pvp_y_6-2", "PvP : Room Izlude",
+		"pvp_y_7-2", "PvP : Room Izlude",
+		"pvp_y_8-2", "PvP : Room Izlude",
+		"pvp_y_1-3", "PvP : Room Payon",
+		"pvp_y_2-3", "PvP : Room Payon",
+		"pvp_y_3-3", "PvP : Room Payon",
+		"pvp_y_4-3", "PvP : Room Payon",
+		"pvp_y_5-3", "PvP : Room Payon",
+		"pvp_y_6-3", "PvP : Room Payon",
+		"pvp_y_7-3", "PvP : Room Payon",
+		"pvp_y_8-3", "PvP : Room Payon",
+		"pvp_y_1-4", "PvP : Room Alberta",
+		"pvp_y_2-4", "PvP : Room Alberta",
+		"pvp_y_3-4", "PvP : Room Alberta",
+		"pvp_y_4-4", "PvP : Room Alberta",
+		"pvp_y_5-4", "PvP : Room Alberta",
+		"pvp_y_6-4", "PvP : Room Alberta",
+		"pvp_y_7-4", "PvP : Room Alberta",
+		"pvp_y_8-4", "PvP : Room Alberta",
+		"pvp_y_1-5", "PvP : Room Morocc",
+		"pvp_y_2-5", "PvP : Room Morocc",
+		"pvp_y_3-5", "PvP : Room Morocc",
+		"pvp_y_4-5", "PvP : Room Morocc",
+		"pvp_y_5-5", "PvP : Room Morocc",
+		"pvp_y_6-5", "PvP : Room Morocc",
+		"pvp_y_7-5", "PvP : Room Morocc",
+		"pvp_y_8-5", "PvP : Room Morocc",
+		"pvp_2vs2", "PvP : Event Coliseum";
+
+	freeloop(1);
+	for(.@i = 0; .@i < getarraysize(.FullList$); .@i +=2){
+		$@Mapnames$[getarraysize($@Mapnames$)] = .FullList$[.@i];
+		$@Mapnames2$[getarraysize($@Mapnames2$)] = .FullList$[.@i+1];
+	}
+	freeloop(0);
+}
+function	script	F_Pages	{
+
+	explode(.@pg_array$,getarg(0),":"); // Re-Saving string into Array
+	set .@pg_count,getarraysize(.@pg_array$)/getarg(1); // Calculating max pages based on getarg(1)
+	if(!.@pg_count) 
+		set .@pg_count,1;
+
+	set .@cur_pg,1;
+	
+	while(1) {
+		if(.@cur_pg == 1) 
+			set .@p,0;
+		else
+			set .@p,.@c+(getarg(1)*(.@cur_pg-1));
+			
+		if(.@cur_pg > 1 && .@cur_pg < .@pg_count) {
+			set .@q_pg$,":- Next Page:- Previous Page";
+			set .@pg_opt,2;
+		} else if(.@cur_pg > 1 && .@cur_pg == .@pg_count) {
+			set .@q_pg$,":- Previous Page";
+			set .@pg_opt,3;
+		} else if(.@cur_pg == 1 && .@cur_pg < .@pg_count) {
+			set .@q_pg$,":- Next Page";
+			set .@pg_opt,1;
+		} else { // Only when there are not more than getarg(1) entries
+			set .@q_pg$,"";
+			set .@pg_opt,0;
+		}
+		set .@pg_m$,"";
+		set .@e_ct,0;
+		for ( set .@q,.@p; .@q < getarraysize(.@pg_array$); set .@q,.@q + 1) {
+			if((.@q+1)%getarg(1) == 0) break;
+			set .@pg_m$,.@pg_m$ + .@pg_array$[.@q] + ( (.@pg_array$[.@q+1] != "")?":":"");
+			set .@e_ct,.@e_ct + 1;
+		}
+
+		set .@pg_m$,.@pg_m$ + .@q_pg$;
+		set .@c,select(.@pg_m$) - 1;
+		if((.@c*.@cur_pg)/.@e_ct > 0) {
+			switch(.@pg_opt) {
+				case 1: set .@cur_pg,.@cur_pg + 1; break;
+				case 2:
+				if(.@c%.@e_ct == 1)
+					set .@cur_pg,.@cur_pg + 1;
+				else if(.@c%.@e_ct == 2)
+					set .@cur_pg,.@cur_pg - 1;
+				break;
+				case 3: set .@cur_pg,.@cur_pg - 1; break;
+			}
+			continue;
+		} else 
+			break;
+	}
+return .@c;
+}
