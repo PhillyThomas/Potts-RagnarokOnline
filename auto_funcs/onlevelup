@@ -1,0 +1,146 @@
+-	script	autoevent#onlevelup	-1,{
+
+	function ExpCheck;
+	function HC_Update;
+	function NewbieCheck;
+	function MaxLevelCheck;
+
+//=================================================================================//
+//	Script to run when the player levels up
+//	-	Checks if the player is a GM, in the tutorial, or on a HC playthrough
+//	-	Checks to see what level the player is, and rewards them accordingly
+//	-	Checks to see if the player is now max level, and updates the rankings 
+//=================================================================================//
+OnPCBaseLvUpEvent:
+	ExpCheck;
+	HC_Update;
+	NewbieCheck;
+	MaxLevelCheck;
+	end;
+
+//=================================================================================//
+//	Function to provide an EXP buff when levelling up
+//=================================================================================//
+//	- Runs whenever a player levels up (after level 99/100)
+//=================================================================================//
+function ExpCheck {
+		//message strcharinfo(0),"Level Up Boost Active!";
+		specialeffect2 9;
+		specialeffect2 41;
+		if( getstatus( SC_EXPBOOST,0 ) ){
+			set .@bufftime,(getstatus(SC_EXPBOOST,5)+getarg(0));
+			sc_start SC_EXPBOOST,.@bufftime,100;
+			return;
+		} else {
+			sc_start SC_EXPBOOST,getarg(0),100;
+			return;
+		}
+}
+//=================================================================================//
+//	Updates hardcorelog DB with new player level, and runs level up bonus on HC
+//=================================================================================//
+function HC_Update{
+	if(!getgmlevel() && BRPDeathTog == 1){  
+		query_sql("UPDATE `hardcorelog` SET `char_lvl` = " + BaseLevel + ", `name` = '" + strcharinfo(0) + "'  WHERE char_id = " + getcharid(0) + "");
+		if(BaseLevel > 99){
+			//getitem 674,1;
+			set .@rz,rand(1000,10000);
+			set Zeny,Zeny+.@rz;
+			sc_start SC_BLESSING,240000,10;
+			sc_start SC_INCREASEAGI,240000,10;
+			//dispbottom "[BlitzRO]: Hardcore Mode level-up bonus:",0xFFA100;
+			//dispbottom "[BlitzRO]: 1x Mythril Coin & "+callfunc("F_InsertComma",.@rz)+"z",0xFFA100;
+			ExpCheck(60000); } else {
+			set .@rz,rand(1000,5000);
+			set Zeny,Zeny+.@rz;
+			sc_start SC_BLESSING,240000,10;
+			sc_start SC_INCREASEAGI,240000,10;
+			ExpCheck(60000);
+			end;
+		} 
+	} 
+	return;
+}
+//=================================================================================//
+//	Tutorial message
+//=================================================================================//
+function NewbieCheck{
+	if(newbiequest && Class == NOVICE && SkillPoint && !SkillPointNotice) {
+		set SkillPointNotice,1;
+		emotion E_QUESTION,1;
+		mes "[^FF0000 TUTORIAL^000000 ]";
+		mes "You've leveled up! You're ready to apply skill points.";
+		mes " ";
+		mes "Use ^FF0000ALT^000000+'^FF0000S^000000' to spend your skill points!";
+		close;
+	}
+	if(!SkillPoint && SkillPointNotice) {
+	set SkillPointNotice,0; // clean up variable resource
+	}
+return;
+}
+//=================================================================================//
+//	Checks to see if a player has reached max level and rewards them accordingly
+//=================================================================================//
+function MaxLevelCheck{
+	if(BaseLevel == 175){
+		if(BRPDeathTog == 1) {
+			if(!getgmlevel()){ 
+				query_sql("SELECT `char_id`,`start_date` FROM `hardcorelog` WHERE char_id = " + getcharid(0) + "",.@ccharid,.@cstart);
+				.@diff = gettimetick(2)-.@cstart[0];
+				callfunc("RankCheck",8,strcharinfo(0),.@diff,getcharid(0));
+				query_sql("UPDATE `hardcorelog` SET `completion_date` = " + gettimetick(2) + ", `diff` = " + .@diff + " WHERE char_id = " + getcharid(0) + ""); 
+			}
+			
+			//	.@caprew[0]		=	Reward Item ID's for max level on a HC playthrough
+			//	.@caprewamt[0]	=	Reward amounts for each item
+	
+			if($MCV_MCTot >= 25000){ .@mc_amt = 50; }
+			if($MCV_MCTot >= 12500){ .@mc_amt = 75; }
+			if($MCV_MCTot >= 7500){ .@mc_amt = 100; }
+			if($MCV_MCTot < 7500){ .@mc_amt = 200; } 
+
+			setarray .@caprew[0],674,30045,616,30044,30053;
+			setarray .@caprewamt[0],.@mc_amt,25,50,50,5;
+			
+			announce "[BlitzRO]: Congratulations! '"+strcharinfo(0)+"' has reached level 175 whilst on a hardcore playthrough!",bc_all,0xc4ff5e;
+			callfunc("F_DCMes","Congratulations! '**"+strcharinfo(0)+"**' has reached level 175 whilst on a hardcore playthrough!",1);
+			dispbottom "-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-",0xFFA100;
+			dispbottom "[BlitzRO]: Congratulations on hitting max level!",0xFFA100;
+			dispbottom "[BlitzRO]: Especially on a hardcore mode playthrough!",0xFFA100;
+			dispbottom "[BlitzRO]: We hope you enjoy these rewards:",0xFFA100;
+			dispbottom "[BlitzRO]: Zeny x5,000,000",0x4af0dc;
+			set Zeny,Zeny+5000000;
+				for(.@i = 0; .@i < getarraysize(.@caprew); .@i++){
+					getitem .@caprew[.@i],.@caprewamt[.@i]; 
+					dispbottom "[BlitzRO]: "+getitemname(.@caprew[.@i])+" x"+.@caprewamt[.@i],0x4af0dc;
+				}
+			dispbottom "-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-",0xFFA100;
+			return;
+		} else {
+		
+		//	.@caprew[0]		=	Reward Item ID's for max level on a HC playthrough
+		//	.@caprewamt[0]	=	Reward amounts for each item
+
+		if($MCV_MCTot >= 25000){ .@mc_amt = 25; }
+		if($MCV_MCTot >= 12500){ .@mc_amt = 50; }
+		if($MCV_MCTot >= 7500){ .@mc_amt = 75; }
+		if($MCV_MCTot < 7500){ .@mc_amt = 100; } 
+
+		setarray .@caprew[0],674,30045,616,30044,30053;
+		setarray .@caprewamt[0],.@mc_amt,10,25,25,2;
+		
+		announce "[BlitzRO]: Congratulations '"+strcharinfo(0)+"' on reached level 175!",bc_all,0xc4ff5e;
+		dispbottom "-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-",0xFFA100;
+		dispbottom "[BlitzRO]: Congratulations on hitting max level!",0xFFA100;
+		dispbottom "[BlitzRO]: We hope you enjoy these rewards:",0xFFA100;
+			for(.@i = 0; .@i < getarraysize(.@caprew); .@i++){
+				getitem .@caprew[.@i],.@caprewamt[.@i]; 
+				dispbottom "[BlitzRO]: "+getitemname(.@caprew[.@i])+" x"+.@caprewamt[.@i],0x4af0dc;
+			}
+		dispbottom "-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-~=~-",0xFFA100;
+		return;
+		}
+	} else { return; }
+}
+}
