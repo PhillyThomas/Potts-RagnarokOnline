@@ -1,0 +1,2212 @@
+prt_in,111,78,3	script	Coin Vendor::bromcoinv	10180,{
+
+set .name$, "[^b34409Coin Vendor^000000]";
+	mes .name$;
+	mes "I can use Mythril Coins to materialize new and amazing items! Would you like to change your coins?";
+	menu	" ^0058b5~^000000 Helms",CV_Helms, " ^0058b5~^000000 Usables",CV_Items, " ^0058b5~^000000 Costumes",CV_Costumes, " ^0058b5~^000000 Cards",CV_Cards, "^FF0000Cancel^000000",-;
+		clear;
+		mes .name$;
+		mes "See you soon!";
+		close;
+CV_Helms:
+	clear;
+	mes .name$;
+	mes "Please select what you'd like to purchase!";
+		menu		"^b34409Academy Freshman Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H16,
+					"^b34409Academy Graduation Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H17,
+					"^b34409Alice Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H18,
+					"^b34409Ancient Horns^000000 [^0945b3"+.HatCost+" Coins^000000]",H55,
+					"^b34409Anubis Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H19,
+					"^b34409Aquarius Crown^000000 [^0945b3"+.HatCost+" Coins^000000]",H20,
+					"^b34409Aries Crown^000000 [^0945b3"+.HatCost+" Coins^000000]",H21,
+					"^b34409Ashure Fairy Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H22,
+					"^b34409Baby Chick Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H23,
+					"^b34409Baphomet Horns^000000 [^0945b3"+.HatCost+" Coins^000000]",H24,
+					"^b34409Bell Ribbon^000000 [^0945b3"+.HatCost+" Coins^000000]",H25,
+					"^b34409Blue Arara Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H26,
+					"^b34409Blue Pyjama Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H27,
+					"^b34409Bunny Top Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H28,
+					"^b34409Cancer Crown^000000 [^0945b3"+.HatCost+" Coins^000000]",H29,
+					"^b34409Capricorn Crown^000000 [^0945b3"+.HatCost+" Coins^000000]",H30,
+					"^b34409Cat Ears Beret^000000 [^0945b3"+.HatCost+" Coins^000000]",H31,
+					"^b34409Crown of Deceit^000000 [^0945b3"+.HatCost+" Coins^000000]",H32,
+					"^b34409Crunch Toast^000000 [^0945b3"+.HatCost+" Coins^000000]",H33,
+					"^b34409Dark Randgris Helm^000000 [^0945b3"+.HatCost+" Coins^000000]",H34,
+					"^b34409Desert Prince^000000 [^0945b3"+.HatCost+" Coins^000000]",H35,
+					"^b34409Dice Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H36,
+					"^b34409Dolor Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H37,
+					"^b34409Dragon Arhat Mask^000000 [^0945b3"+.HatCost+" Coins^000000]",H38,
+					"^b34409Duneyrr Helm^000000 [^0945b3"+.HatCost+" Coins^000000]",H39,
+					"^b34409Evolved Drooping Cat^000000 [^0945b3"+.HatCost+" Coins^000000]",H40,
+					"^b34409Evolved Orc Helm^000000 [^0945b3"+.HatCost+" Coins^000000]",H41,
+					"^b34409Evolved Rabbits Headband^000000 [^0945b3"+.HatCost+" Coins^000000]",H42,
+					"^b34409Fish Head Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H46,
+					"^b34409Flapping Angel Wings^000000 [^0945b3"+.HatCost+" Coins^000000]",H47,
+					"^b34409Flying Evil Wings^000000 [^0945b3"+.HatCost+" Coins^000000]",H48,
+					"^b34409Frog King Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H49,
+					"^b34409Fur Seal Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H51,
+					"^b34409Gemini Crown^000000 [^0945b3"+.HatCost+" Coins^000000]",H52,
+					"^b34409Gentlemans Pipe^000000 [^0945b3"+.HatCost+" Coins^000000]",H53,
+					"^b34409Green Bunny Band^000000 [^0945b3"+.HatCost+" Coins^000000]",H54,
+					"[^FF0000 NEXT ^000000]",-;
+					menu	"^b34409Ice Cream Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H56,
+							"^b34409Ice Wing Ears^000000 [^0945b3"+.HatCost+" Coins^000000]",H45,
+							"^b34409Jaguar Mask^000000 [^0945b3"+.HatCost+" Coins^000000]",H58,
+							"^b34409Kwati Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H60,
+							"^b34409Leaf Cat Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H61,
+							"^b34409Leo Crown^000000 [^0945b3"+.HatCost+" Coins^000000]",H43,
+							"^b34409Libra Crown^000000 [^0945b3"+.HatCost+" Coins^000000]",H62,
+							"^b34409Love Daddy Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H63,
+							"^b34409Lunatic Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H64,
+							"^b34409Magic Rabbit Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H65,
+							"^b34409Neko Mimi^000000 [^0945b3"+.HatCost+" Coins^000000]",H66,
+							"^b34409Note Headphones^000000 [^0945b3"+.HatCost+" Coins^000000]",H67,
+							"^b34409Octopus Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H68,
+							"^b34409Peco Peco Hairband^000000 [^0945b3"+.HatCost+" Coins^000000]",H69,
+							"^b34409Pink Bunny Band^000000 [^0945b3"+.HatCost+" Coins^000000]",H70,
+							"^b34409Pink Pyjamas Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H71,
+							"^b34409Pirates Pride^000000 [^0945b3"+.HatCost+" Coins^000000]",H72,
+							"^b34409Pisces Crown^000000 [^0945b3"+.HatCost+" Coins^000000]",H73,
+							"^b34409Pizza Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H73,
+							"^b34409Power of Thor^000000 [^0945b3"+.HatCost+" Coins^000000]",H15,					
+							"^b34409Raven Cap^000000 [^0945b3"+.HatCost+" Coins^000000]",H13, 
+							"^b34409Ramen Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H12, 
+							"^b34409Red Beret^000000 [^0945b3"+.HatCost+" Coins^000000]",H57,
+							"^b34409Red Wing Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H11, 
+							"^b34409Robo Eyes^000000 [^0945b3"+.HatCost+" Coins^000000]",H10, 
+							"^b34409Sagittarius Crown^000000 [^0945b3"+.HatCost+" Coins^000000]",H9, 
+							"^b34409Santa Poring Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H8, 
+							"^b34409Scarlet Rose^000000 [^0945b3"+.HatCost+" Coins^000000]",H6, 
+							"^b34409Scorpio Crown^000000 [^0945b3"+.HatCost+" Coins^000000]",H7, 
+							"^b34409Scuba Mask^000000 [^0945b3"+.HatCost+" Coins^000000]",H1, 
+							"^b34409Shark Hat^000000 [^0945b310 Coin^000000]",H2, 
+							"^b34409Sigruns Wings^000000 [^0945b310 Coin^000000]",H50,
+							"^b34409Sloth Hat^000000 [^0945b310 Coin^000000]",H44, 
+							"^b34409Snowman Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H3, 
+							"^b34409Taurus Crown^000000 [^0945b3"+.HatCost+" Coins^000000]",H4,
+							"^b34409Tiger Doll Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H59,
+							"^b34409Triple Poring Hat^000000 [^0945b3"+.HatCost+" Coins^000000]",H14,					
+							"^b34409Whisper Mask^000000 [^0945b3"+.HatCost+" Coins^000000]",H5, 
+							"[ ^FF0000Cancel^000000 ]",CVBye;
+		
+H1: callfunc "Mythril_Check",.name$,.HatCost,5397,1;
+H2: callfunc "Mythril_Check",.name$,.HatCost,5508,1;
+H3: callfunc "Mythril_Check",.name$,.HatCost,5738,1;
+H4: callfunc "Mythril_Check",.name$,.HatCost,5549,1;
+H5: callfunc "Mythril_Check",.name$,.HatCost,5294,1;
+H6: callfunc "Mythril_Check",.name$,.HatCost,5548,1;
+H7: callfunc "Mythril_Check",.name$,.HatCost,5676,1;
+H8: callfunc "Mythril_Check",.name$,.HatCost,5381,1;
+H9: callfunc "Mythril_Check",.name$,.HatCost,5739,1; 
+H10: callfunc "Mythril_Check",.name$,.HatCost,5325,1; 
+H11: callfunc "Mythril_Check",.name$,.HatCost,5690,1; 
+H12: callfunc "Mythril_Check",.name$,.HatCost,5293,1;
+H13: callfunc "Mythril_Check",.name$,.HatCost,5530,1;
+H14: callfunc "Mythril_Check",.name$,.HatCost,5255,1;
+H15: callfunc "Mythril_Check",.name$,.HatCost,5495,1; 
+H16: callfunc "Mythril_Check",.name$,.HatCost,5406,1;
+H17: callfunc "Mythril_Check",.name$,.HatCost,5407,1;
+H18: callfunc "Mythril_Check",.name$,.HatCost,5137,1;
+H19: callfunc "Mythril_Check",.name$,.HatCost,5490,1;
+H20: callfunc "Mythril_Check",.name$,.HatCost,5513,1;
+H21: callfunc "Mythril_Check",.name$,.HatCost,5546,1;
+H22: callfunc "Mythril_Check",.name$,.HatCost,5505,1;
+H23: callfunc "Mythril_Check",.name$,.HatCost,5283,1;
+H24: callfunc "Mythril_Check",.name$,.HatCost,5374,1;
+H25: callfunc "Mythril_Check",.name$,.HatCost,5382,1;
+H26: callfunc "Mythril_Check",.name$,.HatCost,5778,1;
+H27: callfunc "Mythril_Check",.name$,.HatCost,5506,1;
+H28: callfunc "Mythril_Check",.name$,.HatCost,5378,1;
+H29: callfunc "Mythril_Check",.name$,.HatCost,5582,1;
+H30: callfunc "Mythril_Check",.name$,.HatCost,5744,1;
+H31: callfunc "Mythril_Check",.name$,.HatCost,18600,1;
+H32: callfunc "Mythril_Check",.name$,.HatCost,5564,1;
+H33: callfunc "Mythril_Check",.name$,.HatCost,5391,1;
+H34: callfunc "Mythril_Check",.name$,.HatCost,5373,1;
+H35: callfunc "Mythril_Check",.name$,.HatCost,5591,1;
+H36: callfunc "Mythril_Check",.name$,.HatCost,5496,1;
+H37: callfunc "Mythril_Check",.name$,.HatCost,5563,1;
+H38: callfunc "Mythril_Check",.name$,.HatCost,5565,1;
+H39: callfunc "Mythril_Check",.name$,.HatCost,5762,1;
+H40: callfunc "Mythril_Check",.name$,.HatCost,5372,1;
+H41: callfunc "Mythril_Check",.name$,.HatCost,5375,1;
+H42: callfunc "Mythril_Check",.name$,.HatCost,5378,1;
+H43: callfunc "Mythril_Check",.name$,.HatCost,5588,1;
+H44: callfunc "Mythril_Check",.name$,.HatCost,5761,1;
+H45: callfunc "Mythril_Check",.name$,.HatCost,5610,1;
+H46: callfunc "Mythril_Check",.name$,.HatCost,5380,1;
+H47: callfunc "Mythril_Check",.name$,.HatCost,5210,1;
+H48: callfunc "Mythril_Check",.name$,.HatCost,5376,1;
+H49: callfunc "Mythril_Check",.name$,.HatCost,5528,1;
+H50: callfunc "Mythril_Check",.name$,.HatCost,5592,1;
+H51: callfunc "Mythril_Check",.name$,.HatCost,5556,1;
+H52: callfunc "Mythril_Check",.name$,.HatCost,5570,1;
+H53: callfunc "Mythril_Check",.name$,.HatCost,5377,1;
+H54: callfunc "Mythril_Check",.name$,.HatCost,5785,1;
+H55: callfunc "Mythril_Check",.name$,.HatCost,18595,1;
+H56: callfunc "Mythril_Check",.name$,.HatCost,5500,1;
+H57: callfunc "Mythril_Check",.name$,.HatCost,5580,1;
+H58: callfunc "Mythril_Check",.name$,.HatCost,5539,1;
+H59: callfunc "Mythril_Check",.name$,.HatCost,5497,1;
+H60: callfunc "Mythril_Check",.name$,.HatCost,5537,1;
+H61: callfunc "Mythril_Check",.name$,.HatCost,5555,1;
+H62: callfunc "Mythril_Check",.name$,.HatCost,5662,1;
+H63: callfunc "Mythril_Check",.name$,.HatCost,5489,1;
+H64: callfunc "Mythril_Check",.name$,.HatCost,5527,1;
+H65: callfunc "Mythril_Check",.name$,.HatCost,5503,1;
+H66: callfunc "Mythril_Check",.name$,.HatCost,5099,1;
+H67: callfunc "Mythril_Check",.name$,.HatCost,5151,1;
+H68: callfunc "Mythril_Check",.name$,.HatCost,5554,1;
+H69: callfunc "Mythril_Check",.name$,.HatCost,5286,1;
+H70: callfunc "Mythril_Check",.name$,.HatCost,5784,1;
+H71: callfunc "Mythril_Check",.name$,.HatCost,5507,1;
+H72: callfunc "Mythril_Check",.name$,.HatCost,5501,1;
+H73: callfunc "Mythril_Check",.name$,.HatCost,5515,1;
+H74: callfunc "Mythril_Check",.name$,.HatCost,5499,1;
+
+CV_Items:
+	clear;
+	mes .name$;
+	mes "Please select what you'd like to purchase!";
+		menu		"^b34409Field Manual 300%^000000 x2 [^0945b37 Coins^000000]",P8, 
+					"^b34409Jewelry Box^000000 x2 [^0945b31 Coins^000000]",P4,
+					"^b34409Kafra Card^000000 x30 [^0945b35 Coins^000000]",P9,
+					"^b34409Old Card Album^000000 [^0945b33 Coins^000000]",P1, 
+					"^b34409Old Red Box^000000 [^0945b32 Coins^000000]",P2, 
+					"^b34409Poring Transformation Box^000000 [^0945b31 Coin^000000]",P6,
+					"^b34409Life Insurance^000000 x5 [^0945b32 Coins^000000]",P7, 					
+					"^b34409Wrapped Mask^000000 [^0945b32 Coins^000000]",P3, 
+					"^b34409Ygg Berries^000000 x10 [^0945b31 Coin^000000]",P5,
+					"^FF0000Cancel^000000",-;
+		clear;
+		mes .name$;
+		mes "See you soon!";
+		close;
+P1: callfunc "Mythril_Check",.name$,3,616,1;
+P2: callfunc "Mythril_Check",.name$,2,12186,1;
+P3: callfunc "Mythril_Check",.name$,2,12107,1;
+P4: callfunc "Mythril_Check",.name$,1,12106,2;
+P5: callfunc "Mythril_Check",.name$,1,14232,1;
+P6: callfunc "Mythril_Check",.name$,1,17042,1;
+P7: callfunc "Mythril_Check",.name$,2,12209,5;
+P8: callfunc "Mythril_Check",.name$,7,14545,2;
+P9: callfunc "Mythril_Check",.name$,5,12211,30;
+
+CV_Costumes:
+	clear;
+	mes .name$;
+	mes "We have a LOT of costumes! Which would you like to browse?";
+switch(select("A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P:Q:R:S:T:U:V:W:X:Y:Z:Cancel")){
+case 1:
+	menu		"^b3440910th Anni Poring Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS1,
+				"^b3440912 Anniversary Crown of Saint^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS2,
+				"^b3440912 Anniversary Elf Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS3,
+				"^b344093D Glasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS4,
+				"^b3440993 Style Bloody Wings^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS5,
+				"^b34409Abacus In Mouth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS6,
+				"^b34409Abysmal KnighHelm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS7,
+				"^b34409Adventurer's Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS8,
+				"^b34409Aerial^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS9,
+				"^b34409AFK Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS10,
+				"^b34409Alarm Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS11,
+				"^b34409Alice Doll^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS12,
+				"^b34409Flaming Ten Gallon Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS13,
+				"^b34409Alpaca Hood^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS14,
+				"^b34409Alphonse Helmet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS15,
+				"^b34409Amistr^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS16,
+				"^b34409Amistr Beret^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS17,
+				"^b34409Analyze Eye^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS18,
+				"^b34409AncienElven Ear^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS19,
+				"^b34409AncienHorns^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS20,
+				"^b34409Angel Guidance^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS21,
+				"^b34409Angel Marcher Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS22,
+				"^b34409Angel Mini Silk Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS23,
+				"[^FF0000 NEXT ^000000]",-;
+				menu	"^b34409Angel of Ghost^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS24,
+						"^b34409Angel Stair^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS25,
+						"^b34409Angel Wing^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS26,
+						"^b34409Angel Wing Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS27,
+						"^b34409Angeling Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS28,
+						"^b34409Angeling Pin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS29,
+						"^b34409Angelring Furhat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS30,
+						"^b34409Angry Snarl^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS31,
+						"^b34409Annoyed Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS32,
+						"^b34409Antlers^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS33,
+						"^b34409Anubis Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS34,
+						"^b34409Apple of Archer^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS35,
+						"^b34409April's Fool Day^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS36,
+						"^b34409Aqua Ten Gallon Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS37,
+						"^b34409Arabian Veil^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS38,
+						"^b34409Arc Angeling Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS39,
+						"^b34409Army Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS40,
+						"^b34409Asara Fairy Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS41,
+						"^b34409Ascension Black Dragon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS42,
+						"^b34409Assassin Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS43,
+						"^b34409Ati Atihan^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS44,
+						"^b34409Aura Quartz^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS45,
+						"^b34409Aura Vicious Mind^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS46,
+						"^b34409Autumn Leaves^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS47,
+						"^b34409Ayothaya Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS48,
+						"[ ^FF0000Cancel^000000 ]",CVBye;
+case 2:
+	menu	"^b34409Baby Chick^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS49,
+			"^b34409Baby Dragon Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS50,
+			"^b34409Baby Pacifier^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS51,
+			"^b34409Balloon Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS52,
+			"^b34409Bandana^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS53,
+			"^b34409Bankruptcy Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS54,
+			"^b34409Banshee Master Kiss^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS55,
+			"^b34409Bao Bao^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS56,
+			"^b34409BaphomeHat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS57,
+			"^b34409Baron's Evil Eye^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS58,
+			"^b34409Baseball Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS59,
+			"^b34409Beanie^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS60,
+			"^b34409Beelzebub Crown^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS61,
+			"^b34409Beer Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS62,
+			"^b34409Beginner Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS63,
+			"^b34409Bell of Piegon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS64,
+			"^b34409Bell Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS65,
+			"^b34409BereOf Artist^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS66,
+			"^b34409Big Golden Bell^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS67,
+			"^b34409Big Hibiscus^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS68,
+			"^b34409Big Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS69,
+			"[^FF0000 NEXT ^000000]",-;
+			menu	"^b34409Bijofnil Wings^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS70,
+					"^b34409Bijou Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS71,
+					"^b34409Binoculars^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS72,
+					"^b34409Bird NesHat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS73,
+					"^b34409Biretta^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS74,
+					"^b34409Black CaEars^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS75,
+					"^b34409Black CaEars Beret^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS76,
+					"^b34409Black CaHat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS77,
+					"^b34409Black Devil Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS78,
+					"^b34409Black Glasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS79,
+					"^b34409Black Musang Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS80,
+					"^b34409Black RabbiBonnet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS81,
+					"^b34409Black RabbiHeadband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS82,
+					"^b34409Black Ramen Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS83,
+					"^b34409Black Shiba Inu Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS84,
+					"^b34409Black Strong Hair^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS85,
+					"^b34409Black Tail Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS86,
+					"^b34409Blank Eyes^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS87,
+					"^b34409Blazing Soul^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS88,
+					"^b34409Blazing Sun^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS89,
+					"^b34409Blessing of Angel^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS90,
+					"^b34409Blind Glasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS91,
+					"[^FF0000 NEXT ^000000]",-;
+					menu	"^b34409Blinker^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS92,
+							"^b34409Blood Sucker^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS93,
+							"^b34409Bloom Hairpin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS94,
+							"^b34409Blue Brain Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS95,
+							"^b34409Blue Fur Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS96,
+							"^b34409Blue Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS97,
+							"^b34409Blue Headdress^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS98,
+							"^b34409Blue Pigtail Santa Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS99,
+							"^b34409Blue Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS100,
+							"^b34409Blue Ribbon Band^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS101,
+							"^b34409Blush^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS102,
+							"^b34409Bomb Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS103,
+							"^b34409Bomb Wick^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS104,
+							"^b34409Bone Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS105,
+							"^b34409Bongun Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS106,
+							"^b34409Bouncing Hair Black^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS107,
+							"^b34409Bouncing Hair Blue^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS108,
+							"^b34409Bouncing Hair Crimson^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS109,
+							"^b34409Bouncing Hair Green^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS110,
+							"^b34409Bouncing Hair Purple^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS111,
+							"^b34409Bouncing Hair Red^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS112,
+							"^b34409Bouncing Hair White^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS113,
+							"^b34409Bouncing Hair Yellow^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS114,
+							"^b34409Boy's Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS115,
+							"[^FF0000 NEXT ^000000]",-;
+							menu	"^b34409Bragi Wing Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS116,
+									"^b34409Bread Bag^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS117,
+									"^b34409Bride's Corolla^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS118,
+									"^b34409BrighWig^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS119,
+									"^b34409Brown Beanie^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS120,
+									"^b34409Brown Deviruchi Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS121,
+									"^b34409Bubble Gum in Mouth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS122,
+									"^b34409BuckeHat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS123,
+									"^b34409Bunny Band^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS124,
+									"^b34409Bunny Eggshell^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS125,
+									"^b34409Bunny Headress^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS126,
+									"^b34409Bunny Top Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS127,
+									"^b34409Buterfly Hairpin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS128,
+									"^b34409Butterfly Wing Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS129,
+									"^b34409Butterfly Wing Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS130,
+									"[ ^FF0000Cancel^000000 ]",CVBye;
+case 3:
+	menu	"^b34409C Eyes Of Ifrit^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS131,
+			"^b34409Cactus Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS132,
+			"^b34409CaEars Cape^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS133,
+			"^b34409CaEars Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS134,
+			"^b34409CaHat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS135,
+			"^b34409Cake Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS136,
+			"^b34409Camellia Hair Pin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS137,
+			"^b34409Camouflage RabbiHood^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS138,
+			"^b34409Campus Festival^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS139,
+			"^b34409Candy Cane In Mouth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS140,
+			"^b34409CaPaw Hairpin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS141,
+			"^b34409Captain Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS142,
+			"^b34409Carmen Miranda's Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS143,
+			"^b34409Carnation Headband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS144,
+			"^b34409CaSanta Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS145,
+			"^b34409CD in Mouth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS146,
+			"^b34409Celestial Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS147,
+			"^b34409Celine Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS148,
+			"^b34409Centimental Flower^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS149,
+			"^b34409Ceremonial Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS150,
+			"^b34409Chain of Commandments^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS151,
+			"^b34409Chain Puppet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS152,
+			"^b34409Charleston Antenna^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS153,
+			"[^FF0000 NEXT ^000000]",-;
+			menu	"^b34409Charlies Beard^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS154,
+					"^b34409Charlies Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS155,
+					"^b34409Charming Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS156,
+					"^b34409Cheering Whistle^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS157,
+					"^b34409Chef Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS158,
+					"^b34409Cherryblossom in Mouth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS159,
+					"^b34409Chick HaJ^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS160,
+					"^b34409Chicken Bill^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS161,
+					"^b34409Chicken Crest^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS162,
+					"^b34409Chicken Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS163,
+					"^b34409Chicken Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS164,
+					"^b34409Chicken Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS165,
+					"^b34409Chilly Breath^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS166,
+					"^b34409Choco Donuin Mouth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS167,
+					"^b34409Choco MinBonnet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS168,
+					"^b34409Choir Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS169,
+					"^b34409Chung Hairpin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS170,
+					"^b34409Chung Hairpin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS171,
+					"^b34409Cigarette^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS172,
+					"^b34409Cigarette^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS173,
+					"^b34409CircleOf Bones^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS174,
+					"^b34409Circlet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS175,
+					"^b34409Classic Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS176,
+					"[^FF0000 NEXT ^000000]",-;
+					menu	"^b34409Classical Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS177,
+							"^b34409Clear Sun^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS178,
+							"^b34409Clock Tower Manager^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS179,
+							"^b34409Clown Nose^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS180,
+							"^b34409Coati Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS181,
+							"^b34409Coiledup Snake^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS182,
+							"^b34409Coiledup Snake Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS183,
+							"^b34409Colorful Dancing Octopus^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS184,
+							"^b34409CombaVestige^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS185,
+							"^b34409Construction Helmet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS186,
+							"^b34409Cookie Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS187,
+							"^b34409Cool Dinner Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS188,
+							"^b34409Coppola^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS189,
+							"^b34409Coronet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS190,
+							"^b34409Corsair^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS191,
+							"^b34409Cowboy Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS196,
+							"^b34409Crayfish Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS197,
+							"[^FF0000 NEXT ^000000]",-;
+							menu	"^b34409CrescenHairpin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS198,
+									"^b34409CrescenMoon Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS199,
+									"^b34409Crimson Booster^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS200,
+									"^b34409Crimson Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS201,
+									"^b34409Crow Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS202,
+									"^b34409Crow Tengu Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS203,
+									"^b34409Crown^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS204,
+									"^b34409Crown of Mistress^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS205,
+									"^b34409Crown of Strawberry Prince^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS206,
+									"^b34409Crunch Toast^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS207,
+									"^b34409Cube Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS208,
+									"^b34409Curse Scroll^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS209,
+									"^b34409Cyclops Glasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS210,
+									"[ ^FF0000Cancel^000000 ]",CVBye;
+
+case 4:
+	menu	"^b34409Dagger In Mouth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS211,
+			"^b34409Dancing Fallen Sakura^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS212,
+			"^b34409Dark KnighMask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS213,
+			"^b34409Dark NighVeil^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS214,
+			"^b34409Dark Snake Lord Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS215,
+			"^b34409Darkness Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS216,
+			"^b34409Decoration of Music^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS217,
+			"^b34409Decoration Time^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS218,
+			"^b34409Decorative Geographer^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS219,
+			"^b34409Demo Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS220,
+			"^b34409Deprote Doll Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS221,
+			"^b34409DeserPrince^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS222,
+			"^b34409Detective Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS223,
+			"^b34409Devil Whisper^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS224,
+			"^b34409Devilring Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS225,
+			"^b34409Deviruchi Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS226,
+			"^b34409Deviruchi Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS227,
+			"^b34409Deviruchi Headphone^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS228,
+			"^b34409Devoted Eyes^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS229,
+			"^b34409Diabolic Headphone^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS230,
+			"[^FF0000 NEXT ^000000]",-;
+			menu	"^b34409Diadem^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS231,
+					"^b34409Dokebi Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS232,
+					"^b34409Dokebi's Wig^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS233,
+					"^b34409Dolor Thanatos^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS234,
+					"^b34409Donuin Mouth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS235,
+					"^b34409Double Horn Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS236,
+					"^b34409Douce Tiara^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS237,
+					"^b34409Dragon ArhaMask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS238,
+					"^b34409Dragon Cintamani Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS239,
+					"^b34409Dragon Cintamani Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS240,
+					"^b34409Dragon Cintamani Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS241,
+					"^b34409Dragon Cintamani Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS242,
+					"^b34409Dragon General Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS243,
+					"^b34409Dragon Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS244,
+					"^b34409Dragon Helm Copper^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS245,
+					"^b34409Dragon Skull Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS246,
+					"^b34409Dragon Turtle Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS247,
+					"^b34409Driver Band(Red)^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS248,
+					"^b34409Driver Band(Yellow)^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS249,
+					"[^FF0000 NEXT ^000000]",-;
+					menu	"^b34409Drooping Alicel^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS250,
+							"^b34409Drooping Aliot^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS251,
+							"^b34409Drooping Argiope^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS252,
+							"^b34409Drooping Blue Cat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS253,
+							"^b34409Drooping Dorasuke^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS254,
+							"^b34409Drooping Gunslinger^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS255,
+							"^b34409Drooping Kiehl^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS256,
+							"^b34409Drooping Morooc Minion^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS257,
+							"^b34409Drooping Panda^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS258,
+							"^b34409Drooping Permeter^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS259,
+							"^b34409Duneyrr Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS260,
+							"^b34409Dying Swan^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS261,
+							"[ ^FF0000Cancel^000000 ]",CVBye;
+case 5:
+	menu	"^b34409Eagle Eyes^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS262,
+			"^b34409Ear Muffs^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS263,
+			"^b34409Eclipse Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS264,
+			"^b34409Egg Shell^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS265,
+			"^b34409Elder Crown^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS266,
+			"^b34409Elemental Crown^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS267,
+			"^b34409ElephanHat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS268,
+			"^b34409Elf Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS269,
+			"^b34409Elven Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS270,
+			"^b34409Eremes Scarf^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS271,
+			"^b34409Evil Druid Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS272,
+			"^b34409Evil Marcher HaJ^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS273,
+			"^b34409Evil Marcher Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS274,
+			"^b34409Evil Wing Ear^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS275,
+			"^b34409Evolved Blue Fish^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS276,
+			"^b34409Evolved Drooping Bunny^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS277,
+			"^b34409Evolved Evil Wing^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS278,
+			"^b34409Evolved Whisper Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS279,
+			"^b34409Executioner Hood^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS280,
+			"[ ^FF0000Cancel^000000 ]",CVBye;
+case 6:
+	menu	"^b34409Face Crusher^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS281,
+			"^b34409Fallen Angel Lost^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS282,
+			"^b34409Family Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS283,
+			"^b34409Fan in Mouth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS284,
+			"^b34409Fancy Flower^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS285,
+			"^b34409Fashion Winter Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS286,
+			"^b34409Fashionable Glasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS287,
+			"^b34409Fate Of Black Hand^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS288,
+			"^b34409Feather Beret^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS289,
+			"^b34409Feather Bonnet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS290,
+			"^b34409Felrock's Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS291,
+			"^b34409Filir Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS292,
+			"^b34409Filir Wings^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS293,
+			"^b34409Fillet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS294,
+			"^b34409Fin Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS295,
+			"^b34409Firinto Scarf^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS296,
+			"^b34409Fish Head^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS297,
+			"^b34409Fish In Mouth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS298,
+			"^b34409Flapping Angel Wing^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS299,
+			"^b34409Fleece Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS300,
+			"^b34409Fleece Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS301,
+			"[^FF0000 NEXT ^000000]",-;
+			menu	
+					"^b34409Flight Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS302,
+					"^b34409Flower Band^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS303,
+					"^b34409Flower Hairpin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS304,
+					"^b34409Flower Lily^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS305,
+					"^b34409Flower Summer Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS306,
+					"^b34409FlowerpoMask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS307,
+					"^b34409Flu Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS308,
+					"^b34409Fluttering Feathers^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS309,
+					"^b34409Flying Angel^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS310,
+					"^b34409Flying Galapago^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS311,
+					"^b34409Flying Ljosalfar^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS312,
+					"^b34409Forgotten Angel Wing^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS313,
+					"^b34409Fox Ears Drop Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS314,
+					"^b34409Foxhat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS315,
+					"^b34409Foxtail^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS316,
+					"^b34409Fricca's Circlet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS317,
+					"^b34409Friend Mochiring Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS318,
+					"^b34409Frog Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS319,
+					"^b34409Frog King Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS320,
+					"^b34409Frozen Rose^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS321,
+					"^b34409Full Blossom Sakura Hairpin Blue^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS322,
+					"^b34409Full Moon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS323,
+					"^b34409Funeral Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS324,
+					"[ ^FF0000Cancel^000000 ]",CVBye;
+case 7:
+	menu	"^b34409Galanthus Guard^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS325,
+			"^b34409Galapago Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS326,
+			"^b34409Gang Doogun^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS327,
+			"^b34409Gang Scarf^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS328,
+			"^b34409Gas Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS329,
+			"^b34409Gemmed Sallet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS330,
+			"^b34409GhosBandana^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS331,
+			"^b34409GianBand Aid^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS332,
+			"^b34409Gifof Snow^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS333,
+			"^b34409Glasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS334,
+			"^b34409Glasses WithouLens^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS335,
+			"^b34409Goblin Leader Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS336,
+			"^b34409Goggle^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS337,
+			"^b34409Goibne's Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS338,
+			"^b34409Gold SpiriChain^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS339,
+			"^b34409Golden Angel^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS340,
+			"^b34409Golden Exclamation Mark^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS341,
+			"^b34409Golden Gear^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS342,
+			"^b34409Golden Question Mark^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS343,
+			"^b34409Golden Savage Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS344,
+			"[^FF0000 NEXT ^000000]",-;
+			menu	"^b34409Good Wedding Veil^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS345,
+					"^b34409Googles^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS346,
+					"^b34409Gothic Headdress^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS347,
+					"^b34409Gothic HearWing^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS348,
+					"^b34409Grade 1 Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS349,
+					"^b34409Grade 10 Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS350,
+					"^b34409Grade 11 Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS351,
+					"^b34409Grade 12 Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS352,
+					"^b34409Grade 13 Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS353,
+					"^b34409Grade 2 Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS354,
+					"^b34409Grade 3 Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS355,
+					"^b34409Grade 4 Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS356,
+					"^b34409Grade 5 Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS357,
+					"^b34409Grade 6 Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS358,
+					"^b34409Grade 7 Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS359,
+					"^b34409Grade 8 Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS360,
+					"^b34409Grade 9 Balloon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS361,
+					"^b34409Gram Peony^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS362,
+					"^b34409Grampa Beard^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS363,
+					"^b34409Grand Circlet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS364,
+					"^b34409Grand Peco Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS365,
+					"[^FF0000 NEXT ^000000]",-;
+					menu	"^b34409Green Feeler^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS366,
+							"^b34409Green Foxtail^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS367,
+							"^b34409Green Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS368,
+							"^b34409Green Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS369,
+							"^b34409Green Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS370,
+							"^b34409Gryphon Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS371,
+							"^b34409Gryphon Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS372,
+							"^b34409Gryphon Wing Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS373,
+							"[ ^FF0000Cancel^000000 ]",CVBye;
+
+case 8:
+	menu	"^b34409Hahoe Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS374,
+			"^b34409Hair Band^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS375,
+			"^b34409Hairband Of Reginleif^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS376,
+			"^b34409Halloween Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS377,
+			"^b34409Happy Lunatic Hanging Ear^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS378,
+			"^b34409Happy Peace Proof^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS379,
+			"^b34409Happy PierroMask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS380,
+			"^b34409Happy Summer Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS381,
+			"^b34409Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS382,
+			"^b34409Hatta Black^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS383,
+			"^b34409Headset^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS384,
+			"^b34409HearEye Patch 1^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS385,
+			"^b34409HearEye Patch 2^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS386,
+			"^b34409HearEyebandage^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS387,
+			"^b34409HearHairpin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS388,
+			"^b34409HearRibbon Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS389,
+			"^b34409HearWing Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS390,
+			"^b34409Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS391,
+			"^b34409Helm of Darkness^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS392,
+			"[^FF0000 NEXT ^000000]",-;
+			menu	"^b34409Helm of Thoth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS393,
+					"^b34409Hermos Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS394,
+					"^b34409Hexagon Glasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS395,
+					"^b34409Hibiscus^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS396,
+					"^b34409Hill Wind Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS397,
+					"^b34409HoBlood Headband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS398,
+					"^b34409Hockey Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS399,
+					"^b34409Holo Ear^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS400,
+					"^b34409Holy Klobuk^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS401,
+					"^b34409Holy Marching Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS402,
+					"^b34409Holy Mom Love^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS403,
+					"^b34409Home Cherry Blossom^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS404,
+					"^b34409Honey Pancake^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS405,
+					"^b34409Honeybee Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS406,
+					"^b34409Horned Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS407,
+					"^b34409Horse Hairpin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS408,
+					"^b34409Horse Hairpin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS409,
+					"^b34409Horse King^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS410,
+					"^b34409Horse King J^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS411,
+					"^b34409Hunter Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS412,
+					"^b34409Hunting Cap Of Gust^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS413,
+					"^b34409Husky Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS414,
+					"[ ^FF0000Cancel^000000 ]",CVBye;
+case 9:
+	menu	"^b34409Ice Wing Ear^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS415,
+			"^b34409Icecream Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS416,
+			"^b34409Ichthys Rosario^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS417,
+			"^b34409Idun Feather Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS418,
+			"^b34409IfriEar^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS419,
+			"^b34409Ifrits Breath^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS420,
+			"^b34409Ignis Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS421,
+			"^b34409Imp Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS422,
+			"^b34409Incubus Horn^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS423,
+			"^b34409Invisible Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS424,
+			"^b34409Invisible Flu Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS425,
+			"^b34409Invisible Sunglasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS426,
+			"^b34409Iron Cain^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS427,
+			"[ ^FF0000Cancel^000000 ]",CVBye;
+case 10:
+	menu	"^b34409Jack^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS428,
+			"^b34409Jack A Dandy^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS429,
+			"^b34409Jack Castle Bat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS430,
+			"^b34409Jaguar Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS431,
+			"^b34409Joker Jester^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS432,
+			"^b34409Jolly Roger Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS433,
+			"^b34409Joystick Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS434,
+			"[ ^FF0000Cancel^000000 ]",CVBye;
+case 11:
+	menu	"^b34409Kabuki Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS435,
+			"^b34409Kettle Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS436,
+			"^b34409Khalitzburg KnighHelm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS437,
+			"^b34409Kindergarten Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS438,
+			"^b34409King Berry^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS439,
+			"^b34409King Poring Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS440,
+			"^b34409Kitsune Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS441,
+			"^b34409Kitty Band^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS442,
+			"^b34409KniCap Of Water^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS443,
+			"^b34409KniRabbiEars^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS444,
+			"[ ^FF0000Cancel^000000 ]",CVBye;
+case 12:
+	menu	"^b34409Lady Tanee Doll^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS445,
+			"^b34409Lady's Feather Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS446,
+			"^b34409Large Ribbon Muffler^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS447,
+			"^b34409Large Ribbon Muffler Red^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS448,
+			"^b34409Laser of Eagle^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS449,
+			"^b34409Laurel^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS450,
+			"^b34409Laurel Wreath^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS451,
+			"^b34409Lazy Ninetail^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS452,
+			"^b34409Lazy Smokie^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS453,
+			"^b34409Leaf CaHat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS454,
+			"^b34409Leopard Ear Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS455,
+			"^b34409Lif Doll Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS456,
+			"^b34409LighDarkness Crown^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS457,
+			"^b34409Lightning Speed^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS458,
+			"^b34409Lincoln Beard^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS459,
+			"^b34409Lincoln Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS460,
+			"^b34409Lion Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS461,
+			"^b34409Little Angel Doll^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS462,
+			"^b34409Little Aquarium^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS463,
+			"^b34409Little Feather Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS464,
+			"[^FF0000 NEXT ^000000]",-;
+			menu	"^b34409Loki & Nidhoggur's Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS465,
+					"^b34409Loki Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS466,
+					"^b34409Lolita Ten Gallon Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS467,
+					"^b34409Long Tongue^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS468,
+					"^b34409Loose Wave Twin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS469,
+					"^b34409Loose Wave Twin Blue^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS470,
+					"^b34409Loose Wave Twin Crimson^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS471,
+					"^b34409Loose Wave Twin Green^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS472,
+					"^b34409Loose Wave Twin Purple^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS473,
+					"^b34409Loose Wave Twin Red^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS474,
+					"^b34409Loose Wave Twin White^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS475,
+					"^b34409Loose Wave Twin Yellow^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS476,
+					"^b34409Lord of Death^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS477,
+					"^b34409Louise Red Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS478,
+					"^b34409Love Cheeks^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS479,
+					"^b34409Love Chick Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS480,
+					"^b34409Love Fragment^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS481,
+					"^b34409Love RabbiHood^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS482,
+					"^b34409Loyal Servanof Devil Morocc^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS483,
+					"^b34409Lucky Clover^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS484,
+					"^b34409Lude Hood^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS485,
+					"^b34409Lude Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS486,
+					"^b34409Lunatic Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS487,
+					"^b34409Lush Rose^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS488,
+					"[ ^FF0000Cancel^000000 ]",CVBye;
+case 13:
+	menu	"^b34409Machoman Glasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS489,
+			"^b34409Mackerel Pike^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS490,
+			"^b34409Mage Decoration^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS491,
+			"^b34409Magestic Goat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS492,
+			"^b34409Magic Decoy Doll^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS493,
+			"^b34409Magic Eyes^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS494,
+			"^b34409Magic Stone Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS495,
+			"^b34409Magical Booster^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS496,
+			"^b34409Magician Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS497,
+			"^b34409Magician Headdress^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS498,
+			"^b34409Magni's Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS499,
+			"^b34409Magnolia Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS500,
+			"^b34409Maiden's Twin Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS501,
+			"^b34409Majestic Devil Horns^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS502,
+			"^b34409Majestic Goat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS503,
+			"^b34409Majestihelm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS504,
+			"^b34409Mandragora Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS505,
+			"^b34409Man's Medal^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS506,
+			"^b34409Man's Medal(Gold)^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS507,
+			"[^FF0000 NEXT ^000000]",-;
+			menu	"^b34409Maple Which Falls^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS508,
+					"^b34409Marcher Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS509,
+					"^b34409Marine Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS510,
+					"^b34409Marionette Doll^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS511,
+					"^b34409Masquerade^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS512,
+					"^b34409Mechanical Feather Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS513,
+					"^b34409Mechanical PlanHat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS514,
+					"^b34409Memory of Lovers^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS515,
+					"^b34409Mercury Riser^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS516,
+					"^b34409Mermaid Bubbles^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS517,
+					"^b34409Mermaid Headphone^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS518,
+					"^b34409Metal Dragon Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS519,
+					"^b34409Metal Dragon Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS520,
+					"^b34409Midas Whisper^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS521,
+					"^b34409Mini Crown^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS522,
+					"^b34409Mini Glasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS523,
+					"^b34409Mini Propeller^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS524,
+					"^b34409Mini Tree J^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS525,
+					"^b34409Minstrel Song's Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS526,
+					"^b34409Miracle Blue Rose^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS527,
+					"[^FF0000 NEXT ^000000]",-;
+					menu	"^b34409Misty Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS528,
+							"^b34409Mitra^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS529,
+							"^b34409Model Training Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS530,
+							"^b34409Monk Crown^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS531,
+							"^b34409Monkey CoaHat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS532,
+							"^b34409Monochrome Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS533,
+							"^b34409Monochrome Ribbon Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS534,
+							"^b34409Monocle^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS535,
+							"^b34409Monster Card^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS536,
+							"^b34409MoonlighFlower Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS537,
+							"^b34409Morpheus's Hood^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS538,
+							"^b34409Morrigane's Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS539,
+							"^b34409Mouse Ha1^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS540,
+							"^b34409Mouse Ha2^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS541,
+							"^b34409Mouse Ha3^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS542,
+							"^b34409Mouse Ha4^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS543,
+							"^b34409Mouse Ha5^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS544,
+							"^b34409Mouton Life^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS545,
+							"[^FF0000 NEXT ^000000]",-;
+							menu	"^b34409Mr Smile^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS546,
+									"^b34409Mr. Smile^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS547,
+									"^b34409Munak Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS548,
+									"^b34409Munak Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS549,
+									"^b34409Musketeer Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS550,
+									"^b34409Mystic Rose^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS551,
+									"^b34409MythliHat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS552,
+									"[ ^FF0000Cancel^000000 ]",CVBye;
+
+case 14:
+	menu	"^b34409Neck Tie^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS553,
+			"^b34409Neko Mimi Kafra^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS554,
+			"^b34409Nekomimi Cyber Headphone^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS555,
+			"^b34409New Wave Sunglasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS556,
+			"^b34409New Year Shine^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS557,
+			"^b34409Niffleheim Bunny Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS558,
+			"^b34409Ninja Scroll^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS559,
+			"^b34409Noah's Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS560,
+			"^b34409Note Headphone^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS561,
+			"^b34409Nurse Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS562,
+			"[ ^FF0000Cancel^000000 ]",CVBye;
+case 15:
+	menu	"^b34409Observer^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS563,
+			"^b34409Odium Thanatos Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS564,
+			"^b34409Oliver Wolf Hood^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS565,
+			"^b34409Opera Masque^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS566,
+			"^b34409Orange Halloween Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS567,
+			"^b34409Orange Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS568,
+			"^b34409Over Protector^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS569,
+			"^b34409Owlduke Silk Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS570,
+			"[ ^FF0000Cancel^000000 ]",CVBye;
+case 16:
+	menu	"^b34409Panda Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS571,
+			"^b34409Parade Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS572,
+			"^b34409Party Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS573,
+			"^b34409Peco Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS574,
+			"^b34409Pecopeco Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS575,
+			"^b34409Pecopeco Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS576,
+			"^b34409Penguin Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS577,
+			"^b34409Persika^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS578,
+			"^b34409Ph.D Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS579,
+			"^b34409Phoenix Crown^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS580,
+			"^b34409Piamette Bowtie^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS581,
+			"^b34409Piamette Hood^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS582,
+			"^b34409Picky Egg Shell^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS583,
+			"^b34409Pig MoneyBox^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS584,
+			"^b34409Pigeon Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS585,
+			"^b34409Piggie Bank^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS586,
+			"^b34409Pink Beanie^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS587,
+			"[^FF0000 NEXT ^000000]",-;
+			menu	"^b34409Pink Bunny Hair Band^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS588,
+					"^b34409Pink Clover^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS589,
+					"^b34409Pink Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS590,
+					"^b34409Pipe^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS591,
+					"^b34409Pocketwatch Hair Ornament^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS592,
+					"^b34409Poison Spore Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS593,
+					"^b34409Poker Face^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS594,
+					"^b34409Polar Bear Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS595,
+					"^b34409Polar Bear Cap J^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS596,
+					"^b34409Poo Poo Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS597,
+					"^b34409Poporing Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS598,
+					"^b34409Poring Cake Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS599,
+					"^b34409Poring Fedora Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS600,
+					"^b34409Poring Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS601,
+					"^b34409Poring Mascot^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS602,
+					"^b34409Poring Pirate Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS603,
+					"^b34409Poring Sunglasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS604,
+					"^b34409Prayer Cherry Blossom^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS605,
+					"^b34409ProtecOf Crown^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS606,
+					"[^FF0000 NEXT ^000000]",-;
+					menu	"^b34409Pterios Fins^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS607,
+							"^b34409Pumpkin Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS608,
+							"^b34409Pumpkin Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS609,
+							"^b34409Pumpkin Toque^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS610,
+							"^b34409Pumpkin-Head^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS611,
+							"^b34409Puppy Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS612,
+							"^b34409Puppy Headband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS613,
+							"^b34409Puppy Love^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS614,
+							"^b34409Pure White Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS615,
+							"^b34409Purple Glasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS616,
+							"[ ^FF0000Cancel^000000 ]",CVBye;
+case 17:
+	menu	"^b34409Quati Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS617,
+			"^b34409Quve Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS618,
+			"[ ^FF0000Cancel^000000 ]",CVBye;
+case 18:
+	menu	"^b34409RabbiEarplugs^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS619,
+			"^b34409RabbiHead Dress^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS620,
+			"^b34409RabbiKniHat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS621,
+			"^b34409RabbiMagic Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS622,
+			"^b34409Raccoon Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS623,
+			"^b34409Rain Cloud^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS624,
+			"^b34409Rainbow^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS625,
+			"^b34409Rainbow Ears Feather^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS626,
+			"^b34409Rainbow Eggshell^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS627,
+			"^b34409Rainbow Feather Deco^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS628,
+			"^b34409Rainbow Poring Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS629,
+			"^b34409Rainbow Veil^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS630,
+			"^b34409Ramen Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS631,
+			"^b34409Raspberry Mousse Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS632,
+			"^b34409Red and White Mochiring Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS633,
+			"^b34409Red Bandana^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS634,
+			"^b34409Red Beret^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS635,
+			"[^FF0000 NEXT ^000000]",-;
+			menu	"^b34409Red Bonnet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS636,
+					"^b34409Red Bunny Band^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS637,
+					"^b34409Red Comb^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS638,
+					"^b34409Red Deviruchi Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS639,
+					"^b34409Red Dress Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS640,
+					"^b34409Red Glasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS641,
+					"^b34409Red Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS642,
+					"^b34409Red Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS643,
+					"^b34409Red Strong Hair^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS644,
+					"^b34409Red Tailed Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS645,
+					"^b34409Red Vane Hairpin^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS646,
+					"^b34409Red Wind Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS647,
+					"^b34409Refined Corsair^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS648,
+					"^b34409Refined Drooping Cat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS649,
+					"^b34409Reginleif Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS650,
+					"^b34409Remover Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS651,
+					"[^FF0000 NEXT ^000000]",-;
+					menu	"^b34409Renown Detective's Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS652,
+							"^b34409Republic Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS653,
+							"^b34409Requiem Crown of Lighand Dark^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS654,
+							"^b34409Resonate Taego^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS655,
+							"^b34409Ribbon Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS656,
+							"^b34409Rideword Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS657,
+							"^b34409Robo Eye^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS658,
+							"^b34409RoboEyes^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS659,
+							"^b34409Romantic Gent^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS660,
+							"^b34409Romantic Leaf^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS661,
+							"^b34409Romantic White Flower^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS662,
+							"^b34409Rose Cascade^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS663,
+							"^b34409Rose Corsage^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS664,
+							"^b34409Rose Headband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS665,
+							"^b34409Rudolph Santa Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS666,
+							"^b34409Rune Circlet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS667,
+							"^b34409RWC Shouting Mouth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS668,
+							"^b34409RWC2013 Japan Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS669,
+							"[ ^FF0000Cancel^000000 ]",CVBye;
+case 19:
+	menu	"^b34409Sacred Torch Coronet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS670,
+			"^b34409Sailor Collar^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS671,
+			"^b34409SainFrill Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS672,
+			"^b34409Sake^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS673,
+			"^b34409Sakkat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS674,
+			"^b34409Sakura Coronet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS675,
+			"^b34409Sakura Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS676,
+			"^b34409Sakura Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS677,
+			"^b34409Sales Banner^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS678,
+			"^b34409saLUsalo Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS679,
+			"^b34409Samambaia^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS680,
+			"^b34409Samurai Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS681,
+			"^b34409Santa Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS682,
+			"^b34409Santa Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS683,
+			"^b34409SantaPoring Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS684,
+			"^b34409Satellite Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS685,
+			"^b34409Savage Babe Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS686,
+			"^b34409Scarf^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS687,
+			"^b34409ScarleRose^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS688,
+			"[^FF0000 NEXT ^000000]",-;
+			menu	"^b34409Schmitz Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS689,
+					"^b34409School Criatura Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS690,
+					"^b34409Scooter Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS691,
+					"^b34409Scratching Cat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS692,
+					"^b34409Screw Stuck in Head^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS693,
+					"^b34409Sea Otter Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS694,
+					"^b34409Seagod Protector^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS695,
+					"^b34409Seal Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS696,
+					"^b34409SecreZipper^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS697,
+					"^b34409Sepia Cap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS698,
+					"^b34409Seraph Wing Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS699,
+					"^b34409Shadow Handicraft^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS700,
+					"^b34409Shaman Hair Ornament^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS701,
+					"^b34409Shelter Wing Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS702,
+					"^b34409Shining Santa Poring^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS703,
+					"^b34409Shiny Small Star^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS704,
+					"^b34409Ship Captain Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS705,
+					"^b34409Sigrun Wing^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS706,
+					"^b34409SilenExecutor^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS707,
+					"^b34409Silk Haof Earth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS708,
+					"^b34409Silver Exclamation Mark^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS709,
+					"^b34409Silver Question Mark^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS710,
+					"[^FF0000 NEXT ^000000]",-;
+					menu	"^b34409Silver Sniper Doll^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS711,
+							"^b34409Singing Bird^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS712,
+							"^b34409Sinsuncho Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS713,
+							"^b34409Skull Hood^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS714,
+							"^b34409Sky Met^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS715,
+							"^b34409Sky of Memory^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS716,
+							"^b34409Sleep Eclipse Family^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS717,
+							"^b34409Sleeper Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS718,
+							"^b34409Sleeping CaHaJ^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS719,
+							"^b34409Sleeping Kitty Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS720,
+							"^b34409Small Golden Wings^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS721,
+							"^b34409Small Porings Headband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS722,
+							"^b34409Small Ribbons^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS723,
+							"^b34409Smokie Leaf^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS724,
+							"^b34409Snake Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS725,
+							"^b34409Sniper Google^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS726,
+							"^b34409Snow Cone Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS727,
+							"^b34409Snowman Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS728,
+							"^b34409Snownow Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS729,
+							"^b34409SofSheep Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS730,
+							"^b34409Soldier Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS731,
+							"^b34409Sombrero^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS732,
+							"[^FF0000 NEXT ^000000]",-;
+							menu	"^b34409Soulless Wing^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS733,
+									"^b34409Southern Cross^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS734,
+									"^b34409Sparkling Sound^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS735,
+									"^b34409SPatrick's Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS736,
+									"^b34409Special Kafra Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS737,
+									"^b34409Spell Circuit^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS738,
+									"^b34409Sphinx Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS739,
+									"^b34409Spiky Band^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS740,
+									"^b34409Spinx Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS741,
+									"^b34409Spore Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS742,
+									"^b34409SprouHat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS743,
+									"^b34409Star Reading Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS744,
+									"^b34409Stardust^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS745,
+									"^b34409Steampunk Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS746,
+									"^b34409Stop Post^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS747,
+									"^b34409StraighPony Black^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS748,
+									"^b34409StraighPony Blue^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS749,
+									"^b34409StraighPony Crimson^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS750,
+									"^b34409StraighPony Green^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS751,
+									"[^FF0000 NEXT ^000000]",-;
+									menu	"^b34409StraighPony Purple^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS752,
+											"^b34409StraighPony Red^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS753,
+											"^b34409StraighPony White^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS754,
+											"^b34409StraighPony Yellow^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS755,
+											"^b34409Straw Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS756,
+											"^b34409Straw Rice Bag^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS757,
+											"^b34409Striped Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS758,
+											"^b34409Succubus Horn^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS759,
+											"^b34409Sunday Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS760,
+											"^b34409Sunflower^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS761,
+											"^b34409Sunglasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS762,
+											"^b34409Sunglasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS763,
+											"^b34409Super Novice Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS764,
+											"^b34409Surprised Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS765,
+											"^b34409SweeBonnet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS766,
+											"^b34409SweeChocolate Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS767,
+											"^b34409SweeGent^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS768,
+											"^b34409Sword Master Crown^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS769,
+											"[ ^FF0000Cancel^000000 ]",CVBye;
+case 20:
+	menu	"^b34409Takius Blindfold^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS770,
+			"^b34409Tare Neko Cru^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS771,
+			"^b34409Tare Pope^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS772,
+			"^b34409Tare Zonda^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS773,
+			"^b34409Teddybear Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS774,
+			"^b34409Tendrilion Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS775,
+			"^b34409Tha Despero Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS776,
+			"^b34409Thanatos Despero Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS777,
+			"^b34409There is Something^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS778,
+			"^b34409There's..Something..^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS779,
+			"^b34409Thorny Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS780,
+			"^b34409Thunderstorm Cloud^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS781,
+			"^b34409Tiara^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS782,
+			"^b34409Tiger ArhaMask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS783,
+			"^b34409Tiraya Bonnet^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS784,
+			"^b34409Tomboy Fairy^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS785,
+			"^b34409Tone of Gold^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS786,
+			"^b34409Tucan Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS787,
+			"^b34409Turban^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS788,
+			"^b34409Twin Pompom By JB^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS789,
+			"^b34409Two Tone Beret^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS790,
+			"[ ^FF0000Cancel^000000 ]",CVBye;
+case 21:
+	menu	"^b34409Umbala Spirit^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS791,
+			"^b34409Umbrella Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS792,
+			"^b34409Under Rim Glasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS793,
+			"^b34409Under Rim Glasses Red^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS794,
+			"^b34409Unicorn Horn^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS795,
+			"^b34409Unidentified Flying Poring^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS796,
+			"[ ^FF0000Cancel^000000 ]",CVBye;
+case 22:
+	menu	"^b34409Vacation Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS797,
+			"^b34409Valhalla Idol^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS798,
+			"^b34409Valkyrie Feather Band^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS799,
+			"^b34409Valkyrie Feather Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS800,
+			"^b34409Valkyrie Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS801,
+			"^b34409Vampire Hairband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS802,
+			"^b34409Vanargand Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS803,
+			"^b34409Vanilmirth Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS804,
+			"^b34409Very Cute Doll Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS805,
+			"^b34409Vicious Mind Aura Crimson^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS806,
+			"^b34409Vicious Stop Bandage^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS807,
+			"^b34409Victory Wing Helm^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS808,
+			"^b34409Volume Fhat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS809,
+			"[ ^FF0000Cancel^000000 ]",CVBye;
+case 23:
+	menu	"^b34409Waltz of Flowers^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS810,
+			"^b34409Wandering Minstrel Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS811,
+			"^b34409Wandering Wolf Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS812,
+			"^b34409Water Lily Crown^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS813,
+			"^b34409Water Spellcaster^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS814,
+			"^b34409Watermelon Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS815,
+			"^b34409Watery Eyes^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS816,
+			"^b34409Wedding Veil^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS817,
+			"^b34409Welding Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS818,
+			"^b34409Well-Chewed Pencil^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS819,
+			"^b34409Western Grace^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS820,
+			"^b34409Whisper Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS821,
+			"^b34409Whisper Tall Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS822,
+			"^b34409White and Black Temptation^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS823,
+			"^b34409White Baby CaEars^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS824,
+			"^b34409White CaHood^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS825,
+			"^b34409White Feather^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS826,
+			"^b34409White Fox Ear Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS827,
+			"^b34409White Helm Of Abyss^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS828,
+			"^b34409White King Tiger Doll Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS829,
+			"[^FF0000 NEXT ^000000]",-;
+			menu	"^b34409White Lily^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS830,
+					"^b34409White Musang Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS831,
+					"^b34409White RabbiHeadband^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS832,
+					"^b34409White Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS833,
+					"^b34409White Snake Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS834,
+					"^b34409White Strong Hair^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS835,
+					"^b34409White StudenCap^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS836,
+					"^b34409Wickebine Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS837,
+					"^b34409Wickebine's Black CaEars^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS838,
+					"^b34409Wild Poring Rider^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS839,
+					"^b34409Wild Rose^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS840,
+					"^b34409Wind Fan^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS841,
+					"^b34409Wind Milestone^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS842,
+					"^b34409Wind Prairie^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS843,
+					"^b34409Wind Whisper^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS844,
+					"^b34409Windtoy Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS845,
+					"^b34409Wing Angels Ears^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS846,
+					"^b34409Wing Frame Sunglasses^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS847,
+					"^b34409Wings Of Victory^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS848,
+					"^b34409Wish Lamp^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS849,
+					"^b34409Witch's Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS850,
+					"^b34409Wizard Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS851,
+					"^b34409Worg In Mouth^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS852,
+					"[ ^FF0000Cancel^000000 ]",CVBye;
+case 24:
+	close;
+case 25:
+	menu	"^b34409Yao Jun^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS853,
+			"^b34409Yellow Brain Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS854,
+			"^b34409Yellow Doogun^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS855,
+			"^b34409Yellow Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS856,
+			"^b34409Yellow Ribbon^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS857,
+			"^b34409Yellow Ribbonn^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS858,
+			"^b34409YinYang Earring^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS859,
+			"^b34409You in ONE^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS860,
+			"^b34409Yoyo Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS861,
+			"[ ^FF0000Cancel^000000 ]",CVBye;
+case 26:
+	menu	"^b34409Zaha Doll Hat^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS862,
+			"^b34409Zealotus Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS863,
+			"^b34409Zorro Mask^000000 [^0945b3"+.CostumeCost+" Coins^000000]",COS864,
+			"[ ^FF0000Cancel^000000 ]",CVBye;
+default:
+	clear;
+		mes .name$;
+		mes "See you soon!";
+		close;
+}
+
+COS1: callfunc "Mythril_Check",.name$,.CostumeCost,19577,1,1;
+COS2: callfunc "Mythril_Check",.name$,.CostumeCost,20135,1,1;
+COS3: callfunc "Mythril_Check",.name$,.CostumeCost,20136,1,1;
+COS4: callfunc "Mythril_Check",.name$,.CostumeCost,19954,1,1;
+COS5: callfunc "Mythril_Check",.name$,.CostumeCost,20461,1,1;
+COS6: callfunc "Mythril_Check",.name$,.CostumeCost,20438,1,1;
+COS7: callfunc "Mythril_Check",.name$,.CostumeCost,20127,1,1;
+COS8: callfunc "Mythril_Check",.name$,.CostumeCost,19581,1,1;
+COS9: callfunc "Mythril_Check",.name$,.CostumeCost,20120,1,1;
+COS10: callfunc "Mythril_Check",.name$,.CostumeCost,20052,1,1;
+COS11: callfunc "Mythril_Check",.name$,.CostumeCost,19791,1,1;
+COS12: callfunc "Mythril_Check",.name$,.CostumeCost,19716,1,1;
+COS13: callfunc "Mythril_Check",.name$,.CostumeCost,19934,1,1;
+COS14: callfunc "Mythril_Check",.name$,.CostumeCost,20070,1,1;
+COS15: callfunc "Mythril_Check",.name$,.CostumeCost,20038,1,1;
+COS16: callfunc "Mythril_Check",.name$,.CostumeCost,19827,1,1;
+COS17: callfunc "Mythril_Check",.name$,.CostumeCost,20197,1,1;
+COS18: callfunc "Mythril_Check",.name$,.CostumeCost,20315,1,1;
+COS19: callfunc "Mythril_Check",.name$,.CostumeCost,20144,1,1;
+COS20: callfunc "Mythril_Check",.name$,.CostumeCost,19568,1,1;
+COS21: callfunc "Mythril_Check",.name$,.CostumeCost,20401,1,1;
+COS22: callfunc "Mythril_Check",.name$,.CostumeCost,20219,1,1;
+COS23: callfunc "Mythril_Check",.name$,.CostumeCost,19930,1,1;
+COS24: callfunc "Mythril_Check",.name$,.CostumeCost,20146,1,1;
+COS25: callfunc "Mythril_Check",.name$,.CostumeCost,20062,1,1;
+COS26: callfunc "Mythril_Check",.name$,.CostumeCost,19529,1,1;
+COS27: callfunc "Mythril_Check",.name$,.CostumeCost,19781,1,1;
+COS28: callfunc "Mythril_Check",.name$,.CostumeCost,19848,1,1;
+COS29: callfunc "Mythril_Check",.name$,.CostumeCost,19773,1,1;
+COS30: callfunc "Mythril_Check",.name$,.CostumeCost,20436,1,1;
+COS31: callfunc "Mythril_Check",.name$,.CostumeCost,19798,1,1;
+COS32: callfunc "Mythril_Check",.name$,.CostumeCost,19794,1,1;
+COS33: callfunc "Mythril_Check",.name$,.CostumeCost,19939,1,1;
+COS34: callfunc "Mythril_Check",.name$,.CostumeCost,19743,1,1;
+COS35: callfunc "Mythril_Check",.name$,.CostumeCost,19797,1,1;
+COS36: callfunc "Mythril_Check",.name$,.CostumeCost,19595,1,1;
+COS37: callfunc "Mythril_Check",.name$,.CostumeCost,20112,1,1;
+COS38: callfunc "Mythril_Check",.name$,.CostumeCost,20217,1,1;
+COS39: callfunc "Mythril_Check",.name$,.CostumeCost,20236,1,1;
+COS40: callfunc "Mythril_Check",.name$,.CostumeCost,20161,1,1;
+COS41: callfunc "Mythril_Check",.name$,.CostumeCost,19837,1,1;
+COS42: callfunc "Mythril_Check",.name$,.CostumeCost,19575,1,1;
+COS43: callfunc "Mythril_Check",.name$,.CostumeCost,19553,1,1;
+COS44: callfunc "Mythril_Check",.name$,.CostumeCost,19689,1,1;
+COS45: callfunc "Mythril_Check",.name$,.CostumeCost,19985,1,1;
+COS46: callfunc "Mythril_Check",.name$,.CostumeCost,20132,1,1;
+COS47: callfunc "Mythril_Check",.name$,.CostumeCost,19648,1,1;
+COS48: callfunc "Mythril_Check",.name$,.CostumeCost,19557,1,1;
+COS49: callfunc "Mythril_Check",.name$,.CostumeCost,19608,1,1;
+COS50: callfunc "Mythril_Check",.name$,.CostumeCost,19559,1,1;
+COS51: callfunc "Mythril_Check",.name$,.CostumeCost,20054,1,1;
+COS52: callfunc "Mythril_Check",.name$,.CostumeCost,20277,1,1;
+COS53: callfunc "Mythril_Check",.name$,.CostumeCost,20203,1,1;
+COS54: callfunc "Mythril_Check",.name$,.CostumeCost,20230,1,1;
+COS55: callfunc "Mythril_Check",.name$,.CostumeCost,20201,1,1;
+COS56: callfunc "Mythril_Check",.name$,.CostumeCost,19845,1,1;
+COS57: callfunc "Mythril_Check",.name$,.CostumeCost,20234,1,1;
+COS58: callfunc "Mythril_Check",.name$,.CostumeCost,20312,1,1;
+COS59: callfunc "Mythril_Check",.name$,.CostumeCost,19834,1,1;
+COS60: callfunc "Mythril_Check",.name$,.CostumeCost,20119,1,1;
+COS61: callfunc "Mythril_Check",.name$,.CostumeCost,20302,1,1;
+COS62: callfunc "Mythril_Check",.name$,.CostumeCost,19811,1,1;
+COS63: callfunc "Mythril_Check",.name$,.CostumeCost,20307,1,1;
+COS64: callfunc "Mythril_Check",.name$,.CostumeCost,20147,1,1;
+COS65: callfunc "Mythril_Check",.name$,.CostumeCost,19678,1,1;
+COS66: callfunc "Mythril_Check",.name$,.CostumeCost,20019,1,1;
+COS67: callfunc "Mythril_Check",.name$,.CostumeCost,20004,1,1;
+COS68: callfunc "Mythril_Check",.name$,.CostumeCost,19812,1,1;
+COS69: callfunc "Mythril_Check",.name$,.CostumeCost,19847,1,1;
+COS70: callfunc "Mythril_Check",.name$,.CostumeCost,19623,1,1;
+COS71: callfunc "Mythril_Check",.name$,.CostumeCost,20288,1,1;
+COS72: callfunc "Mythril_Check",.name$,.CostumeCost,19734,1,1;
+COS73: callfunc "Mythril_Check",.name$,.CostumeCost,20265,1,1;
+COS74: callfunc "Mythril_Check",.name$,.CostumeCost,20074,1,1;
+COS75: callfunc "Mythril_Check",.name$,.CostumeCost,19854,1,1;
+COS76: callfunc "Mythril_Check",.name$,.CostumeCost,20191,1,1;
+COS77: callfunc "Mythril_Check",.name$,.CostumeCost,19916,1,1;
+COS78: callfunc "Mythril_Check",.name$,.CostumeCost,20215,1,1;
+COS79: callfunc "Mythril_Check",.name$,.CostumeCost,19722,1,1;
+COS80: callfunc "Mythril_Check",.name$,.CostumeCost,19572,1,1;
+COS81: callfunc "Mythril_Check",.name$,.CostumeCost,20257,1,1;
+COS82: callfunc "Mythril_Check",.name$,.CostumeCost,20068,1,1;
+COS83: callfunc "Mythril_Check",.name$,.CostumeCost,20292,1,1;
+COS84: callfunc "Mythril_Check",.name$,.CostumeCost,20496,1,1;
+COS85: callfunc "Mythril_Check",.name$,.CostumeCost,20248,1,1;
+COS86: callfunc "Mythril_Check",.name$,.CostumeCost,19744,1,1;
+COS87: callfunc "Mythril_Check",.name$,.CostumeCost,19624,1,1;
+COS88: callfunc "Mythril_Check",.name$,.CostumeCost,19969,1,1;
+COS89: callfunc "Mythril_Check",.name$,.CostumeCost,19808,1,1;
+COS90: callfunc "Mythril_Check",.name$,.CostumeCost,20404,1,1;
+COS91: callfunc "Mythril_Check",.name$,.CostumeCost,20108,1,1;
+COS92: callfunc "Mythril_Check",.name$,.CostumeCost,19885,1,1;
+COS93: callfunc "Mythril_Check",.name$,.CostumeCost,20264,1,1;
+COS94: callfunc "Mythril_Check",.name$,.CostumeCost,19806,1,1;
+COS95: callfunc "Mythril_Check",.name$,.CostumeCost,20064,1,1;
+COS96: callfunc "Mythril_Check",.name$,.CostumeCost,19987,1,1;
+COS97: callfunc "Mythril_Check",.name$,.CostumeCost,20159,1,1;
+COS98: callfunc "Mythril_Check",.name$,.CostumeCost,20258,1,1;
+COS99: callfunc "Mythril_Check",.name$,.CostumeCost,20222,1,1;
+COS100: callfunc "Mythril_Check",.name$,.CostumeCost,20096,1,1;
+COS101: callfunc "Mythril_Check",.name$,.CostumeCost,20046,1,1;
+COS102: callfunc "Mythril_Check",.name$,.CostumeCost,19550,1,1;
+COS103: callfunc "Mythril_Check",.name$,.CostumeCost,19997,1,1;
+COS104: callfunc "Mythril_Check",.name$,.CostumeCost,20137,1,1;
+COS105: callfunc "Mythril_Check",.name$,.CostumeCost,19796,1,1;
+COS106: callfunc "Mythril_Check",.name$,.CostumeCost,19850,1,1;
+COS107: callfunc "Mythril_Check",.name$,.CostumeCost,20341,1,1;
+COS108: callfunc "Mythril_Check",.name$,.CostumeCost,20355,1,1;
+COS109: callfunc "Mythril_Check",.name$,.CostumeCost,20354,1,1;
+COS110: callfunc "Mythril_Check",.name$,.CostumeCost,20351,1,1;
+COS111: callfunc "Mythril_Check",.name$,.CostumeCost,20352,1,1;
+COS112: callfunc "Mythril_Check",.name$,.CostumeCost,20353,1,1;
+COS113: callfunc "Mythril_Check",.name$,.CostumeCost,20356,1,1;
+COS114: callfunc "Mythril_Check",.name$,.CostumeCost,20350,1,1;
+COS115: callfunc "Mythril_Check",.name$,.CostumeCost,19545,1,1;
+COS116: callfunc "Mythril_Check",.name$,.CostumeCost,20101,1,1;
+COS117: callfunc "Mythril_Check",.name$,.CostumeCost,19725,1,1;
+COS118: callfunc "Mythril_Check",.name$,.CostumeCost,20056,1,1;
+COS119: callfunc "Mythril_Check",.name$,.CostumeCost,19814,1,1;
+COS120: callfunc "Mythril_Check",.name$,.CostumeCost,19659,1,1;
+COS121: callfunc "Mythril_Check",.name$,.CostumeCost,20170,1,1;
+COS122: callfunc "Mythril_Check",.name$,.CostumeCost,19952,1,1;
+COS123: callfunc "Mythril_Check",.name$,.CostumeCost,19828,1,1;
+COS124: callfunc "Mythril_Check",.name$,.CostumeCost,19625,1,1;
+COS125: callfunc "Mythril_Check",.name$,.CostumeCost,20446,1,1;
+COS126: callfunc "Mythril_Check",.name$,.CostumeCost,20031,1,1;
+COS127: callfunc "Mythril_Check",.name$,.CostumeCost,19876,1,1;
+COS128: callfunc "Mythril_Check",.name$,.CostumeCost,19771,1,1;
+COS129: callfunc "Mythril_Check",.name$,.CostumeCost,19509,1,1;
+COS130: callfunc "Mythril_Check",.name$,.CostumeCost,20039,1,1;
+COS131: callfunc "Mythril_Check",.name$,.CostumeCost,20221,1,1;
+COS132: callfunc "Mythril_Check",.name$,.CostumeCost,20297,1,1;
+COS133: callfunc "Mythril_Check",.name$,.CostumeCost,20462,1,1;
+COS134: callfunc "Mythril_Check",.name$,.CostumeCost,20499,1,1;
+COS135: callfunc "Mythril_Check",.name$,.CostumeCost,19588,1,1;
+COS136: callfunc "Mythril_Check",.name$,.CostumeCost,20118,1,1;
+COS137: callfunc "Mythril_Check",.name$,.CostumeCost,20435,1,1;
+COS138: callfunc "Mythril_Check",.name$,.CostumeCost,19974,1,1;
+COS139: callfunc "Mythril_Check",.name$,.CostumeCost,19664,1,1;
+COS140: callfunc "Mythril_Check",.name$,.CostumeCost,20143,1,1;
+COS141: callfunc "Mythril_Check",.name$,.CostumeCost,20245,1,1;
+COS142: callfunc "Mythril_Check",.name$,.CostumeCost,19657,1,1;
+COS143: callfunc "Mythril_Check",.name$,.CostumeCost,20044,1,1;
+COS144: callfunc "Mythril_Check",.name$,.CostumeCost,19800,1,1;
+COS145: callfunc "Mythril_Check",.name$,.CostumeCost,19976,1,1;
+COS146: callfunc "Mythril_Check",.name$,.CostumeCost,20313,1,1;
+COS147: callfunc "Mythril_Check",.name$,.CostumeCost,19753,1,1;
+COS148: callfunc "Mythril_Check",.name$,.CostumeCost,20232,1,1;
+COS149: callfunc "Mythril_Check",.name$,.CostumeCost,19552,1,1;
+COS150: callfunc "Mythril_Check",.name$,.CostumeCost,20084,1,1;
+COS151: callfunc "Mythril_Check",.name$,.CostumeCost,20406,1,1;
+COS152: callfunc "Mythril_Check",.name$,.CostumeCost,19960,1,1;
+COS153: callfunc "Mythril_Check",.name$,.CostumeCost,20318,1,1;
+COS154: callfunc "Mythril_Check",.name$,.CostumeCost,19514,1,1;
+COS155: callfunc "Mythril_Check",.name$,.CostumeCost,19521,1,1;
+COS156: callfunc "Mythril_Check",.name$,.CostumeCost,19640,1,1;
+COS157: callfunc "Mythril_Check",.name$,.CostumeCost,20279,1,1;
+COS158: callfunc "Mythril_Check",.name$,.CostumeCost,20013,1,1;
+COS159: callfunc "Mythril_Check",.name$,.CostumeCost,20043,1,1;
+COS160: callfunc "Mythril_Check",.name$,.CostumeCost,20190,1,1;
+COS161: callfunc "Mythril_Check",.name$,.CostumeCost,19513,1,1;
+COS162: callfunc "Mythril_Check",.name$,.CostumeCost,19517,1,1;
+COS163: callfunc "Mythril_Check",.name$,.CostumeCost,20206,1,1;
+COS164: callfunc "Mythril_Check",.name$,.CostumeCost,20210,1,1;
+COS165: callfunc "Mythril_Check",.name$,.CostumeCost,20211,1,1;
+COS166: callfunc "Mythril_Check",.name$,.CostumeCost,19992,1,1;
+COS167: callfunc "Mythril_Check",.name$,.CostumeCost,20030,1,1;
+COS168: callfunc "Mythril_Check",.name$,.CostumeCost,20243,1,1;
+COS169: callfunc "Mythril_Check",.name$,.CostumeCost,19958,1,1;
+COS170: callfunc "Mythril_Check",.name$,.CostumeCost,19565,1,1;
+COS171: callfunc "Mythril_Check",.name$,.CostumeCost,20040,1,1;
+COS172: callfunc "Mythril_Check",.name$,.CostumeCost,19505,1,1;
+COS173: callfunc "Mythril_Check",.name$,.CostumeCost,19902,1,1;
+COS174: callfunc "Mythril_Check",.name$,.CostumeCost,19973,1,1;
+COS175: callfunc "Mythril_Check",.name$,.CostumeCost,20158,1,1;
+COS176: callfunc "Mythril_Check",.name$,.CostumeCost,20106,1,1;
+COS177: callfunc "Mythril_Check",.name$,.CostumeCost,19929,1,1;
+COS178: callfunc "Mythril_Check",.name$,.CostumeCost,19507,1,1;
+COS179: callfunc "Mythril_Check",.name$,.CostumeCost,20131,1,1;
+COS180: callfunc "Mythril_Check",.name$,.CostumeCost,19636,1,1;
+COS181: callfunc "Mythril_Check",.name$,.CostumeCost,19560,1,1;
+COS182: callfunc "Mythril_Check",.name$,.CostumeCost,20110,1,1;
+COS183: callfunc "Mythril_Check",.name$,.CostumeCost,20111,1,1;
+COS184: callfunc "Mythril_Check",.name$,.CostumeCost,20338,1,1;
+COS185: callfunc "Mythril_Check",.name$,.CostumeCost,20456,1,1;
+COS186: callfunc "Mythril_Check",.name$,.CostumeCost,20060,1,1;
+COS187: callfunc "Mythril_Check",.name$,.CostumeCost,19666,1,1;
+COS188: callfunc "Mythril_Check",.name$,.CostumeCost,20016,1,1;
+COS189: callfunc "Mythril_Check",.name$,.CostumeCost,19660,1,1;
+COS190: callfunc "Mythril_Check",.name$,.CostumeCost,19719,1,1;
+COS191: callfunc "Mythril_Check",.name$,.CostumeCost,19619,1,1;
+COS192: callfunc "Mythril_Check",.name$,.CostumeCost,20025,1,1;
+COS193: callfunc "Mythril_Check",.name$,.CostumeCost,20026,1,1;
+COS194: callfunc "Mythril_Check",.name$,.CostumeCost,20027,1,1;
+COS195: callfunc "Mythril_Check",.name$,.CostumeCost,20028,1,1;
+COS196: callfunc "Mythril_Check",.name$,.CostumeCost,19582,1,1;
+COS197: callfunc "Mythril_Check",.name$,.CostumeCost,19857,1,1;
+COS198: callfunc "Mythril_Check",.name$,.CostumeCost,19622,1,1;
+COS199: callfunc "Mythril_Check",.name$,.CostumeCost,19555,1,1;
+COS200: callfunc "Mythril_Check",.name$,.CostumeCost,20319,1,1;
+COS201: callfunc "Mythril_Check",.name$,.CostumeCost,20466,1,1;
+COS202: callfunc "Mythril_Check",.name$,.CostumeCost,19558,1,1;
+COS203: callfunc "Mythril_Check",.name$,.CostumeCost,20399,1,1;
+COS204: callfunc "Mythril_Check",.name$,.CostumeCost,19630,1,1;
+COS205: callfunc "Mythril_Check",.name$,.CostumeCost,19786,1,1;
+COS206: callfunc "Mythril_Check",.name$,.CostumeCost,20452,1,1;
+COS207: callfunc "Mythril_Check",.name$,.CostumeCost,19785,1,1;
+COS208: callfunc "Mythril_Check",.name$,.CostumeCost,19531,1,1;
+COS209: callfunc "Mythril_Check",.name$,.CostumeCost,19805,1,1;
+COS210: callfunc "Mythril_Check",.name$,.CostumeCost,19887,1,1;
+COS211: callfunc "Mythril_Check",.name$,.CostumeCost,19584,1,1;
+COS212: callfunc "Mythril_Check",.name$,.CostumeCost,20285,1,1;
+COS213: callfunc "Mythril_Check",.name$,.CostumeCost,20006,1,1;
+COS214: callfunc "Mythril_Check",.name$,.CostumeCost,20220,1,1;
+COS215: callfunc "Mythril_Check",.name$,.CostumeCost,19690,1,1;
+COS216: callfunc "Mythril_Check",.name$,.CostumeCost,19721,1,1;
+COS217: callfunc "Mythril_Check",.name$,.CostumeCost,19871,1,1;
+COS218: callfunc "Mythril_Check",.name$,.CostumeCost,20246,1,1;
+COS219: callfunc "Mythril_Check",.name$,.CostumeCost,19594,1,1;
+COS220: callfunc "Mythril_Check",.name$,.CostumeCost,20061,1,1;
+COS221: callfunc "Mythril_Check",.name$,.CostumeCost,19724,1,1;
+COS222: callfunc "Mythril_Check",.name$,.CostumeCost,20331,1,1;
+COS223: callfunc "Mythril_Check",.name$,.CostumeCost,19620,1,1;
+COS224: callfunc "Mythril_Check",.name$,.CostumeCost,19542,1,1;
+COS225: callfunc "Mythril_Check",.name$,.CostumeCost,19727,1,1;
+COS226: callfunc "Mythril_Check",.name$,.CostumeCost,20202,1,1;
+COS227: callfunc "Mythril_Check",.name$,.CostumeCost,19547,1,1;
+COS228: callfunc "Mythril_Check",.name$,.CostumeCost,20167,1,1;
+COS229: callfunc "Mythril_Check",.name$,.CostumeCost,19787,1,1;
+COS230: callfunc "Mythril_Check",.name$,.CostumeCost,20175,1,1;
+COS231: callfunc "Mythril_Check",.name$,.CostumeCost,19748,1,1;
+COS232: callfunc "Mythril_Check",.name$,.CostumeCost,19775,1,1;
+COS233: callfunc "Mythril_Check",.name$,.CostumeCost,19864,1,1;
+COS234: callfunc "Mythril_Check",.name$,.CostumeCost,20403,1,1;
+COS235: callfunc "Mythril_Check",.name$,.CostumeCost,20029,1,1;
+COS236: callfunc "Mythril_Check",.name$,.CostumeCost,20012,1,1;
+COS237: callfunc "Mythril_Check",.name$,.CostumeCost,20384,1,1;
+COS238: callfunc "Mythril_Check",.name$,.CostumeCost,19563,1,1;
+COS239: callfunc "Mythril_Check",.name$,.CostumeCost,20086,1,1;
+COS240: callfunc "Mythril_Check",.name$,.CostumeCost,20087,1,1;
+COS241: callfunc "Mythril_Check",.name$,.CostumeCost,20088,1,1;
+COS242: callfunc "Mythril_Check",.name$,.CostumeCost,20089,1,1;
+COS243: callfunc "Mythril_Check",.name$,.CostumeCost,20008,1,1;
+COS244: callfunc "Mythril_Check",.name$,.CostumeCost,19667,1,1;
+COS245: callfunc "Mythril_Check",.name$,.CostumeCost,19841,1,1;
+COS246: callfunc "Mythril_Check",.name$,.CostumeCost,20009,1,1;
+COS247: callfunc "Mythril_Check",.name$,.CostumeCost,19998,1,1;
+COS248: callfunc "Mythril_Check",.name$,.CostumeCost,19963,1,1;
+COS249: callfunc "Mythril_Check",.name$,.CostumeCost,19964,1,1;
+COS250: callfunc "Mythril_Check",.name$,.CostumeCost,20253,1,1;
+COS251: callfunc "Mythril_Check",.name$,.CostumeCost,19601,1,1;
+COS252: callfunc "Mythril_Check",.name$,.CostumeCost,19959,1,1;
+COS253: callfunc "Mythril_Check",.name$,.CostumeCost,20238,1,1;
+COS254: callfunc "Mythril_Check",.name$,.CostumeCost,20177,1,1;
+COS255: callfunc "Mythril_Check",.name$,.CostumeCost,20434,1,1;
+COS256: callfunc "Mythril_Check",.name$,.CostumeCost,19600,1,1;
+COS257: callfunc "Mythril_Check",.name$,.CostumeCost,19818,1,1;
+COS258: callfunc "Mythril_Check",.name$,.CostumeCost,20103,1,1;
+COS259: callfunc "Mythril_Check",.name$,.CostumeCost,20346,1,1;
+COS260: callfunc "Mythril_Check",.name$,.CostumeCost,20164,1,1;
+COS261: callfunc "Mythril_Check",.name$,.CostumeCost,19971,1,1;
+COS262: callfunc "Mythril_Check",.name$,.CostumeCost,20123,1,1;
+COS263: callfunc "Mythril_Check",.name$,.CostumeCost,19941,1,1;
+COS264: callfunc "Mythril_Check",.name$,.CostumeCost,20241,1,1;
+COS265: callfunc "Mythril_Check",.name$,.CostumeCost,20090,1,1;
+COS266: callfunc "Mythril_Check",.name$,.CostumeCost,19988,1,1;
+COS267: callfunc "Mythril_Check",.name$,.CostumeCost,20467,1,1;
+COS268: callfunc "Mythril_Check",.name$,.CostumeCost,20498,1,1;
+COS269: callfunc "Mythril_Check",.name$,.CostumeCost,19769,1,1;
+COS270: callfunc "Mythril_Check",.name$,.CostumeCost,19551,1,1;
+COS271: callfunc "Mythril_Check",.name$,.CostumeCost,20405,1,1;
+COS272: callfunc "Mythril_Check",.name$,.CostumeCost,19824,1,1;
+COS273: callfunc "Mythril_Check",.name$,.CostumeCost,20214,1,1;
+COS274: callfunc "Mythril_Check",.name$,.CostumeCost,20199,1,1;
+COS275: callfunc "Mythril_Check",.name$,.CostumeCost,19621,1,1;
+COS276: callfunc "Mythril_Check",.name$,.CostumeCost,20157,1,1;
+COS277: callfunc "Mythril_Check",.name$,.CostumeCost,19878,1,1;
+COS278: callfunc "Mythril_Check",.name$,.CostumeCost,19731,1,1;
+COS279: callfunc "Mythril_Check",.name$,.CostumeCost,19920,1,1;
+COS280: callfunc "Mythril_Check",.name$,.CostumeCost,19746,1,1;
+COS281: callfunc "Mythril_Check",.name$,.CostumeCost,20299,1,1;
+COS282: callfunc "Mythril_Check",.name$,.CostumeCost,19589,1,1;
+COS283: callfunc "Mythril_Check",.name$,.CostumeCost,20333,1,1;
+COS284: callfunc "Mythril_Check",.name$,.CostumeCost,20156,1,1;
+COS285: callfunc "Mythril_Check",.name$,.CostumeCost,20205,1,1;
+COS286: callfunc "Mythril_Check",.name$,.CostumeCost,19984,1,1;
+COS287: callfunc "Mythril_Check",.name$,.CostumeCost,20185,1,1;
+COS288: callfunc "Mythril_Check",.name$,.CostumeCost,20247,1,1;
+COS289: callfunc "Mythril_Check",.name$,.CostumeCost,19585,1,1;
+COS290: callfunc "Mythril_Check",.name$,.CostumeCost,20057,1,1;
+COS291: callfunc "Mythril_Check",.name$,.CostumeCost,19914,1,1;
+COS292: callfunc "Mythril_Check",.name$,.CostumeCost,19831,1,1;
+COS293: callfunc "Mythril_Check",.name$,.CostumeCost,19853,1,1;
+COS294: callfunc "Mythril_Check",.name$,.CostumeCost,19833,1,1;
+COS295: callfunc "Mythril_Check",.name$,.CostumeCost,19735,1,1;
+COS296: callfunc "Mythril_Check",.name$,.CostumeCost,20032,1,1;
+COS297: callfunc "Mythril_Check",.name$,.CostumeCost,20105,1,1;
+COS298: callfunc "Mythril_Check",.name$,.CostumeCost,20107,1,1;
+COS299: callfunc "Mythril_Check",.name$,.CostumeCost,19596,1,1;
+COS300: callfunc "Mythril_Check",.name$,.CostumeCost,20162,1,1;
+COS301: callfunc "Mythril_Check",.name$,.CostumeCost,20163,1,1;
+COS302: callfunc "Mythril_Check",.name$,.CostumeCost,20377,1,1;
+COS303: callfunc "Mythril_Check",.name$,.CostumeCost,19633,1,1;
+COS304: callfunc "Mythril_Check",.name$,.CostumeCost,19983,1,1;
+COS305: callfunc "Mythril_Check",.name$,.CostumeCost,20121,1,1;
+COS306: callfunc "Mythril_Check",.name$,.CostumeCost,20339,1,1;
+COS307: callfunc "Mythril_Check",.name$,.CostumeCost,19882,1,1;
+COS308: callfunc "Mythril_Check",.name$,.CostumeCost,19634,1,1;
+COS309: callfunc "Mythril_Check",.name$,.CostumeCost,20457,1,1;
+COS310: callfunc "Mythril_Check",.name$,.CostumeCost,19859,1,1;
+COS311: callfunc "Mythril_Check",.name$,.CostumeCost,20349,1,1;
+COS312: callfunc "Mythril_Check",.name$,.CostumeCost,20099,1,1;
+COS313: callfunc "Mythril_Check",.name$,.CostumeCost,20079,1,1;
+COS314: callfunc "Mythril_Check",.name$,.CostumeCost,20262,1,1;
+COS315: callfunc "Mythril_Check",.name$,.CostumeCost,19801,1,1;
+COS316: callfunc "Mythril_Check",.name$,.CostumeCost,20193,1,1;
+COS317: callfunc "Mythril_Check",.name$,.CostumeCost,20187,1,1;
+COS318: callfunc "Mythril_Check",.name$,.CostumeCost,19696,1,1;
+COS319: callfunc "Mythril_Check",.name$,.CostumeCost,19548,1,1;
+COS320: callfunc "Mythril_Check",.name$,.CostumeCost,19758,1,1;
+COS321: callfunc "Mythril_Check",.name$,.CostumeCost,20235,1,1;
+COS322: callfunc "Mythril_Check",.name$,.CostumeCost,20490,1,1;
+COS323: callfunc "Mythril_Check",.name$,.CostumeCost,19538,1,1;
+COS324: callfunc "Mythril_Check",.name$,.CostumeCost,20114,1,1;
+COS325: callfunc "Mythril_Check",.name$,.CostumeCost,19991,1,1;
+COS326: callfunc "Mythril_Check",.name$,.CostumeCost,19852,1,1;
+COS327: callfunc "Mythril_Check",.name$,.CostumeCost,19819,1,1;
+COS328: callfunc "Mythril_Check",.name$,.CostumeCost,19605,1,1;
+COS329: callfunc "Mythril_Check",.name$,.CostumeCost,19736,1,1;
+COS330: callfunc "Mythril_Check",.name$,.CostumeCost,19508,1,1;
+COS331: callfunc "Mythril_Check",.name$,.CostumeCost,20055,1,1;
+COS332: callfunc "Mythril_Check",.name$,.CostumeCost,20049,1,1;
+COS333: callfunc "Mythril_Check",.name$,.CostumeCost,20240,1,1;
+COS334: callfunc "Mythril_Check",.name$,.CostumeCost,19888,1,1;
+COS335: callfunc "Mythril_Check",.name$,.CostumeCost,20465,1,1;
+COS336: callfunc "Mythril_Check",.name$,.CostumeCost,19732,1,1;
+COS337: callfunc "Mythril_Check",.name$,.CostumeCost,19502,1,1;
+COS338: callfunc "Mythril_Check",.name$,.CostumeCost,20189,1,1;
+COS339: callfunc "Mythril_Check",.name$,.CostumeCost,19749,1,1;
+COS340: callfunc "Mythril_Check",.name$,.CostumeCost,20233,1,1;
+COS341: callfunc "Mythril_Check",.name$,.CostumeCost,19977,1,1;
+COS342: callfunc "Mythril_Check",.name$,.CostumeCost,19799,1,1;
+COS343: callfunc "Mythril_Check",.name$,.CostumeCost,19979,1,1;
+COS344: callfunc "Mythril_Check",.name$,.CostumeCost,20301,1,1;
+COS345: callfunc "Mythril_Check",.name$,.CostumeCost,19754,1,1;
+COS346: callfunc "Mythril_Check",.name$,.CostumeCost,19578,1,1;
+COS347: callfunc "Mythril_Check",.name$,.CostumeCost,19718,1,1;
+COS348: callfunc "Mythril_Check",.name$,.CostumeCost,19928,1,1;
+COS349: callfunc "Mythril_Check",.name$,.CostumeCost,20416,1,1;
+COS350: callfunc "Mythril_Check",.name$,.CostumeCost,20425,1,1;
+COS351: callfunc "Mythril_Check",.name$,.CostumeCost,20426,1,1;
+COS352: callfunc "Mythril_Check",.name$,.CostumeCost,20427,1,1;
+COS353: callfunc "Mythril_Check",.name$,.CostumeCost,20428,1,1;
+COS354: callfunc "Mythril_Check",.name$,.CostumeCost,20417,1,1;
+COS355: callfunc "Mythril_Check",.name$,.CostumeCost,20418,1,1;
+COS356: callfunc "Mythril_Check",.name$,.CostumeCost,20419,1,1;
+COS357: callfunc "Mythril_Check",.name$,.CostumeCost,20420,1,1;
+COS358: callfunc "Mythril_Check",.name$,.CostumeCost,20421,1,1;
+COS359: callfunc "Mythril_Check",.name$,.CostumeCost,20422,1,1;
+COS360: callfunc "Mythril_Check",.name$,.CostumeCost,20423,1,1;
+COS361: callfunc "Mythril_Check",.name$,.CostumeCost,20424,1,1;
+COS362: callfunc "Mythril_Check",.name$,.CostumeCost,20450,1,1;
+COS363: callfunc "Mythril_Check",.name$,.CostumeCost,19783,1,1;
+COS364: callfunc "Mythril_Check",.name$,.CostumeCost,19795,1,1;
+COS365: callfunc "Mythril_Check",.name$,.CostumeCost,20065,1,1;
+COS366: callfunc "Mythril_Check",.name$,.CostumeCost,19524,1,1;
+COS367: callfunc "Mythril_Check",.name$,.CostumeCost,20192,1,1;
+COS368: callfunc "Mythril_Check",.name$,.CostumeCost,20396,1,1;
+COS369: callfunc "Mythril_Check",.name$,.CostumeCost,19523,1,1;
+COS370: callfunc "Mythril_Check",.name$,.CostumeCost,20094,1,1;
+COS371: callfunc "Mythril_Check",.name$,.CostumeCost,20069,1,1;
+COS372: callfunc "Mythril_Check",.name$,.CostumeCost,19537,1,1;
+COS373: callfunc "Mythril_Check",.name$,.CostumeCost,20270,1,1;
+COS374: callfunc "Mythril_Check",.name$,.CostumeCost,19554,1,1;
+COS375: callfunc "Mythril_Check",.name$,.CostumeCost,20073,1,1;
+COS376: callfunc "Mythril_Check",.name$,.CostumeCost,19539,1,1;
+COS377: callfunc "Mythril_Check",.name$,.CostumeCost,19910,1,1;
+COS378: callfunc "Mythril_Check",.name$,.CostumeCost,20298,1,1;
+COS379: callfunc "Mythril_Check",.name$,.CostumeCost,19762,1,1;
+COS380: callfunc "Mythril_Check",.name$,.CostumeCost,20176,1,1;
+COS381: callfunc "Mythril_Check",.name$,.CostumeCost,20122,1,1;
+COS382: callfunc "Mythril_Check",.name$,.CostumeCost,19632,1,1;
+COS383: callfunc "Mythril_Check",.name$,.CostumeCost,19567,1,1;
+COS384: callfunc "Mythril_Check",.name$,.CostumeCost,19628,1,1;
+COS385: callfunc "Mythril_Check",.name$,.CostumeCost,19511,1,1;
+COS386: callfunc "Mythril_Check",.name$,.CostumeCost,19512,1,1;
+COS387: callfunc "Mythril_Check",.name$,.CostumeCost,19788,1,1;
+COS388: callfunc "Mythril_Check",.name$,.CostumeCost,19861,1,1;
+COS389: callfunc "Mythril_Check",.name$,.CostumeCost,20021,1,1;
+COS390: callfunc "Mythril_Check",.name$,.CostumeCost,19573,1,1;
+COS391: callfunc "Mythril_Check",.name$,.CostumeCost,19526,1,1;
+COS392: callfunc "Mythril_Check",.name$,.CostumeCost,19641,1,1;
+COS393: callfunc "Mythril_Check",.name$,.CostumeCost,20291,1,1;
+COS394: callfunc "Mythril_Check",.name$,.CostumeCost,20042,1,1;
+COS395: callfunc "Mythril_Check",.name$,.CostumeCost,20149,1,1;
+COS396: callfunc "Mythril_Check",.name$,.CostumeCost,19592,1,1;
+COS397: callfunc "Mythril_Check",.name$,.CostumeCost,20300,1,1;
+COS398: callfunc "Mythril_Check",.name$,.CostumeCost,20058,1,1;
+COS399: callfunc "Mythril_Check",.name$,.CostumeCost,20166,1,1;
+COS400: callfunc "Mythril_Check",.name$,.CostumeCost,20018,1,1;
+COS401: callfunc "Mythril_Check",.name$,.CostumeCost,20402,1,1;
+COS402: callfunc "Mythril_Check",.name$,.CostumeCost,19745,1,1;
+COS403: callfunc "Mythril_Check",.name$,.CostumeCost,19756,1,1;
+COS404: callfunc "Mythril_Check",.name$,.CostumeCost,19767,1,1;
+COS405: callfunc "Mythril_Check",.name$,.CostumeCost,20256,1,1;
+COS406: callfunc "Mythril_Check",.name$,.CostumeCost,19772,1,1;
+COS407: callfunc "Mythril_Check",.name$,.CostumeCost,20007,1,1;
+COS408: callfunc "Mythril_Check",.name$,.CostumeCost,20139,1,1;
+COS409: callfunc "Mythril_Check",.name$,.CostumeCost,20140,1,1;
+COS410: callfunc "Mythril_Check",.name$,.CostumeCost,19996,1,1;
+COS411: callfunc "Mythril_Check",.name$,.CostumeCost,20102,1,1;
+COS412: callfunc "Mythril_Check",.name$,.CostumeCost,20204,1,1;
+COS413: callfunc "Mythril_Check",.name$,.CostumeCost,19935,1,1;
+COS414: callfunc "Mythril_Check",.name$,.CostumeCost,20227,1,1;
+COS415: callfunc "Mythril_Check",.name$,.CostumeCost,19826,1,1;
+COS416: callfunc "Mythril_Check",.name$,.CostumeCost,19813,1,1;
+COS417: callfunc "Mythril_Check",.name$,.CostumeCost,20400,1,1;
+COS418: callfunc "Mythril_Check",.name$,.CostumeCost,20076,1,1;
+COS419: callfunc "Mythril_Check",.name$,.CostumeCost,19810,1,1;
+COS420: callfunc "Mythril_Check",.name$,.CostumeCost,19817,1,1;
+COS421: callfunc "Mythril_Check",.name$,.CostumeCost,20375,1,1;
+COS422: callfunc "Mythril_Check",.name$,.CostumeCost,19599,1,1;
+COS423: callfunc "Mythril_Check",.name$,.CostumeCost,19863,1,1;
+COS424: callfunc "Mythril_Check",.name$,.CostumeCost,19602,1,1;
+COS425: callfunc "Mythril_Check",.name$,.CostumeCost,19604,1,1;
+COS426: callfunc "Mythril_Check",.name$,.CostumeCost,19603,1,1;
+COS427: callfunc "Mythril_Check",.name$,.CostumeCost,19528,1,1;
+COS428: callfunc "Mythril_Check",.name$,.CostumeCost,20397,1,1;
+COS429: callfunc "Mythril_Check",.name$,.CostumeCost,19525,1,1;
+COS430: callfunc "Mythril_Check",.name$,.CostumeCost,20034,1,1;
+COS431: callfunc "Mythril_Check",.name$,.CostumeCost,19562,1,1;
+COS432: callfunc "Mythril_Check",.name$,.CostumeCost,19865,1,1;
+COS433: callfunc "Mythril_Check",.name$,.CostumeCost,20109,1,1;
+COS434: callfunc "Mythril_Check",.name$,.CostumeCost,20334,1,1;
+COS435: callfunc "Mythril_Check",.name$,.CostumeCost,19556,1,1;
+COS436: callfunc "Mythril_Check",.name$,.CostumeCost,19695,1,1;
+COS437: callfunc "Mythril_Check",.name$,.CostumeCost,20432,1,1;
+COS438: callfunc "Mythril_Check",.name$,.CostumeCost,20281,1,1;
+COS439: callfunc "Mythril_Check",.name$,.CostumeCost,19778,1,1;
+COS440: callfunc "Mythril_Check",.name$,.CostumeCost,19587,1,1;
+COS441: callfunc "Mythril_Check",.name$,.CostumeCost,19618,1,1;
+COS442: callfunc "Mythril_Check",.name$,.CostumeCost,19843,1,1;
+COS443: callfunc "Mythril_Check",.name$,.CostumeCost,19936,1,1;
+COS444: callfunc "Mythril_Check",.name$,.CostumeCost,19780,1,1;
+COS445: callfunc "Mythril_Check",.name$,.CostumeCost,19714,1,1;
+COS446: callfunc "Mythril_Check",.name$,.CostumeCost,20155,1,1;
+COS447: callfunc "Mythril_Check",.name$,.CostumeCost,20239,1,1;
+COS448: callfunc "Mythril_Check",.name$,.CostumeCost,20441,1,1;
+COS449: callfunc "Mythril_Check",.name$,.CostumeCost,20491,1,1;
+COS450: callfunc "Mythril_Check",.name$,.CostumeCost,19774,1,1;
+COS451: callfunc "Mythril_Check",.name$,.CostumeCost,19593,1,1;
+COS452: callfunc "Mythril_Check",.name$,.CostumeCost,19802,1,1;
+COS453: callfunc "Mythril_Check",.name$,.CostumeCost,19931,1,1;
+COS454: callfunc "Mythril_Check",.name$,.CostumeCost,19763,1,1;
+COS455: callfunc "Mythril_Check",.name$,.CostumeCost,20196,1,1;
+COS456: callfunc "Mythril_Check",.name$,.CostumeCost,19835,1,1;
+COS457: callfunc "Mythril_Check",.name$,.CostumeCost,19751,1,1;
+COS458: callfunc "Mythril_Check",.name$,.CostumeCost,20011,1,1;
+COS459: callfunc "Mythril_Check",.name$,.CostumeCost,20015,1,1;
+COS460: callfunc "Mythril_Check",.name$,.CostumeCost,20014,1,1;
+COS461: callfunc "Mythril_Check",.name$,.CostumeCost,20194,1,1;
+COS462: callfunc "Mythril_Check",.name$,.CostumeCost,19712,1,1;
+COS463: callfunc "Mythril_Check",.name$,.CostumeCost,20325,1,1;
+COS464: callfunc "Mythril_Check",.name$,.CostumeCost,20075,1,1;
+COS465: callfunc "Mythril_Check",.name$,.CostumeCost,20212,1,1;
+COS466: callfunc "Mythril_Check",.name$,.CostumeCost,19615,1,1;
+COS467: callfunc "Mythril_Check",.name$,.CostumeCost,19815,1,1;
+COS468: callfunc "Mythril_Check",.name$,.CostumeCost,20169,1,1;
+COS469: callfunc "Mythril_Check",.name$,.CostumeCost,20342,1,1;
+COS470: callfunc "Mythril_Check",.name$,.CostumeCost,20369,1,1;
+COS471: callfunc "Mythril_Check",.name$,.CostumeCost,20368,1,1;
+COS472: callfunc "Mythril_Check",.name$,.CostumeCost,20365,1,1;
+COS473: callfunc "Mythril_Check",.name$,.CostumeCost,20366,1,1;
+COS474: callfunc "Mythril_Check",.name$,.CostumeCost,20367,1,1;
+COS475: callfunc "Mythril_Check",.name$,.CostumeCost,20370,1,1;
+COS476: callfunc "Mythril_Check",.name$,.CostumeCost,20364,1,1;
+COS477: callfunc "Mythril_Check",.name$,.CostumeCost,19574,1,1;
+COS478: callfunc "Mythril_Check",.name$,.CostumeCost,20433,1,1;
+COS479: callfunc "Mythril_Check",.name$,.CostumeCost,20255,1,1;
+COS480: callfunc "Mythril_Check",.name$,.CostumeCost,19607,1,1;
+COS481: callfunc "Mythril_Check",.name$,.CostumeCost,20022,1,1;
+COS482: callfunc "Mythril_Check",.name$,.CostumeCost,19938,1,1;
+COS483: callfunc "Mythril_Check",.name$,.CostumeCost,20430,1,1;
+COS484: callfunc "Mythril_Check",.name$,.CostumeCost,19713,1,1;
+COS485: callfunc "Mythril_Check",.name$,.CostumeCost,20173,1,1;
+COS486: callfunc "Mythril_Check",.name$,.CostumeCost,19918,1,1;
+COS487: callfunc "Mythril_Check",.name$,.CostumeCost,19986,1,1;
+COS488: callfunc "Mythril_Check",.name$,.CostumeCost,19687,1,1;
+COS489: callfunc "Mythril_Check",.name$,.CostumeCost,20142,1,1;
+COS490: callfunc "Mythril_Check",.name$,.CostumeCost,20328,1,1;
+COS491: callfunc "Mythril_Check",.name$,.CostumeCost,20252,1,1;
+COS492: callfunc "Mythril_Check",.name$,.CostumeCost,19549,1,1;
+COS493: callfunc "Mythril_Check",.name$,.CostumeCost,20383,1,1;
+COS494: callfunc "Mythril_Check",.name$,.CostumeCost,19597,1,1;
+COS495: callfunc "Mythril_Check",.name$,.CostumeCost,19968,1,1;
+COS496: callfunc "Mythril_Check",.name$,.CostumeCost,20311,1,1;
+COS497: callfunc "Mythril_Check",.name$,.CostumeCost,19662,1,1;
+COS498: callfunc "Mythril_Check",.name$,.CostumeCost,20431,1,1;
+COS499: callfunc "Mythril_Check",.name$,.CostumeCost,20186,1,1;
+COS500: callfunc "Mythril_Check",.name$,.CostumeCost,20160,1,1;
+COS501: callfunc "Mythril_Check",.name$,.CostumeCost,19590,1,1;
+COS502: callfunc "Mythril_Check",.name$,.CostumeCost,19741,1,1;
+COS503: callfunc "Mythril_Check",.name$,.CostumeCost,19836,1,1;
+COS504: callfunc "Mythril_Check",.name$,.CostumeCost,19807,1,1;
+COS505: callfunc "Mythril_Check",.name$,.CostumeCost,20303,1,1;
+COS506: callfunc "Mythril_Check",.name$,.CostumeCost,20278,1,1;
+COS507: callfunc "Mythril_Check",.name$,.CostumeCost,20287,1,1;
+COS508: callfunc "Mythril_Check",.name$,.CostumeCost,20154,1,1;
+COS509: callfunc "Mythril_Check",.name$,.CostumeCost,19653,1,1;
+COS510: callfunc "Mythril_Check",.name$,.CostumeCost,20327,1,1;
+COS511: callfunc "Mythril_Check",.name$,.CostumeCost,20017,1,1;
+COS512: callfunc "Mythril_Check",.name$,.CostumeCost,20124,1,1;
+COS513: callfunc "Mythril_Check",.name$,.CostumeCost,20380,1,1;
+COS514: callfunc "Mythril_Check",.name$,.CostumeCost,20374,1,1;
+COS515: callfunc "Mythril_Check",.name$,.CostumeCost,20376,1,1;
+COS516: callfunc "Mythril_Check",.name$,.CostumeCost,19570,1,1;
+COS517: callfunc "Mythril_Check",.name$,.CostumeCost,20209,1,1;
+COS518: callfunc "Mythril_Check",.name$,.CostumeCost,20116,1,1;
+COS519: callfunc "Mythril_Check",.name$,.CostumeCost,20082,1,1;
+COS520: callfunc "Mythril_Check",.name$,.CostumeCost,20081,1,1;
+COS521: callfunc "Mythril_Check",.name$,.CostumeCost,19967,1,1;
+COS522: callfunc "Mythril_Check",.name$,.CostumeCost,19522,1,1;
+COS523: callfunc "Mythril_Check",.name$,.CostumeCost,20125,1,1;
+COS524: callfunc "Mythril_Check",.name$,.CostumeCost,19635,1,1;
+COS525: callfunc "Mythril_Check",.name$,.CostumeCost,19955,1,1;
+COS526: callfunc "Mythril_Check",.name$,.CostumeCost,19966,1,1;
+COS527: callfunc "Mythril_Check",.name$,.CostumeCost,20035,1,1;
+COS528: callfunc "Mythril_Check",.name$,.CostumeCost,20198,1,1;
+COS529: callfunc "Mythril_Check",.name$,.CostumeCost,19962,1,1;
+COS530: callfunc "Mythril_Check",.name$,.CostumeCost,19932,1,1;
+COS531: callfunc "Mythril_Check",.name$,.CostumeCost,20033,1,1;
+COS532: callfunc "Mythril_Check",.name$,.CostumeCost,20179,1,1;
+COS533: callfunc "Mythril_Check",.name$,.CostumeCost,20153,1,1;
+COS534: callfunc "Mythril_Check",.name$,.CostumeCost,20464,1,1;
+COS535: callfunc "Mythril_Check",.name$,.CostumeCost,19925,1,1;
+COS536: callfunc "Mythril_Check",.name$,.CostumeCost,19764,1,1;
+COS537: callfunc "Mythril_Check",.name$,.CostumeCost,19642,1,1;
+COS538: callfunc "Mythril_Check",.name$,.CostumeCost,20188,1,1;
+COS539: callfunc "Mythril_Check",.name$,.CostumeCost,19784,1,1;
+COS540: callfunc "Mythril_Check",.name$,.CostumeCost,19999,1,1;
+COS541: callfunc "Mythril_Check",.name$,.CostumeCost,20000,1,1;
+COS542: callfunc "Mythril_Check",.name$,.CostumeCost,20001,1,1;
+COS543: callfunc "Mythril_Check",.name$,.CostumeCost,20002,1,1;
+COS544: callfunc "Mythril_Check",.name$,.CostumeCost,20003,1,1;
+COS545: callfunc "Mythril_Check",.name$,.CostumeCost,19989,1,1;
+COS546: callfunc "Mythril_Check",.name$,.CostumeCost,19500,1,1;
+COS547: callfunc "Mythril_Check",.name$,.CostumeCost,19638,1,1;
+COS548: callfunc "Mythril_Check",.name$,.CostumeCost,19503,1,1;
+COS549: callfunc "Mythril_Check",.name$,.CostumeCost,19849,1,1;
+COS550: callfunc "Mythril_Check",.name$,.CostumeCost,20148,1,1;
+COS551: callfunc "Mythril_Check",.name$,.CostumeCost,20181,1,1;
+COS552: callfunc "Mythril_Check",.name$,.CostumeCost,20083,1,1;
+COS553: callfunc "Mythril_Check",.name$,.CostumeCost,20208,1,1;
+COS554: callfunc "Mythril_Check",.name$,.CostumeCost,19729,1,1;
+COS555: callfunc "Mythril_Check",.name$,.CostumeCost,20317,1,1;
+COS556: callfunc "Mythril_Check",.name$,.CostumeCost,20314,1,1;
+COS557: callfunc "Mythril_Check",.name$,.CostumeCost,20439,1,1;
+COS558: callfunc "Mythril_Check",.name$,.CostumeCost,20398,1,1;
+COS559: callfunc "Mythril_Check",.name$,.CostumeCost,19606,1,1;
+COS560: callfunc "Mythril_Check",.name$,.CostumeCost,19922,1,1;
+COS561: callfunc "Mythril_Check",.name$,.CostumeCost,19612,1,1;
+COS562: callfunc "Mythril_Check",.name$,.CostumeCost,19637,1,1;
+COS563: callfunc "Mythril_Check",.name$,.CostumeCost,20141,1,1;
+COS564: callfunc "Mythril_Check",.name$,.CostumeCost,20126,1,1;
+COS565: callfunc "Mythril_Check",.name$,.CostumeCost,19543,1,1;
+COS566: callfunc "Mythril_Check",.name$,.CostumeCost,19846,1,1;
+COS567: callfunc "Mythril_Check",.name$,.CostumeCost,20174,1,1;
+COS568: callfunc "Mythril_Check",.name$,.CostumeCost,20024,1,1;
+COS569: callfunc "Mythril_Check",.name$,.CostumeCost,20283,1,1;
+COS570: callfunc "Mythril_Check",.name$,.CostumeCost,20037,1,1;
+COS571: callfunc "Mythril_Check",.name$,.CostumeCost,19733,1,1;
+COS572: callfunc "Mythril_Check",.name$,.CostumeCost,19953,1,1;
+COS573: callfunc "Mythril_Check",.name$,.CostumeCost,20184,1,1;
+COS574: callfunc "Mythril_Check",.name$,.CostumeCost,19611,1,1;
+COS575: callfunc "Mythril_Check",.name$,.CostumeCost,19816,1,1;
+COS576: callfunc "Mythril_Check",.name$,.CostumeCost,20066,1,1;
+COS577: callfunc "Mythril_Check",.name$,.CostumeCost,20267,1,1;
+COS578: callfunc "Mythril_Check",.name$,.CostumeCost,19779,1,1;
+COS579: callfunc "Mythril_Check",.name$,.CostumeCost,20050,1,1;
+COS580: callfunc "Mythril_Check",.name$,.CostumeCost,19645,1,1;
+COS581: callfunc "Mythril_Check",.name$,.CostumeCost,20429,1,1;
+COS582: callfunc "Mythril_Check",.name$,.CostumeCost,19883,1,1;
+COS583: callfunc "Mythril_Check",.name$,.CostumeCost,20104,1,1;
+COS584: callfunc "Mythril_Check",.name$,.CostumeCost,20228,1,1;
+COS585: callfunc "Mythril_Check",.name$,.CostumeCost,20324,1,1;
+COS586: callfunc "Mythril_Check",.name$,.CostumeCost,19671,1,1;
+COS587: callfunc "Mythril_Check",.name$,.CostumeCost,20237,1,1;
+COS588: callfunc "Mythril_Check",.name$,.CostumeCost,19586,1,1;
+COS589: callfunc "Mythril_Check",.name$,.CostumeCost,20259,1,1;
+COS590: callfunc "Mythril_Check",.name$,.CostumeCost,19717,1,1;
+COS591: callfunc "Mythril_Check",.name$,.CostumeCost,20091,1,1;
+COS592: callfunc "Mythril_Check",.name$,.CostumeCost,20379,1,1;
+COS593: callfunc "Mythril_Check",.name$,.CostumeCost,20151,1,1;
+COS594: callfunc "Mythril_Check",.name$,.CostumeCost,19792,1,1;
+COS595: callfunc "Mythril_Check",.name$,.CostumeCost,19707,1,1;
+COS596: callfunc "Mythril_Check",.name$,.CostumeCost,20274,1,1;
+COS597: callfunc "Mythril_Check",.name$,.CostumeCost,19913,1,1;
+COS598: callfunc "Mythril_Check",.name$,.CostumeCost,20129,1,1;
+COS599: callfunc "Mythril_Check",.name$,.CostumeCost,19665,1,1;
+COS600: callfunc "Mythril_Check",.name$,.CostumeCost,19631,1,1;
+COS601: callfunc "Mythril_Check",.name$,.CostumeCost,19832,1,1;
+COS602: callfunc "Mythril_Check",.name$,.CostumeCost,20133,1,1;
+COS603: callfunc "Mythril_Check",.name$,.CostumeCost,20347,1,1;
+COS604: callfunc "Mythril_Check",.name$,.CostumeCost,20295,1,1;
+COS605: callfunc "Mythril_Check",.name$,.CostumeCost,20047,1,1;
+COS606: callfunc "Mythril_Check",.name$,.CostumeCost,19972,1,1;
+COS607: callfunc "Mythril_Check",.name$,.CostumeCost,20321,1,1;
+COS608: callfunc "Mythril_Check",.name$,.CostumeCost,19917,1,1;
+COS609: callfunc "Mythril_Check",.name$,.CostumeCost,20172,1,1;
+COS610: callfunc "Mythril_Check",.name$,.CostumeCost,20394,1,1;
+COS611: callfunc "Mythril_Check",.name$,.CostumeCost,20225,1,1;
+COS612: callfunc "Mythril_Check",.name$,.CostumeCost,19842,1,1;
+COS613: callfunc "Mythril_Check",.name$,.CostumeCost,19617,1,1;
+COS614: callfunc "Mythril_Check",.name$,.CostumeCost,20178,1,1;
+COS615: callfunc "Mythril_Check",.name$,.CostumeCost,20332,1,1;
+COS616: callfunc "Mythril_Check",.name$,.CostumeCost,19886,1,1;
+COS617: callfunc "Mythril_Check",.name$,.CostumeCost,20495,1,1;
+COS618: callfunc "Mythril_Check",.name$,.CostumeCost,19919,1,1;
+COS619: callfunc "Mythril_Check",.name$,.CostumeCost,19540,1,1;
+COS620: callfunc "Mythril_Check",.name$,.CostumeCost,20200,1,1;
+COS621: callfunc "Mythril_Check",.name$,.CostumeCost,19990,1,1;
+COS622: callfunc "Mythril_Check",.name$,.CostumeCost,19652,1,1;
+COS623: callfunc "Mythril_Check",.name$,.CostumeCost,20304,1,1;
+COS624: callfunc "Mythril_Check",.name$,.CostumeCost,19520,1,1;
+COS625: callfunc "Mythril_Check",.name$,.CostumeCost,19518,1,1;
+COS626: callfunc "Mythril_Check",.name$,.CostumeCost,20010,1,1;
+COS627: callfunc "Mythril_Check",.name$,.CostumeCost,20182,1,1;
+COS628: callfunc "Mythril_Check",.name$,.CostumeCost,19650,1,1;
+COS629: callfunc "Mythril_Check",.name$,.CostumeCost,19676,1,1;
+COS630: callfunc "Mythril_Check",.name$,.CostumeCost,19760,1,1;
+COS631: callfunc "Mythril_Check",.name$,.CostumeCost,19646,1,1;
+COS632: callfunc "Mythril_Check",.name$,.CostumeCost,20117,1,1;
+COS633: callfunc "Mythril_Check",.name$,.CostumeCost,20442,1,1;
+COS634: callfunc "Mythril_Check",.name$,.CostumeCost,20320,1,1;
+COS635: callfunc "Mythril_Check",.name$,.CostumeCost,20023,1,1;
+COS636: callfunc "Mythril_Check",.name$,.CostumeCost,19701,1,1;
+COS637: callfunc "Mythril_Check",.name$,.CostumeCost,19532,1,1;
+COS638: callfunc "Mythril_Check",.name$,.CostumeCost,20226,1,1;
+COS639: callfunc "Mythril_Check",.name$,.CostumeCost,19647,1,1;
+COS640: callfunc "Mythril_Check",.name$,.CostumeCost,19706,1,1;
+COS641: callfunc "Mythril_Check",.name$,.CostumeCost,19609,1,1;
+COS642: callfunc "Mythril_Check",.name$,.CostumeCost,19591,1,1;
+COS643: callfunc "Mythril_Check",.name$,.CostumeCost,20095,1,1;
+COS644: callfunc "Mythril_Check",.name$,.CostumeCost,20249,1,1;
+COS645: callfunc "Mythril_Check",.name$,.CostumeCost,20224,1,1;
+COS646: callfunc "Mythril_Check",.name$,.CostumeCost,19804,1,1;
+COS647: callfunc "Mythril_Check",.name$,.CostumeCost,19579,1,1;
+COS648: callfunc "Mythril_Check",.name$,.CostumeCost,19737,1,1;
+COS649: callfunc "Mythril_Check",.name$,.CostumeCost,19782,1,1;
+COS650: callfunc "Mythril_Check",.name$,.CostumeCost,19669,1,1;
+COS651: callfunc "Mythril_Check",.name$,.CostumeCost,20128,1,1;
+COS652: callfunc "Mythril_Check",.name$,.CostumeCost,19738,1,1;
+COS653: callfunc "Mythril_Check",.name$,.CostumeCost,20455,1,1;
+COS654: callfunc "Mythril_Check",.name$,.CostumeCost,20408,1,1;
+COS655: callfunc "Mythril_Check",.name$,.CostumeCost,19433,1,1;
+COS656: callfunc "Mythril_Check",.name$,.CostumeCost,20372,1,1;
+COS657: callfunc "Mythril_Check",.name$,.CostumeCost,20216,1,1;
+COS658: callfunc "Mythril_Check",.name$,.CostumeCost,20145,1,1;
+COS659: callfunc "Mythril_Check",.name$,.CostumeCost,20213,1,1;
+COS660: callfunc "Mythril_Check",.name$,.CostumeCost,19720,1,1;
+COS661: callfunc "Mythril_Check",.name$,.CostumeCost,20223,1,1;
+COS662: callfunc "Mythril_Check",.name$,.CostumeCost,19541,1,1;
+COS663: callfunc "Mythril_Check",.name$,.CostumeCost,20251,1,1;
+COS664: callfunc "Mythril_Check",.name$,.CostumeCost,19536,1,1;
+COS665: callfunc "Mythril_Check",.name$,.CostumeCost,20041,1,1;
+COS666: callfunc "Mythril_Check",.name$,.CostumeCost,19697,1,1;
+COS667: callfunc "Mythril_Check",.name$,.CostumeCost,19961,1,1;
+COS668: callfunc "Mythril_Check",.name$,.CostumeCost,19651,1,1;
+COS669: callfunc "Mythril_Check",.name$,.CostumeCost,19949,1,1;
+COS670: callfunc "Mythril_Check",.name$,.CostumeCost,19723,1,1;
+COS671: callfunc "Mythril_Check",.name$,.CostumeCost,20326,1,1;
+COS672: callfunc "Mythril_Check",.name$,.CostumeCost,19750,1,1;
+COS673: callfunc "Mythril_Check",.name$,.CostumeCost,19770,1,1;
+COS674: callfunc "Mythril_Check",.name$,.CostumeCost,19639,1,1;
+COS675: callfunc "Mythril_Check",.name$,.CostumeCost,19768,1,1;
+COS676: callfunc "Mythril_Check",.name$,.CostumeCost,20437,1,1;
+COS677: callfunc "Mythril_Check",.name$,.CostumeCost,20284,1,1;
+COS678: callfunc "Mythril_Check",.name$,.CostumeCost,20092,1,1;
+COS679: callfunc "Mythril_Check",.name$,.CostumeCost,19994,1,1;
+COS680: callfunc "Mythril_Check",.name$,.CostumeCost,20045,1,1;
+COS681: callfunc "Mythril_Check",.name$,.CostumeCost,19566,1,1;
+COS682: callfunc "Mythril_Check",.name$,.CostumeCost,19686,1,1;
+COS683: callfunc "Mythril_Check",.name$,.CostumeCost,19982,1,1;
+COS684: callfunc "Mythril_Check",.name$,.CostumeCost,19682,1,1;
+COS685: callfunc "Mythril_Check",.name$,.CostumeCost,19627,1,1;
+COS686: callfunc "Mythril_Check",.name$,.CostumeCost,20294,1,1;
+COS687: callfunc "Mythril_Check",.name$,.CostumeCost,19715,1,1;
+COS688: callfunc "Mythril_Check",.name$,.CostumeCost,19726,1,1;
+COS689: callfunc "Mythril_Check",.name$,.CostumeCost,20393,1,1;
+COS690: callfunc "Mythril_Check",.name$,.CostumeCost,19860,1,1;
+COS691: callfunc "Mythril_Check",.name$,.CostumeCost,19957,1,1;
+COS692: callfunc "Mythril_Check",.name$,.CostumeCost,20195,1,1;
+COS693: callfunc "Mythril_Check",.name$,.CostumeCost,19510,1,1;
+COS694: callfunc "Mythril_Check",.name$,.CostumeCost,20138,1,1;
+COS695: callfunc "Mythril_Check",.name$,.CostumeCost,20345,1,1;
+COS696: callfunc "Mythril_Check",.name$,.CostumeCost,20322,1,1;
+COS697: callfunc "Mythril_Check",.name$,.CostumeCost,20266,1,1;
+COS698: callfunc "Mythril_Check",.name$,.CostumeCost,20171,1,1;
+COS699: callfunc "Mythril_Check",.name$,.CostumeCost,20316,1,1;
+COS700: callfunc "Mythril_Check",.name$,.CostumeCost,19965,1,1;
+COS701: callfunc "Mythril_Check",.name$,.CostumeCost,20080,1,1;
+COS702: callfunc "Mythril_Check",.name$,.CostumeCost,19752,1,1;
+COS703: callfunc "Mythril_Check",.name$,.CostumeCost,19685,1,1;
+COS704: callfunc "Mythril_Check",.name$,.CostumeCost,19777,1,1;
+COS705: callfunc "Mythril_Check",.name$,.CostumeCost,19654,1,1;
+COS706: callfunc "Mythril_Check",.name$,.CostumeCost,20005,1,1;
+COS707: callfunc "Mythril_Check",.name$,.CostumeCost,20391,1,1;
+COS708: callfunc "Mythril_Check",.name$,.CostumeCost,19937,1,1;
+COS709: callfunc "Mythril_Check",.name$,.CostumeCost,19978,1,1;
+COS710: callfunc "Mythril_Check",.name$,.CostumeCost,19980,1,1;
+COS711: callfunc "Mythril_Check",.name$,.CostumeCost,20382,1,1;
+COS712: callfunc "Mythril_Check",.name$,.CostumeCost,19516,1,1;
+COS713: callfunc "Mythril_Check",.name$,.CostumeCost,19535,1,1;
+COS714: callfunc "Mythril_Check",.name$,.CostumeCost,20168,1,1;
+COS715: callfunc "Mythril_Check",.name$,.CostumeCost,20378,1,1;
+COS716: callfunc "Mythril_Check",.name$,.CostumeCost,20451,1,1;
+COS717: callfunc "Mythril_Check",.name$,.CostumeCost,20268,1,1;
+COS718: callfunc "Mythril_Check",.name$,.CostumeCost,20293,1,1;
+COS719: callfunc "Mythril_Check",.name$,.CostumeCost,20263,1,1;
+COS720: callfunc "Mythril_Check",.name$,.CostumeCost,19739,1,1;
+COS721: callfunc "Mythril_Check",.name$,.CostumeCost,19742,1,1;
+COS722: callfunc "Mythril_Check",.name$,.CostumeCost,20447,1,1;
+COS723: callfunc "Mythril_Check",.name$,.CostumeCost,19889,1,1;
+COS724: callfunc "Mythril_Check",.name$,.CostumeCost,19858,1,1;
+COS725: callfunc "Mythril_Check",.name$,.CostumeCost,19730,1,1;
+COS726: callfunc "Mythril_Check",.name$,.CostumeCost,20392,1,1;
+COS727: callfunc "Mythril_Check",.name$,.CostumeCost,19856,1,1;
+COS728: callfunc "Mythril_Check",.name$,.CostumeCost,20231,1,1;
+COS729: callfunc "Mythril_Check",.name$,.CostumeCost,20242,1,1;
+COS730: callfunc "Mythril_Check",.name$,.CostumeCost,20273,1,1;
+COS731: callfunc "Mythril_Check",.name$,.CostumeCost,19956,1,1;
+COS732: callfunc "Mythril_Check",.name$,.CostumeCost,20330,1,1;
+COS733: callfunc "Mythril_Check",.name$,.CostumeCost,19677,1,1;
+COS734: callfunc "Mythril_Check",.name$,.CostumeCost,19670,1,1;
+COS735: callfunc "Mythril_Check",.name$,.CostumeCost,20323,1,1;
+COS736: callfunc "Mythril_Check",.name$,.CostumeCost,20085,1,1;
+COS737: callfunc "Mythril_Check",.name$,.CostumeCost,20371,1,1;
+COS738: callfunc "Mythril_Check",.name$,.CostumeCost,20218,1,1;
+COS739: callfunc "Mythril_Check",.name$,.CostumeCost,19580,1,1;
+COS740: callfunc "Mythril_Check",.name$,.CostumeCost,19527,1,1;
+COS741: callfunc "Mythril_Check",.name$,.CostumeCost,19501,1,1;
+COS742: callfunc "Mythril_Check",.name$,.CostumeCost,19533,1,1;
+COS743: callfunc "Mythril_Check",.name$,.CostumeCost,19569,1,1;
+COS744: callfunc "Mythril_Check",.name$,.CostumeCost,20113,1,1;
+COS745: callfunc "Mythril_Check",.name$,.CostumeCost,20260,1,1;
+COS746: callfunc "Mythril_Check",.name$,.CostumeCost,20381,1,1;
+COS747: callfunc "Mythril_Check",.name$,.CostumeCost,20051,1,1;
+COS748: callfunc "Mythril_Check",.name$,.CostumeCost,20340,1,1;
+COS749: callfunc "Mythril_Check",.name$,.CostumeCost,20362,1,1;
+COS750: callfunc "Mythril_Check",.name$,.CostumeCost,20361,1,1;
+COS751: callfunc "Mythril_Check",.name$,.CostumeCost,20358,1,1;
+COS752: callfunc "Mythril_Check",.name$,.CostumeCost,20359,1,1;
+COS753: callfunc "Mythril_Check",.name$,.CostumeCost,20360,1,1;
+COS754: callfunc "Mythril_Check",.name$,.CostumeCost,20363,1,1;
+COS755: callfunc "Mythril_Check",.name$,.CostumeCost,20357,1,1;
+COS756: callfunc "Mythril_Check",.name$,.CostumeCost,19829,1,1;
+COS757: callfunc "Mythril_Check",.name$,.CostumeCost,20152,1,1;
+COS758: callfunc "Mythril_Check",.name$,.CostumeCost,20207,1,1;
+COS759: callfunc "Mythril_Check",.name$,.CostumeCost,19862,1,1;
+COS760: callfunc "Mythril_Check",.name$,.CostumeCost,20348,1,1;
+COS761: callfunc "Mythril_Check",.name$,.CostumeCost,20271,1,1;
+COS762: callfunc "Mythril_Check",.name$,.CostumeCost,19504,1,1;
+COS763: callfunc "Mythril_Check",.name$,.CostumeCost,19830,1,1;
+COS764: callfunc "Mythril_Check",.name$,.CostumeCost,19614,1,1;
+COS765: callfunc "Mythril_Check",.name$,.CostumeCost,19793,1,1;
+COS766: callfunc "Mythril_Check",.name$,.CostumeCost,19661,1,1;
+COS767: callfunc "Mythril_Check",.name$,.CostumeCost,20470,1,1;
+COS768: callfunc "Mythril_Check",.name$,.CostumeCost,19789,1,1;
+COS769: callfunc "Mythril_Check",.name$,.CostumeCost,20036,1,1;
+COS770: callfunc "Mythril_Check",.name$,.CostumeCost,19644,1,1;
+COS771: callfunc "Mythril_Check",.name$,.CostumeCost,19544,1,1;
+COS772: callfunc "Mythril_Check",.name$,.CostumeCost,19576,1,1;
+COS773: callfunc "Mythril_Check",.name$,.CostumeCost,19728,1,1;
+COS774: callfunc "Mythril_Check",.name$,.CostumeCost,19851,1,1;
+COS775: callfunc "Mythril_Check",.name$,.CostumeCost,20165,1,1;
+COS776: callfunc "Mythril_Check",.name$,.CostumeCost,19747,1,1;
+COS777: callfunc "Mythril_Check",.name$,.CostumeCost,19534,1,1;
+COS778: callfunc "Mythril_Check",.name$,.CostumeCost,20409,1,1;
+COS779: callfunc "Mythril_Check",.name$,.CostumeCost,20183,1,1;
+COS780: callfunc "Mythril_Check",.name$,.CostumeCost,20460,1,1;
+COS781: callfunc "Mythril_Check",.name$,.CostumeCost,19519,1,1;
+COS782: callfunc "Mythril_Check",.name$,.CostumeCost,19629,1,1;
+COS783: callfunc "Mythril_Check",.name$,.CostumeCost,19564,1,1;
+COS784: callfunc "Mythril_Check",.name$,.CostumeCost,19655,1,1;
+COS785: callfunc "Mythril_Check",.name$,.CostumeCost,19776,1,1;
+COS786: callfunc "Mythril_Check",.name$,.CostumeCost,20440,1,1;
+COS787: callfunc "Mythril_Check",.name$,.CostumeCost,19561,1,1;
+COS788: callfunc "Mythril_Check",.name$,.CostumeCost,19844,1,1;
+COS789: callfunc "Mythril_Check",.name$,.CostumeCost,19702,1,1;
+COS790: callfunc "Mythril_Check",.name$,.CostumeCost,20463,1,1;
+COS791: callfunc "Mythril_Check",.name$,.CostumeCost,20497,1,1;
+COS792: callfunc "Mythril_Check",.name$,.CostumeCost,19759,1,1;
+COS793: callfunc "Mythril_Check",.name$,.CostumeCost,20115,1,1;
+COS794: callfunc "Mythril_Check",.name$,.CostumeCost,20286,1,1;
+COS795: callfunc "Mythril_Check",.name$,.CostumeCost,20272,1,1;
+COS796: callfunc "Mythril_Check",.name$,.CostumeCost,20492,1,1;
+COS797: callfunc "Mythril_Check",.name$,.CostumeCost,19658,1,1;
+COS798: callfunc "Mythril_Check",.name$,.CostumeCost,20459,1,1;
+COS799: callfunc "Mythril_Check",.name$,.CostumeCost,19506,1,1;
+COS800: callfunc "Mythril_Check",.name$,.CostumeCost,19613,1,1;
+COS801: callfunc "Mythril_Check",.name$,.CostumeCost,19546,1,1;
+COS802: callfunc "Mythril_Check",.name$,.CostumeCost,20098,1,1;
+COS803: callfunc "Mythril_Check",.name$,.CostumeCost,19884,1,1;
+COS804: callfunc "Mythril_Check",.name$,.CostumeCost,19839,1,1;
+COS805: callfunc "Mythril_Check",.name$,.CostumeCost,20329,1,1;
+COS806: callfunc "Mythril_Check",.name$,.CostumeCost,20407,1,1;
+COS807: callfunc "Mythril_Check",.name$,.CostumeCost,19825,1,1;
+COS808: callfunc "Mythril_Check",.name$,.CostumeCost,20386,1,1;
+COS809: callfunc "Mythril_Check",.name$,.CostumeCost,20100,1,1;
+COS810: callfunc "Mythril_Check",.name$,.CostumeCost,20487,1,1;
+COS811: callfunc "Mythril_Check",.name$,.CostumeCost,19656,1,1;
+COS812: callfunc "Mythril_Check",.name$,.CostumeCost,19598,1,1;
+COS813: callfunc "Mythril_Check",.name$,.CostumeCost,19757,1,1;
+COS814: callfunc "Mythril_Check",.name$,.CostumeCost,20448,1,1;
+COS815: callfunc "Mythril_Check",.name$,.CostumeCost,20373,1,1;
+COS816: callfunc "Mythril_Check",.name$,.CostumeCost,20335,1,1;
+COS817: callfunc "Mythril_Check",.name$,.CostumeCost,19790,1,1;
+COS818: callfunc "Mythril_Check",.name$,.CostumeCost,20059,1,1;
+COS819: callfunc "Mythril_Check",.name$,.CostumeCost,20280,1,1;
+COS820: callfunc "Mythril_Check",.name$,.CostumeCost,20180,1,1;
+COS821: callfunc "Mythril_Check",.name$,.CostumeCost,19610,1,1;
+COS822: callfunc "Mythril_Check",.name$,.CostumeCost,20130,1,1;
+COS823: callfunc "Mythril_Check",.name$,.CostumeCost,20449,1,1;
+COS824: callfunc "Mythril_Check",.name$,.CostumeCost,19649,1,1;
+COS825: callfunc "Mythril_Check",.name$,.CostumeCost,19823,1,1;
+COS826: callfunc "Mythril_Check",.name$,.CostumeCost,20078,1,1;
+COS827: callfunc "Mythril_Check",.name$,.CostumeCost,20269,1,1;
+COS828: callfunc "Mythril_Check",.name$,.CostumeCost,20134,1,1;
+COS829: callfunc "Mythril_Check",.name$,.CostumeCost,20053,1,1;
+COS830: callfunc "Mythril_Check",.name$,.CostumeCost,19761,1,1;
+COS831: callfunc "Mythril_Check",.name$,.CostumeCost,19571,1,1;
+COS832: callfunc "Mythril_Check",.name$,.CostumeCost,20067,1,1;
+COS833: callfunc "Mythril_Check",.name$,.CostumeCost,20097,1,1;
+COS834: callfunc "Mythril_Check",.name$,.CostumeCost,19708,1,1;
+COS835: callfunc "Mythril_Check",.name$,.CostumeCost,20250,1,1;
+COS836: callfunc "Mythril_Check",.name$,.CostumeCost,20282,1,1;
+COS837: callfunc "Mythril_Check",.name$,.CostumeCost,19643,1,1;
+COS838: callfunc "Mythril_Check",.name$,.CostumeCost,19616,1,1;
+COS839: callfunc "Mythril_Check",.name$,.CostumeCost,20458,1,1;
+COS840: callfunc "Mythril_Check",.name$,.CostumeCost,19530,1,1;
+COS841: callfunc "Mythril_Check",.name$,.CostumeCost,20150,1,1;
+COS842: callfunc "Mythril_Check",.name$,.CostumeCost,19668,1,1;
+COS843: callfunc "Mythril_Check",.name$,.CostumeCost,20048,1,1;
+COS844: callfunc "Mythril_Check",.name$,.CostumeCost,19970,1,1;
+COS845: callfunc "Mythril_Check",.name$,.CostumeCost,19803,1,1;
+COS846: callfunc "Mythril_Check",.name$,.CostumeCost,19765,1,1;
+COS847: callfunc "Mythril_Check",.name$,.CostumeCost,20077,1,1;
+COS848: callfunc "Mythril_Check",.name$,.CostumeCost,19710,1,1;
+COS849: callfunc "Mythril_Check",.name$,.CostumeCost,19663,1,1;
+COS850: callfunc "Mythril_Check",.name$,.CostumeCost,19903,1,1;
+COS851: callfunc "Mythril_Check",.name$,.CostumeCost,20093,1,1;
+COS852: callfunc "Mythril_Check",.name$,.CostumeCost,20071,1,1;
+COS853: callfunc "Mythril_Check",.name$,.CostumeCost,19821,1,1;
+COS854: callfunc "Mythril_Check",.name$,.CostumeCost,20063,1,1;
+COS855: callfunc "Mythril_Check",.name$,.CostumeCost,19822,1,1;
+COS856: callfunc "Mythril_Check",.name$,.CostumeCost,19515,1,1;
+COS857: callfunc "Mythril_Check",.name$,.CostumeCost,19709,1,1;
+COS858: callfunc "Mythril_Check",.name$,.CostumeCost,20254,1,1;
+COS859: callfunc "Mythril_Check",.name$,.CostumeCost,19755,1,1;
+COS860: callfunc "Mythril_Check",.name$,.CostumeCost,20468,1,1;
+COS861: callfunc "Mythril_Check",.name$,.CostumeCost,20296,1,1;
+COS862: callfunc "Mythril_Check",.name$,.CostumeCost,20020,1,1;
+COS863: callfunc "Mythril_Check",.name$,.CostumeCost,20244,1,1;
+COS864: callfunc "Mythril_Check",.name$,.CostumeCost,19583,1,1;
+	
+CV_Cards:
+	clear;
+	mes .name$;
+	mes "Please select what you'd like to purchase!";
+	switch(select("Miniboss Cards:MVP Cards:Cancel")){
+		case 1:
+			menu	"^B34409Angeling Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB1,
+					"^B34409Archangeling Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB2,
+					"^B34409Baroness of Retribution Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB3,
+					"^B34409Bow Guardian Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB4,
+					"^B34409Byorgue Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB5,
+					"^B34409Cat o' Nine Tails Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB6,
+					"^B34409Chimera Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB7,
+					"^B34409Dame of Sentinel Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB8,
+					"^B34409Dark Illusion Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB9,
+					"^B34409Dark Priest Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB10,
+					"^B34409Despero of Thanatos Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB11,
+					"^B34409Deviling Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB12,
+					"^B34409Dolor of Thanatos Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB13,
+					"^B34409Dragon Fly Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB14,
+					"^B34409Eclipse Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB15,
+					"^B34409Executioner Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB16,
+					"^B34409Galion Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB17,
+					"^B34409Gemini-S58 Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB18,
+					"[^FF0000 NEXT ^000000]",-;
+					menu		"^B34409Ghostring Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB19,
+								"^B34409Gryphon Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB20,
+								"^B34409Hydrolancer Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB21,
+								"^B34409Kasa Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB22,
+								"^B34409Lady Solace Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB23,
+								"^B34409Maero of Thanatos Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB24,
+								"^B34409Mastering Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB25,
+								"^B34409Maya Purple Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB26,
+								"^B34409Mistress of Shelter Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB27,
+								"^B34409Mutant Dragonoid Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB28,
+								"^B34409Mysteltainn Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB29,
+								"^B34409Necromancer Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB30,
+								"^B34409Odium of Thanatos Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB31,
+								"^B34409Ogretooth Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB32,
+								"^B34409Owl Baron Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB33,
+								"^B34409Owl Duke Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB34,
+								"^B34409Salamander Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB35,
+								"^B34409Skeggiold Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB36,
+								"^B34409Sword Guardian Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB37,
+								"^B34409Toad Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB38,
+								"^B34409Vagabond Wolf Card^000000 [^0945b3"+.MiniCost+" Coins^000000]",CMB39,
+								"[ ^FF0000Cancel^000000 ]",CVBye;
+
+		case 2:
+			menu	"^b34409Amon Ra Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C1,
+					"^b34409Assassin Cross Eremes Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C2,
+					"^b34409Atroce Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C3,
+					"^b34409Baphomet Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C4,
+					"^b34409Beelzebub Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C5,
+					"^b34409Dark Lord Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C6,
+					"^b34409Detardeurus Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C7,
+					"^b34409Doppelganger Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C8,
+					"^b34409Dracula Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C9,
+					"^b34409Drake Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C10,
+					"^b34409Eddga Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C11,
+					"^b34409Egnigem Cenia Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C12,
+					"^b34409Evil Snake Lord Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C13,
+					"^b34409Fallen Bishop Hibram Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C14,
+					"^b34409Gloom Under Night Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C15,
+					"^b34409Golden Thief Bug Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C16,
+					"^b34409Hatii Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C17,
+					"^b34409High Priest Margaretha Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C18,
+					"^b34409High Wizard Kathryne Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C19,
+					"^b34409Ifrit Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C20,
+					"^b34409Incantation Samurai Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C21,
+					"[^FF0000 NEXT ^000000]",-;
+					menu	"^b34409Kiel D-01 Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C22,
+							"^b34409Ktullanux Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C23,
+							"^b34409Lady Tanee Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C24,
+							"^b34409Lord Knight Seyren Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C25,
+							"^b34409Lord of the Dead Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C26,
+							"^b34409Maya Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C27,
+							"^b34409Memory of Thanatos Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C28,
+							"^b34409Mistress Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C29,
+							"^b34409Moonlight Flower Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C30,
+							"^b34409Orc Hero Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C31,
+							"^b34409Orc Lord Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C32,
+							"^b34409Osiris Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C33,
+							"^b34409Pharaoh Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C34,
+							"^b34409Phreeoni Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C35,
+							"^b34409RSX-0806 Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C36,
+							"^b34409Sniper Cecil Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C37,
+							"^b34409Stormy Knight Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C38,
+							"^b34409Tao Gunka Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C39,
+							"^b34409Turtle General Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C40,
+							"^b34409Valkyrie Randgris Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C41,
+							"^b34409Vesper Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C42,
+							"^b34409White Lady Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C43,
+							"^b34409Whitesmith Howard Card^000000 [^0945b3"+.MVPCost+" Coins^000000]",C44,
+							"[ ^FF0000Cancel^000000 ]",CVBye;
+		case 3:
+			clear;
+			mes .name$;
+			mes "See you soon!";
+			close;
+		}		
+C1: callfunc "Mythril_Check",.name$,.MVPCost,4236,1;
+C2: callfunc "Mythril_Check",.name$,.MVPCost,4359,1;
+C3: callfunc "Mythril_Check",.name$,.MVPCost,4425,1;
+C4: callfunc "Mythril_Check",.name$,.MVPCost,4147,1;
+C5: callfunc "Mythril_Check",.name$,.MVPCost,4145,1;
+C6: callfunc "Mythril_Check",.name$,.MVPCost,4168,1;
+C7: callfunc "Mythril_Check",.name$,.MVPCost,4386,1;
+C8: callfunc "Mythril_Check",.name$,.MVPCost,4142,1;
+C9: callfunc "Mythril_Check",.name$,.MVPCost,4134,1;
+C10: callfunc "Mythril_Check",.name$,.MVPCost,4137,1;
+C11: callfunc "Mythril_Check",.name$,.MVPCost,4123,1;
+C12: callfunc "Mythril_Check",.name$,.MVPCost,4352,1;
+C13: callfunc "Mythril_Check",.name$,.MVPCost,4330,1;
+C14: callfunc "Mythril_Check",.name$,.MVPCost,4441,1;
+C15: callfunc "Mythril_Check",.name$,.MVPCost,4408,1;
+C16: callfunc "Mythril_Check",.name$,.MVPCost,4128,1;
+C17: callfunc "Mythril_Check",.name$,.MVPCost,4324,1;
+C18: callfunc "Mythril_Check",.name$,.MVPCost,4363,1;
+C19: callfunc "Mythril_Check",.name$,.MVPCost,4365,1;
+C20: callfunc "Mythril_Check",.name$,.MVPCost,4430,1;
+C21: callfunc "Mythril_Check",.name$,.MVPCost,4263,1;
+C22: callfunc "Mythril_Check",.name$,.MVPCost,4403,1;
+C23: callfunc "Mythril_Check",.name$,.MVPCost,4419,1;
+C24: callfunc "Mythril_Check",.name$,.MVPCost,4376,1;
+C25: callfunc "Mythril_Check",.name$,.MVPCost,4357,1;
+C26: callfunc "Mythril_Check",.name$,.MVPCost,4276,1;
+C27: callfunc "Mythril_Check",.name$,.MVPCost,4146,1;
+C28: callfunc "Mythril_Check",.name$,.MVPCost,4399,1;
+C29: callfunc "Mythril_Check",.name$,.MVPCost,4132,1;
+C30: callfunc "Mythril_Check",.name$,.MVPCost,4131,1;
+C31: callfunc "Mythril_Check",.name$,.MVPCost,4143,1;
+C32: callfunc "Mythril_Check",.name$,.MVPCost,4135,1;
+C33: callfunc "Mythril_Check",.name$,.MVPCost,4144,1;
+C34: callfunc "Mythril_Check",.name$,.MVPCost,4148,1;
+C35: callfunc "Mythril_Check",.name$,.MVPCost,4121,1;
+C36: callfunc "Mythril_Check",.name$,.MVPCost,4342,1;
+C37: callfunc "Mythril_Check",.name$,.MVPCost,4367,1;
+C38: callfunc "Mythril_Check",.name$,.MVPCost,4318,1;
+C39: callfunc "Mythril_Check",.name$,.MVPCost,4302,1;
+C40: callfunc "Mythril_Check",.name$,.MVPCost,4305,1;
+C41: callfunc "Mythril_Check",.name$,.MVPCost,4407,1;
+C42: callfunc "Mythril_Check",.name$,.MVPCost,4374,1;
+C43: callfunc "Mythril_Check",.name$,.MVPCost,4372,1;
+C44: callfunc "Mythril_Check",.name$,.MVPCost,4361,1;
+CMB1: callfunc "Mythril_Check",.name$,.MiniCost,4054,1;
+CMB2: callfunc "Mythril_Check",.name$,.MiniCost,4241,1;
+CMB3: callfunc "Mythril_Check",.name$,.MiniCost,4391,1;
+CMB4: callfunc "Mythril_Check",.name$,.MiniCost,4428,1;
+CMB5: callfunc "Mythril_Check",.name$,.MiniCost,4426,1;
+CMB6: callfunc "Mythril_Check",.name$,.MiniCost,4290,1;
+CMB7: callfunc "Mythril_Check",.name$,.MiniCost,4300,1;
+CMB8: callfunc "Mythril_Check",.name$,.MiniCost,4392,1;
+CMB9: callfunc "Mythril_Check",.name$,.MiniCost,4169,1;
+CMB10: callfunc "Mythril_Check",.name$,.MiniCost,4171,1;
+CMB11: callfunc "Mythril_Check",.name$,.MiniCost,4397,1;
+CMB12: callfunc "Mythril_Check",.name$,.MiniCost,4174,1;
+CMB13: callfunc "Mythril_Check",.name$,.MiniCost,4398,1;
+CMB14: callfunc "Mythril_Check",.name$,.MiniCost,4179,1;
+CMB15: callfunc "Mythril_Check",.name$,.MiniCost,4266,1;
+CMB16: callfunc "Mythril_Check",.name$,.MiniCost,4250,1;
+CMB17: callfunc "Mythril_Check",.name$,.MiniCost,4423,1;
+CMB18: callfunc "Mythril_Check",.name$,.MiniCost,4354,1;
+CMB19: callfunc "Mythril_Check",.name$,.MiniCost,4047,1;
+CMB20: callfunc "Mythril_Check",.name$,.MiniCost,4163,1;
+CMB21: callfunc "Mythril_Check",.name$,.MiniCost,4384,1;
+CMB22: callfunc "Mythril_Check",.name$,.MiniCost,4431,1;
+CMB23: callfunc "Mythril_Check",.name$,.MiniCost,4394,1;
+CMB24: callfunc "Mythril_Check",.name$,.MiniCost,4395,1;
+CMB25: callfunc "Mythril_Check",.name$,.MiniCost,4197,1;
+CMB26: callfunc "Mythril_Check",.name$,.MiniCost,4198,1;
+CMB27: callfunc "Mythril_Check",.name$,.MiniCost,4393,1;
+CMB28: callfunc "Mythril_Check",.name$,.MiniCost,4203,1;
+CMB29: callfunc "Mythril_Check",.name$,.MiniCost,4207,1;
+CMB30: callfunc "Mythril_Check",.name$,.MiniCost,4440,1;
+CMB31: callfunc "Mythril_Check",.name$,.MiniCost,4396,1;
+CMB32: callfunc "Mythril_Check",.name$,.MiniCost,4254,1;
+CMB33: callfunc "Mythril_Check",.name$,.MiniCost,4238,1;
+CMB34: callfunc "Mythril_Check",.name$,.MiniCost,4237,1;
+CMB35: callfunc "Mythril_Check",.name$,.MiniCost,4429,1;
+CMB36: callfunc "Mythril_Check",.name$,.MiniCost,4406,1;
+CMB37: callfunc "Mythril_Check",.name$,.MiniCost,4427,1;
+CMB38: callfunc "Mythril_Check",.name$,.MiniCost,4306,1;
+CMB39: callfunc "Mythril_Check",.name$,.MiniCost,4183,1;
+
+CVBye:
+	clear;
+		mes .name$;
+		mes "See you soon!";
+		close;
+
+OnInit:
+	set .HatCost,10;
+	set .MVPCost,1000;
+	set .MiniCost,500;
+	set .CostumeCost,10;
+	end;
+
+}
