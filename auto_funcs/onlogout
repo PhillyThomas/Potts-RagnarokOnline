@@ -1,0 +1,40 @@
+-	script	autoevent#onlogout	-1,{
+	
+	function UpdateKCDB;
+
+//=================================================================================//
+//	Script to run when the player disconnects from the server
+//=================================================================================//
+OnPCLogoutEvent:
+	UpdateKCDB;
+	end;
+
+//=================================================================================//
+//	UpdateKCDB Function
+//	-	Stores the value of '@kc' in the `killcount` DB
+//	-	Checks if the value is of the current month
+//	-	Writes to mapserver log on success
+//=================================================================================//
+//	-	Runs on Char logout 
+//=================================================================================//
+function UpdateKCDB {
+	query_sql("SELECT `char_id`,`kills`,`month`,`name` FROM `killcount` WHERE `char_id` = "+getcharid(0)+"",.@cid,.@ckills,.@cmonth,.@cname$);
+	if(.@ckills[0] > @kc){return;}
+	if(.@cmonth[0] != gettime(DT_MONTH)) {
+		debugmes "["+strcharinfo(0)+"] PVE Kill month mismatch";
+		query_sql "DELETE FROM `killcount` WHERE (`char_id` = "+ getcharid(0)+")";
+		query_sql("INSERT INTO `killcount` (`char_id`,`name`,`kills`,`month`) VALUES (" + getcharid(0) + ",'" + strcharinfo(0) + "'," + @kc + "," + gettime(DT_MONTH)+")");
+		return;
+	}
+	if(!.@cmonth[0]){
+		//debugmes "["+strcharinfo(0)+"] PVE Kill month missing";
+		query_sql("INSERT INTO `killcount` (`char_id`,`name`,`kills`,`month`) VALUES (" + getcharid(0) + ",'" + strcharinfo(0) + "'," + @kc + "," + gettime(DT_MONTH)+")");
+		return;
+	} else {
+		//debugmes "["+strcharinfo(0)+"] PVE Kill update success";
+		query_sql("UPDATE `killcount` SET `kills` = "+@kc+", `month` = "+gettime(DT_MONTH)+" WHERE `char_id` = "+getcharid(0)+"");
+		return;
+	}
+	return;
+}
+}
