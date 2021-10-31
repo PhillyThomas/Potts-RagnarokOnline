@@ -1,0 +1,80 @@
+-	script	autoevents#main	-1,{
+//=================================================================================//
+//	Script runs on first initiation
+//	-	Sets the NPC variables required for the Hunter Missions scripts
+//	-	Sets the $GLOBALRANK$[0] array to contain current leaderboard data
+//	-	Sets the PVP Arena map rotation if it has not been previously defined
+//=================================================================================//
+//	-	Runs on server bootup/restart/script reload
+//=================================================================================//
+OnInit:
+	//	Bounty
+		cleararray .@id[0],0,1;
+		cleararray .@name$[0],"",1;
+		cleararray .@val[0],0,1;
+		cleararray .@floors[0],0,1;
+		query_sql "SELECT char.char_id, char.name, bounty_log.value FROM bounty_log LEFT JOIN `char` ON char.char_id=bounty_log.char_id WHERE bounty_log.key='#bounty_points' ORDER BY CAST(bounty_log.value AS UNSIGNED) DESC LIMIT 1", .@id, .@name$, .@val;
+		setarray $GLOBALRANK$[0],"Bounty Missions",.@id,.@name$[0],.@val[0];
+	// 	MVP
+		cleararray .@id[0],0,1;
+		cleararray .@name$[0],"",1;
+		cleararray .@val[0],0,1;
+		cleararray .@floors[0],0,1;
+		query_sql "SELECT char.char_id, char.name, MVPLadder.value FROM MVPLadder LEFT JOIN `char` ON char.char_id=MVPLadder.char_id WHERE MVPLadder.key='#MVPCounter' ORDER BY CAST(MVPLadder.value AS UNSIGNED) DESC LIMIT 1", .@id, .@name$, .@val;
+		setarray $GLOBALRANK$[4],"MVP Arena",.@id,.@name$[0],.@val[0];	
+	//	HC Level
+		cleararray .@id[0],0,1;
+		cleararray .@name$[0],"",1;
+		cleararray .@val[0],0,1;
+		cleararray .@floors[0],0,1;
+		query_sql "SELECT `char_id`,`name`,`char_lvl`,`completion_date`,`diff` FROM `hardcorelog` WHERE completion_date IS NOT NULL ORDER BY CAST(hardcorelog.diff AS UNSIGNED) ASC LIMIT 1",.@id,.@name$,.@val,.@comptime,.@diff;
+		setarray $GLOBALRANK$[8],"Hardcore Mode",.@id,.@name$[0],.@diff[0];	
+	//	Deaths
+		cleararray .@id[0],0,1;
+		cleararray .@name$[0],"",1;
+		cleararray .@val[0],0,1;
+		cleararray .@floors[0],0,1;
+		query_sql "SELECT char.char_id, char.name, char_reg_num.value FROM char_reg_num LEFT JOIN `char` ON char.char_id=char_reg_num.char_id WHERE char_reg_num.key='PC_DIE_COUNTER' ORDER BY CAST(char_reg_num.value AS UNSIGNED) DESC LIMIT 1", .@id, .@name$, .@val;
+		setarray $GLOBALRANK$[12],"Player Death",.@id,.@name$[0],.@val[0];	
+	//	Hunting
+		cleararray .@id[0],0,1;
+		cleararray .@name$[0],"",1;
+		cleararray .@val[0],0,1;
+		cleararray .@floors[0],0,1;
+		query_sql "SELECT char.char_id, char.name, char_reg_num.value FROM char_reg_num LEFT JOIN `char` ON char.char_id=char_reg_num.char_id WHERE char_reg_num.key='Mission_Total' ORDER BY CAST(char_reg_num.value AS UNSIGNED) DESC LIMIT 1", .@id, .@name$, .@val;
+		setarray $GLOBALRANK$[16],"Hunter Missions",.@id,.@name$[0],.@val[0];	
+	//	Endless
+		cleararray .@id[0],0,1;
+		cleararray .@name$[0],"",1;
+		cleararray .@val[0],0,1;
+		cleararray .@floors[0],0,1;
+		query_sql "SELECT `char_id`,`name`, `floors`, `month` FROM `EndlessTower` WHERE `month` = "+gettime(DT_MONTH)+" ORDER BY CAST(`floors` AS UNSIGNED) DESC LIMIT 1", .@id, .@name$, .@floors, .@month;
+		setarray $GLOBALRANK$[20],"Endless Tower",.@id,.@name$[0],.@floors[0];	
+	//	Infinity
+		cleararray .@id[0],0,1;
+		cleararray .@name$[0],"",1;
+		cleararray .@val[0],0,1;
+		cleararray .@floors[0],0,1;
+		query_sql "SELECT `char_id`,`name`, `floors`, `month` FROM `InfinityDungeon` WHERE `month` = "+gettime(DT_MONTH)+" ORDER BY CAST(`floors` AS UNSIGNED) DESC LIMIT 1", .@id, .@name$, .@floors, .@month;
+		setarray $GLOBALRANK$[24],"Infinity Dungeon",.@id,.@name$[0],.@floors[0];
+	//	PVE Kills
+		cleararray .@id[0],0,1;
+		cleararray .@name$[0],"",1;
+		cleararray .@val[0],0,1;
+		cleararray .@floors[0],0,1;
+		query_sql "SELECT `char_id`,`name`, `kills`, `month` FROM `killcount` WHERE `month` = "+gettime(DT_MONTH)+" ORDER BY CAST(`kills` AS UNSIGNED) DESC LIMIT 1", .@id, .@name$, .@val, .@month;
+		setarray $GLOBALRANK$[28],"PvE Kills",.@id,.@name$[0],.@val[0];	
+	//	PVP Ladder
+		cleararray .@id[0],0,1;
+		cleararray .@name$[0],"",1;
+		cleararray .@val[0],0,1;
+		cleararray .@floors[0],0,1;
+		query_sql( "SELECT `char_id`,`name`, `kills`/(`death`+1) FROM `pvpladder` WHERE `kills` > 0 ORDER BY `kills`/(`death`+1) DESC LIMIT 10", .@id, .@name$, .@val$);
+		setarray $GLOBALRANK$[32],"PvP Ladder",.@id,.@name$[0],.@val$[0];	
+
+		debugmes "Global Rankings:";
+		for(.@i=0; .@i < getarraysize($GLOBALRANK$); .@i+=4){
+			debugmes "["+$GLOBALRANK$[.@i]+"] "+$GLOBALRANK$[.@i+2]+" - "+$GLOBALRANK$[.@i+3];
+		}	
+	end;
+}
