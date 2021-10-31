@@ -1,0 +1,77 @@
+-	script	autoevent#ondie	-1,{
+	
+	function hcdeathcheck;
+	function infdunmapcheck;
+
+
+//=================================================================================//
+//	Script to run when the player dies
+//=================================================================================//
+OnPCDieEvent:
+	callfunc("RankCheck",12,strcharinfo(0),PC_DIE_COUNTER,getcharid(0));
+	@killer_id = killerrid;
+	infdunmapcheck;
+	hcdeathcheck;
+	end;
+
+
+//==============================================================================//
+//	Checks to see if the player died during a Hardcore Playthrough
+//	It will then add a reward to the amount of Mythril Coins that were held
+//	Then reward an additional award of BaseLevel/10
+//	Then it deletes the char in all related DBs
+//==============================================================================//
+function hcdeathcheck{
+	getmapxy(.@map1$,.@x1,.@y1,BL_PC);
+	if(BRPDeathTog == 1){
+			if(.@map1$ == instance_mapname("pvp_n_1-5",instance_id(IM_CHAR)) || .@map1$ == instance_mapname("pvp_n_1-5",instance_id(IM_PARTY)) || .@map1$ == "guild_vs1" || .@map1$ == "guild_vs2" || .@map1$ == "guild_vs3" || .@map1$ == "guild_vs4" || .@map1$ == "guild_vs5") { message strcharinfo(0),"[BlitzRO]: Hardcore mode isn't enabled in this map, char deletion bypassed."; return; }
+			
+			if(countitem(674) > 0){ callfunc("Add_Reward_Item",getcharid(3),674,countitem(674),"Mythril Coins from dead HC Char ["+strcharinfo(0)+"]","System"); }
+			callfunc("Add_Reward_Item",getcharid(3),674,(BaseLevel/10),"For reaching level "+BaseLevel+" in a HC Playthrough, character "+strcharinfo(0),strcharinfo(0));
+			query_sql("SELECT `char_id`,`start_date` FROM `hardcorelog` WHERE char_id = " + getcharid(0) + "",.@ccharid,.@cstart);
+			.@diff = gettimetick(2)-.@cstart[0];
+			query_sql("UPDATE `hardcorelog` SET `death_date` = " + gettimetick(2) + ", `diff` = "+ .@diff +" WHERE char_id = " + getcharid(0) + ""); 
+			announce "[BlitzRO]: A moment of silence please... Character "+strcharinfo(0)+" has been permanently deleted as they died during a hardcore playthrough!",bc_all;
+			switch(rand(1,5)){
+				case 1: callfunc("F_DCMes","A moment of silence please... Character **"+strcharinfo(0)+"** has been permanently deleted as they died during a hardcore playthrough!",3); break;
+				case 2: callfunc("F_DCMes","Fs in chat please, because **"+strcharinfo(0)+"** just got deleted during a hardcore playthrough!",3); break;
+				case 3: callfunc("F_DCMes","Uh oh! Looks like **"+strcharinfo(0)+"** has been permanently deleted following an embarassing demise in a hardcore playthrough!",3); break;
+				case 4: callfunc("F_DCMes","Big yikes, character **"+strcharinfo(0)+"** just got banished to the shadow realm by a **"+rid2name(@killer_id)+"** after dying on a hardcore playthrough!",3); break;
+				case 5: callfunc("F_DCMes","Oh no, I just watched a **"+rid2name(@killer_id)+"** absolutely destroy **"+strcharinfo(0)+"** in the face during a hardcore playthrough. Looks like they're deleted now!",3); break;
+			}
+			set .@deadplayer,getcharid(0);
+				message strcharinfo(0),"Game Over";
+			atcommand "@kick "+strcharinfo(0);
+			set .@j, getarraysize( .char_delete$ );
+				for (.@i = 0; .@i < .@j; .@i++) {
+					query_sql("DELETE FROM `"+ .char_delete$[.@i] +"` WHERE `char_id` = '"+ .@deadplayer +"'");
+				}
+			query_sql "DELETE FROM `party` WHERE `leader_char` = '"+.@deadplayer+"'";
+			return; 
+	}
+}
+//==============================================================================//
+//	Checks to see if the player died in the "Infinite Dungeon" instance
+//	then deletes the instance if so.
+//==============================================================================//
+function infdunmapcheck{
+	getmapxy(.@map1$,.@x1,.@y1,BL_PC);
+	if(.@map1$ == instance_mapname("1@sthd",instance_id(IM_CHAR)) || .@map1$ == instance_mapname("1@sthd",instance_id(IM_PARTY))){ 
+		if(!getcharid(1)){
+			//debugmes "IF statement success (No party)";
+			instance_destroy instance_id(IM_CHAR); 
+			return;
+		} else {  
+			//debugmes "IF statement success (Party)";
+			instance_destroy instance_id(IM_PARTY); 
+			return; 
+		}
+	} else {
+		//debugmes "IF statement fail";
+		return;
+	}
+}
+OnInit:
+	setarray .char_delete$[0],"bonus_script","char","cart_inventory","elemental","friends","global_reg_value","guild","guild_member","homunculus","hotkey","inventory","memo","mercenary","mercenary_owner","pet","quest","sc_data","skill","skillcooldown";
+	end;
+}
