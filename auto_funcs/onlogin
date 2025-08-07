@@ -81,9 +81,15 @@ function RewardScan {
 	query_sql("SELECT `id`,`account_id`,`item_id`,`item_amt`,`event_name`,`assign`,`redeemed` FROM `rewards` WHERE `redeemed` = 0 AND `account_id` = "+getcharid(3)+"", .@pid,.@paccid,.@pitemid,.@pitemamt,.@peventname$,.@passign$,.@predeemed);
 	for(.@i = 0; .@i < getarraysize(.@paccid); .@i++){
 		//if(.@paccid[.@i] == getcharid(3) && .@predeemed[.@i] == 0){
-			callfunc("F_DISPBOTTOM","BlitzRO","You have been assigned a reward: ["+getitemname(.@pitemid[.@i])+"] x"+.@pitemamt[.@i]+" Reason: '"+.@peventname$[.@i]+"'","BLUE");
+			if(.@i == 0){
+				dispbottom "=================================",0xF54927;
+			}
+			dispbottom "[Bounty] GM "+.@passign$[.@i]+" has sent you a reward: ["+getitemname(.@pitemid[.@i])+"] x"+.@pitemamt[.@i]+" Reason: '"+.@peventname$[.@i]+"'" ,0xF58727;
 			getitem .@pitemid[.@i],.@pitemamt[.@i];
 			query_sql("UPDATE `rewards` SET `redeemed`=1 WHERE id="+.@pid[.@i]+"");
+			if(.@i == (getarraysize(.@paccid) - 1)){
+				dispbottom "=================================",0xF54927;
+			}
 		//}
 	}
 	return;
