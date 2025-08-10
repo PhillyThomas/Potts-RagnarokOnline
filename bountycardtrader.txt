@@ -156,12 +156,12 @@ prontera,203,177,6	script	Bounty Card Trader#1	10013,8,8,{
 		function complete_trade {
 			.@rewards = @numberofcards / .cards_needed_per_reward;
 			
-			debugmes "================== CARD TRADER DEBUG ==================";
-			debugmes "Deletion amount: " + @deletion_amount;
-			debugmes "Cards:";
-			for(@i=0; @i<getarraysize(@tradeablecards); @i++){
-				debugmes getitemname(@tradeablecards[@i]) + " x" + @tradeablecards_amounts[@i];
-			}
+			//debugmes "================== CARD TRADER DEBUG ==================";
+			//debugmes "Deletion amount: " + @deletion_amount;
+			//debugmes "Cards:";
+			//for(@i=0; @i<getarraysize(@tradeablecards); @i++){
+			//	debugmes getitemname(@tradeablecards[@i]) + " x" + @tradeablecards_amounts[@i];
+			//}
 
 			freeloop(1);
 			for(@i=0; @i<getarraysize(@tradeablecards); @i++){
