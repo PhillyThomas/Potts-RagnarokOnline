@@ -8,7 +8,8 @@
 //| Description: Bulk card trader
 //|-----------------------------------------------------------------------------
 //| Versions: 																	
-//|		1.0:	Script Created															
+//|		1.0:	Script Created	
+//|		1.1:	Added message and exit clause if card count differs from trade amount
 //|_____________________________________________________________________________
 
 prontera,203,177,6	script	Bounty Card Trader#1	10013,8,8,{ 		
@@ -165,6 +166,12 @@ prontera,203,177,6	script	Bounty Card Trader#1	10013,8,8,{
 
 			freeloop(1);
 			for(@i=0; @i<getarraysize(@tradeablecards); @i++){
+				if(countitem(@tradeablecards[@i]) < @tradeablecards_amounts[@i]){
+					clear;
+					mes .name$;
+					mes "Naughty, you've tried to scam me!";
+					emotion ET_STARE;
+				}
 				delitem @tradeablecards[@i], @tradeablecards_amounts[@i];
 			}
 			freeloop(0);
