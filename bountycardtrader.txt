@@ -1,0 +1,252 @@
+//|-----------------------------------------------------------------------------
+//|	Bounty Card Trader																
+//|-----------------------------------------------------------------------------
+//| Created for BountyRO												
+//|-----------------------------------------------------------------------------
+//| Made by PottScilgrim															
+//|-----------------------------------------------------------------------------
+//| Description: Bulk card trader
+//|-----------------------------------------------------------------------------
+//| Versions: 																	
+//|		1.0:	Script Created															
+//|_____________________________________________________________________________
+
+prontera,203,177,6	script	Bounty Card Trader#1	10013,8,8,{ 		
+			
+		set .name$,"[^FF0000Bounty Card Trader^000000]";
+		
+		//|-----------------------------------------------------------------------------
+		//| REWARDS
+		//| Set .reward_id to whatever you want the reward item to be (Bounty default 48008 : Bounty Card)
+		//| Set .cards_needed_per_reward to adjust how many cards per reward. Default 8.
+		//|-----------------------------------------------------------------------------
+		set .reward_id,48008;
+		set .cards_needed_per_reward, 8;
+		
+		//	Initialize functions
+		function getcardlist;
+		function complete_trade;
+		function clear_arrays;
+
+		//	Initialize temporary variables
+		@temp_iteration = 0;
+		
+		//Clear existing arrays to prevent 'ghost entry' issues
+		cleararray @mvp_cards[0],0,127;
+		cleararray @miniboss_cards[0],0,127;
+		cleararray @sealed_mvp_cards[0],0,127;
+		cleararray @bounty_cards[0],0,127;
+		cleararray @temporary_cards[0],0,127;
+		cleararray @deletion_list[0],0,127;
+		cleararray @tradeablecards[0],0,127;
+		cleararray @tradeablecards_amounts[0],0,127;
+
+		//|-----------------------------------------------------------------------------
+		//| Set the default card blacklists here.
+		//| add or remove card IDs as you require
+		//|-----------------------------------------------------------------------------
+		setarray @mvp_cards[0],4144,4147,4142,4132,4128,4143,4137,4123,4146,4131,4148,4121,4135,4318,4324,4168,4305,4276,4134,4330,4263,4236,4302,4342,4372,4357,4359,4361,4363,4367,4365,4352,4374,4376,4399,4386,4403,4407,4408,4419,4425,4430,4441,4145;
+		setarray @miniboss_cards[0],4306,4197,4179,4183,4266,4054,4047,4171,4207,4254,4250,4163,4203,4300,4198,4238,4169,4290,4237,4241,4174,4354,4392,4393,4391,4394,4396,4397,4395,4398,4384,4406,4423,4427,4428,4429,4431,4426,4440;
+		setarray @sealed_mvp_cards[0],4480,4481,4482,4483,4484,4485,4486,4487,4488,4489,4490,4494,4495,4497,4498,4499,4501,4502,4504,4536,4537,4538,4539,4540;
+		setarray @bounty_cards[0],48008,4593,4557,48010,47855,27011;
+		setarray @temporary_cards[0],0;
+
+		//|-----------------------------------------------------------------------------
+		//| Function "getcardlist" builds an array of cards, up to 20 stacks long.
+		//| @tradeablecards contains the item IDs
+		//| @tradeablecards_amounts contains the amount in the player's inventory
+		//|
+		//| The function will always attempt to make sure the total number of cards is perfectly divisible by .cards_needed_per_reward
+		//| achieving this by removing cards from the end of the array until it meets this criteria.
+		//|-----------------------------------------------------------------------------
+		getcardlist;
+
+		mes .name$;
+		mes "I can batch trade up to 20 stacks of cards at a time.";
+		mes "You currently have ^00649e" + @numberofcards + "^000000 tradeable cards";
+		mes "This will get you ^00649e" + @numberofcards / .cards_needed_per_reward + "^000000 " + mesitemlink(.reward_id) + "s";
+
+
+		menu	"[^5fbd3aAuto-Trade^000000] - Trade my cards!",BCR_TRADE,
+				"[^5fbd3aManual Sell^000000] - Open Old Trading Menu",BCR_OLD,
+				"[^FF0000Cancel^000000]",-;
+					clear;
+					mes .name$;
+					mes "Okay, see you soon!";
+					close;
+
+		//|-----------------------------------------------------------------------------
+		//| This is the beginning of the updated trading script
+		//| The dynamic menu allows players to remove cards from consideration in the trade
+		//|-----------------------------------------------------------------------------
+		BCR_TRADE:
+			clear;
+			mes .name$;
+			if(@numberofcards < .cards_needed_per_reward){
+				mes "I'm sorry " + strcharinfo(0) + ", you need at least " + .cards_needed_per_reward + " cards to trade with me.";
+				close;
+			} else {
+				mes "You currently have ^00649e" + @numberofcards + "^000000 tradeable cards";
+				mes "This will get you ^00649e" + @numberofcards / .cards_needed_per_reward + "^000000 " + mesitemlink(.reward_id) + "s";
+				mes "Select cards from the list below to remove them from the trade.";
+				for(@i=0; @i<getarraysize(@tradeablecards); @i++){
+
+					.@menu$ = .@menu$ + "[^d13f00" + getitemname(@tradeablecards[@i]) + "^000000] x" + @tradeablecards_amounts[@i] + ":";
+					
+				}
+				.@menu$ = .@menu$ + "[^20a100 TRADE ^000000]";
+				.@selected = select(.@menu$) - 1;
+				if(.@selected < getarraysize(@tradeablecards)){
+					.@menu$ = "";
+					dispbottom "Removing Card:" + getitemname(@tradeablecards[.@selected]);
+					setarray @temporary_cards[@temp_iteration],@tradeablecards[.@selected];
+					@temp_iteration = @temp_iteration + 1;
+					getcardlist;
+					goto BCR_TRADE;
+				} else {
+					goto BCR_CONFIRM;
+				}
+				close;
+			}
+			
+		//|-----------------------------------------------------------------------------
+		//| Insert your previous script here to give players the choice to use the old system if they prefer
+		//|-----------------------------------------------------------------------------
+		BCR_OLD:
+			close;
+
+		//|-----------------------------------------------------------------------------
+		//| This is the final step.
+		//| The player is given a final option to back out of the trade.
+		//| The menu is flipped, so the player will need to explicitly navigate to "Trade my cards" as simply spam clicking will cancel the trade
+		//| This is to help ensure accidental trades do not take place
+		//|-----------------------------------------------------------------------------
+		BCR_CONFIRM:
+			if(@numberofcards >= .cards_needed_per_reward){
+				clear;
+				mes .name$;
+				mes "FINAL CHECK";
+				mes "Are you sure you want to go ahead with this trade?";
+				switch(select("[^FF0000Cancel^000000]:[^5fbd3aAuto-Trade^000000] - Trade my cards!")){
+					case 1: 
+						clear;
+						mes .name$;
+						mes "Okay, see you soon!";
+						close;
+					case 2:
+						complete_trade;
+						clear;
+						mes .name$;
+						mes "Thank you!";
+						close;
+				}
+				close;
+			} else {
+				clear;
+				mes .name$;
+				mes "I'm sorry " + strcharinfo(0) + ", you need at least " + .cards_needed_per_reward + " cards to trade with me.";
+			}
+			close;
+
+		//|-----------------------------------------------------------------------------
+		//| This function finalizes the trade.
+		//| It will delete all cards within the @tradeablecards array, by their corresponding @tradeablecards_amounts
+		//| It will then reward .reward_id, with the amount determined by @numberofcards / .cards_needed_per_reward.
+		//|-----------------------------------------------------------------------------
+		function complete_trade {
+			.@rewards = @numberofcards / .cards_needed_per_reward;
+			
+			debugmes "================== CARD TRADER DEBUG ==================";
+			debugmes "Deletion amount: " + @deletion_amount;
+			debugmes "Cards:";
+			for(@i=0; @i<getarraysize(@tradeablecards); @i++){
+				debugmes getitemname(@tradeablecards[@i]) + " x" + @tradeablecards_amounts[@i];
+			}
+
+			freeloop(1);
+			for(@i=0; @i<getarraysize(@tradeablecards); @i++){
+				delitem @tradeablecards[@i], @tradeablecards_amounts[@i];
+			}
+			freeloop(0);
+
+			getitem .reward_id, .@rewards;
+			clear_arrays;
+			return;
+		}
+
+		//|-----------------------------------------------------------------------------
+		//| Function "getcardlist" builds an array of cards, up to 20 stacks long.
+		//| @tradeablecards contains the item IDs
+		//| @tradeablecards_amounts contains the amount in the player's inventory
+		//|
+		//| The function will always attempt to make sure the total number of cards is perfectly divisible by .cards_needed_per_reward
+		//| achieving this by removing cards from the end of the array until it meets this criteria.
+		//|-----------------------------------------------------------------------------
+		function getcardlist {
+			cleararray @tradeablecards_amounts[0],0,127;
+			cleararray @tradeablecards[0],0,127;
+
+			setarray @tradeablecards[0],0;
+			setarray @tradeablecards_amounts[0],0;
+			
+			.@iteration = 0;
+			@numberofcards = 0;
+			freeloop(1);
+
+			// gets inventory list from character
+			getinventorylist(getcharid(0));		
+			// First loop, parses entire inventory
+			for(@i = 0; @i < @inventorylist_count; @i++) {						
+				// sets a temporary variable of the item ID if it meets the if statement above
+				set .@iid,@inventorylist_id[@i];
+						
+						// Checks if item is a card
+						if(getiteminfo(.@iid,ITEMINFO_TYPE) ==  IT_CARD){
+
+							// Checks if card ID is absent from all blacklists
+							if(getarraysize(@tradeablecards) < 21 && inarray(@mvp_cards,.@iid) == -1 && inarray(@miniboss_cards, .@iid) == -1 && inarray(@sealed_mvp_cards,.@iid) == -1 && inarray(@bounty_cards,.@iid) == -1 && inarray(@temporary_cards,.@iid) == -1){
+								setarray @tradeablecards[.@iteration],.@iid;
+								setarray @tradeablecards_amounts[.@iteration],@inventorylist_amount[@i];
+								@numberofcards = @numberofcards + @inventorylist_amount[@i];
+								.@iteration = .@iteration + 1;
+							}
+							
+						}
+
+			}
+			set .@temp_loop, getarraysize(@tradeablecards) - 1;
+			debugmes "Number of cards: " + @numberofcards;
+			if(@numberofcards % .cards_needed_per_reward > 0){
+				while(@numberofcards % .cards_needed_per_reward != 0){
+					if(@tradeablecards_amounts[.@temp_loop] > 0){
+						@tradeablecards_amounts[.@temp_loop] = @tradeablecards_amounts[.@temp_loop]-1;
+						@numberofcards = @numberofcards - 1;
+					} else {
+						@tradeablecards[.@temp_loop] = 0;
+						.@temp_loop = .@temp_loop - 1;
+					}
+				}
+			}
+			freeloop(0);	
+			return;
+		}
+		
+		//|-----------------------------------------------------------------------------
+		//| This clears existing arrays to prevent ghost data
+		//|-----------------------------------------------------------------------------
+		function clear_arrays {
+			cleararray @mvp_cards[0],0,127;
+			cleararray @miniboss_cards[0],0,127;
+			cleararray @sealed_mvp_cards[0],0,127;
+			cleararray @bounty_cards[0],0,127;
+			cleararray @temporary_cards[0],0,127;
+			cleararray @deletion_list[0],0,127;
+			cleararray @tradeablecards[0],0,127;
+			cleararray @tradeablecards_amounts[0],0,127;
+		}
+OnTouch:
+	showscript "[ Bounty Card Coin Exchange ]",getnpcid(0);
+	end;	
+}	
+
+//prontera,173,229,3	duplicate(Item Hoarder#1)	Item Hoarder#2	10013,8,8
